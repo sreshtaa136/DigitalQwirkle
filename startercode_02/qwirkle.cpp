@@ -26,19 +26,48 @@ int main(int argc, char** argv) {
    switch (choice)
    {
    case 1:
-      cout << "game start!\n";
+      string name1;
+      string name2;
+      cout << "Starting a New Game \n";
+      cout << "Enter a name for player 1 (uppercase characters only) \n";
       // rest of code here
+     
+      cin >> name1;
+      cout << "Enter a name for player 1 (uppercase characters only) \n";
+      cin >> name2;
+      cout << "Let's Play!\n";
+
       break;
    case 2:
       cout << "Story so far....\n";
       // rest of code here
       break;
    case 3:
-      cout << "Ahahah, you really think I will help you?\n";
+      cout << "----------------------------------\n";
+      cout << "\n";
+      cout << "Name : David Aziz \n";
+      cout << "Student ID : s3825605 \n";
+      cout << "Email : s3825605@student.rmit.edu.au.edu> \n";
+      cout << "\n";
+      cout << "Name : Tanishpreet Kaur \n";
+      cout << "Student ID : s3825118 \n";
+      cout << "Email : s3825118@student.rmit.edu.au \n";
+      cout << "\n";
+      cout << "Name : Sai Sreshtaa Turaga \n";
+      cout << "Student ID : s3814571 \n";
+      cout << "Email : s3814571@student.rmit.edu.au \n";
+      cout << "\n";
+      cout << "Name : Rifat Raida Rashid Anannya \n";
+      cout << "Student ID : s3822511 \n";
+      cout << "Email : s3822511@student.rmit.edu.au\n";
+      cout << "\n";
+      cout << "----------------------------------\n";
+
       // rest of code here
+
       break;
    case 4:
-      cout << "End of Program.\n";
+      cout << "\n";
       break;
    default:
       cout << "Not a Valid Choice. \n";
