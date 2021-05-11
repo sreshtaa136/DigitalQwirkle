@@ -23,26 +23,22 @@ int main(int argc, char** argv) {
    cout << " Enter your Choice: ";
 
    cin >> choice;
-   switch (choice)
-   {
-   case 1:
+   if (choice == 1 ){
       string name1;
       string name2;
       cout << "Starting a New Game \n";
       cout << "Enter a name for player 1 (uppercase characters only) \n";
-      // rest of code here
-     
       cin >> name1;
-      cout << "Enter a name for player 1 (uppercase characters only) \n";
+      cout << "Enter a name for player 2 (uppercase characters only) \n";
       cin >> name2;
       cout << "Let's Play!\n";
-
-      break;
-   case 2:
+     }
+   else if (choice == 2 ) {
       cout << "Story so far....\n";
-      // rest of code here
-      break;
-   case 3:
+   }
+
+   else if (choice == 3){
+      
       cout << "----------------------------------\n";
       cout << "\n";
       cout << "Name : David Aziz \n";
@@ -62,24 +58,23 @@ int main(int argc, char** argv) {
       cout << "Email : s3822511@student.rmit.edu.au\n";
       cout << "\n";
       cout << "----------------------------------\n";
+   }
 
-      // rest of code here
-
-      break;
-   case 4:
-      cout << "\n";
-      break;
-   default:
+   else if (choice == 4 ){
+      cout << "Goodbye \n";
+   }
+   else {
       cout << "Not a Valid Choice. \n";
       cout << "Choose again.\n";
-      cin >> choice;
-      break;
+   }
+      
+
    }
 
    
    //delete list;
-   return EXIT_SUCCESS;
-}
+  // return EXIT_SUCCESS;
+
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
 //g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp
