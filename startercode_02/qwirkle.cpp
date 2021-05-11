@@ -2,85 +2,83 @@
 //#include "LinkedList.h"
 
 #include <iostream>
+#include <cctype>
+//#include "Tile.h"
+
 //#define EXIT_SUCCESS    0
-using namespace std;
 
 int main(int argc, char** argv) {
 
    //LinkedList* list = new LinkedList();
-   int choice = 0;
-   while (choice != 4)
-   {
-      /* code */
-      cout << " Welcome to Qwirkle!\n";
-      cout << " -------------------\n";
-      cout << " Menu\n";
-      cout << " ----\n";
-      cout << " 1 - New Game\n";
-      cout << " 2 - Load Game\n";
-      cout << " 3 - Credits (Show student information) \n";
-      cout << " 4 - Quit \n";
-      cout << " Enter your Choice: ";
-      cin >> choice;
 
-      if (cin.fail()) {
-         cout << "Invalid data type \n";
-         choice = 4;
+   int choice = 0;
+   while (choice !=4 ){
+      std::cout << "\nWelcome to Qwirkle!\n";
+      std::cout << "-------------------\n";
+      std::cout << "Menu\n";
+      std::cout << "----\n";
+      std::cout << "1. New Game\n";
+      std::cout << "2. Load Game\n";
+      std::cout << "3. Credits (Show student information) \n";
+      std::cout << "4. Quit \n\n";
+      std::cout << "> ";
+
+      std::cin >> choice;
+      if (std::cin.fail () ){
+         std::cout << "\n !Invalid Data Type! \n\n";
+         choice =4;
       }
       if (choice == 1)
       {
-         string name1;
-         string name2;
-         cout << "Starting a New Game \n";
-         cout << "Enter a name for player 1 (uppercase characters only) \n";
-         cin >> name1;
-         cout << "Enter a name for player 2 (uppercase characters only) \n";
-         cin >> name2;
-         cout << "Let's Play!\n";
+         std::string name1;
+         std::string name2;
+         std::cout << "\nStarting a New Game \n\n";
+         std::cout << "Enter a name for player 1 (uppercase characters only) \n"
+                   << "> ";
+         std::cin >> name1;
+         std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
+                   << "> ";
+         std::cin >> name2;
+         std::cout << "\nLet's Play!\n";
       }
       else if (choice == 2)
       {
-         cout << "Story so far....\n";
+         std::cout << "\nStory so far....\n";
       }
-
       else if (choice == 3)
       {
-
-         cout << "----------------------------------\n";
-         cout << "\n";
-         cout << "Name : David Aziz \n";
-         cout << "Student ID : s3825605 \n";
-         cout << "Email : s3825605@student.rmit.edu.au.edu> \n";
-         cout << "\n";
-         cout << "Name : Tanishpreet Kaur \n";
-         cout << "Student ID : s3825118 \n";
-         cout << "Email : s3825118@student.rmit.edu.au \n";
-         cout << "\n";
-         cout << "Name : Sai Sreshtaa Turaga \n";
-         cout << "Student ID : s3814571 \n";
-         cout << "Email : s3814571@student.rmit.edu.au \n";
-         cout << "\n";
-         cout << "Name : Rifat Raida Rashid Anannya \n";
-         cout << "Student ID : s3822511 \n";
-         cout << "Email : s3822511@student.rmit.edu.au\n";
-         cout << "\n";
-         cout << "----------------------------------\n";
+         std::cout << "\n----------------------------------\n";
+         std::cout << "\n";
+         std::cout << "Name : David Aziz \n";
+         std::cout << "Student ID : s3825605 \n";
+         std::cout << "Email : s3825605@student.rmit.edu.au.edu> \n";
+         std::cout << "\n";
+         std::cout << "Name : Tanishpreet Kaur \n";
+         std::cout << "Student ID : s3825118 \n";
+         std::cout << "Email : s3825118@student.rmit.edu.au \n";
+         std::cout << "\n";
+         std::cout << "Name : Sai Sreshtaa Turaga \n";
+         std::cout << "Student ID : s3814571 \n";
+         std::cout << "Email : s3814571@student.rmit.edu.au \n";
+         std::cout << "\n";
+         std::cout << "Name : Rifat Raida Rashid Anannya \n";
+         std::cout << "Student ID : s3822511 \n";
+         std::cout << "Email : s3822511@student.rmit.edu.au\n";
+         std::cout << "\n";
+         std::cout << "----------------------------------\n";
       }
- else if (choice == 4){
-    cout << "Goodbye \n";
- }
+      else if (choice == 4)
+      {
+         std::cout << "\nGoodbye \n";
+      }
       else
       {
-         cout << "\nNot a Valid Choice. \n";
-         cout << "Choose again.\n";
-         cout << "\n";
+         std::cout << "Not a Valid Choice. \n";
+         std::cout << "Choose again.\n\n";
       }
-}
    }
-
    
-   //delete list;
-  // return EXIT_SUCCESS;
+}
 
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
