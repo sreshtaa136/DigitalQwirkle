@@ -4,9 +4,8 @@
 #include <iostream>
 #include <cctype>
 //#include "Tile.h"
-
 //#define EXIT_SUCCESS    0
-
+bool validateName (std :: string name);
 int main(int argc, char** argv) {
 
    //LinkedList* list = new LinkedList();
@@ -28,18 +27,33 @@ int main(int argc, char** argv) {
          std::cout << "\n !Invalid Data Type! \n\n";
          choice =4;
       }
+      
       if (choice == 1)
       {
          std::string name1;
          std::string name2;
+         do
+         {
+          
+         
+         
          std::cout << "\nStarting a New Game \n\n";
          std::cout << "Enter a name for player 1 (uppercase characters only) \n"
                    << "> ";
          std::cin >> name1;
+         
+         } while (!validateName(name1));
+
+      do
+         {
+
+
          std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
                    << "> ";
          std::cin >> name2;
+         } while (!validateName(name2));
          std::cout << "\nLet's Play!\n";
+
       }
       else if (choice == 2)
       {
@@ -84,3 +98,15 @@ int main(int argc, char** argv) {
 //make sure you are on starter code dr and run the following in the terminal
 //g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp
 //./qwirkle
+bool validateName(std ::string name)
+{
+   for (int i = 0; i < name.length(); i++)
+   {
+      int charAsci = name[i];
+      if (!((charAsci >= 65) && (charAsci <= 90)))
+      {
+         return false;
+      }
+   }
+   return true;
+}
