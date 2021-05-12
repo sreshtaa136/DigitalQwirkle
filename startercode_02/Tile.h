@@ -14,17 +14,19 @@ class Tile {
 public:
 
    // Constructor/Desctructor
-   Tile(Colour c, Shape s);
+   Tile(Colour colour, Shape shape);
    ~Tile();
 
-   void setColour(Colour c);
+   //copy constructor
+   Tile(Tile& other);
+
+   void setColour(Colour colour);
    Colour getColour();
 
-   void setShape(Shape s);
+   void setShape(Shape shape);
    Shape getShape();
 
    Colour colour;
    Shape  shape;
 };
-
 #endif // ASSIGN2_TILE_H
