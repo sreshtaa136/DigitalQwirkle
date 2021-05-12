@@ -28,16 +28,16 @@ GameBoard::~GameBoard() {
 	}
 }
 
-bool GameBoard::placeTile(int row, int col, Tile* tile) {
-    // int rowIdx = 0;
+bool GameBoard::placeTile(char row, int col, Tile* tile) {
+    int rowIdx = 0;
 
-    // for (int i = 0; i < MAX_DIM; ++i) {
-    //     if (rowIdx == alphabets[i]) {
-    //         rowIdx = i;
-    //     }
-    // }
+    for (int i = 0; i < MAX_DIM; ++i) {
+        if (rowIdx == alphabets[i]) {
+            rowIdx = i;
+        }
+    }
 
-    board[row][col] = tile;
+    board[rowIdx][col] = tile;
     return false;
 }
 
@@ -45,7 +45,6 @@ bool GameBoard::placeTile(int row, int col, Tile* tile) {
     
 
 void GameBoard::displayBoard() {
-
     char seperator = '|';
 
     std::cout << "   ";

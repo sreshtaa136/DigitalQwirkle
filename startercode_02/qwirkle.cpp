@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 
    Tile* tile = new Tile('R', 1);
    GameBoard* g = new GameBoard();
-   g->placeTile(1, 1, tile);
+   g->placeTile('A', 1, tile);
    //tile->printTile();
    g->displayBoard();
    //TESTING ENDS

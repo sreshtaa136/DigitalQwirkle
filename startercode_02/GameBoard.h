@@ -15,7 +15,7 @@ public:
     // print the board
     void displayBoard();
 
-    bool placeTile(int row, int col, Tile* tile);
+    bool placeTile(char row, int col, Tile* tile);
     
 private:
     
