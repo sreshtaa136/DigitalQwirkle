@@ -105,6 +105,7 @@ bool validateName(std ::string name)
       int charAsci = name[i];
       if (!((charAsci >= 65) && (charAsci <= 90)))
       {
+         std::cout << "\n Only Letters in UPPERCASE are valid! \n";
          return false;
       }
    }
