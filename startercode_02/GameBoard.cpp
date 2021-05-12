@@ -32,7 +32,7 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
     int rowIdx = 0;
 
     for (int i = 0; i < MAX_DIM; ++i) {
-        if (rowIdx == alphabets[i]) {
+        if (row == alphabets[i]) {
             rowIdx = i;
         }
     }
