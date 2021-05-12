@@ -6,6 +6,7 @@
 #include "Tile.h"
 #include "Node.h"
 #include "LinkedList.h"
+#include "GameBoard.h"
 
 
 bool validateName (std :: string name);
@@ -19,7 +20,15 @@ int main(int argc, char** argv) {
    list->printList();
    list->addToFront(t2);
    list->printList();
+   
+
+   Tile* tile = new Tile('R', 1);
+   GameBoard* g = new GameBoard();
+   g->placeTile(1, 1, tile);
+   //tile->printTile();
+   g->displayBoard();
    //TESTING ENDS
+ 
 
    int choice = 0;
    while (choice !=4 ){
@@ -105,7 +114,7 @@ int main(int argc, char** argv) {
 
 bool validateName(std ::string name)
 {
-   for (int i = 0; i < name.length(); i++)
+   for (int i = 0; i < (int) name.length(); i++)
    {
       int charAsci = name[i];
       if (!((charAsci >= 65) && (charAsci <= 90)))

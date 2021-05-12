@@ -8,18 +8,24 @@
 class GameBoard {
 public:
 
-GameBoard();
-~GameBoard();
-int getSize();
-void placeTile();
-void displayBoard();
+    // Constructor/Deconstructor
+    GameBoard();
+    ~GameBoard();
 
+    // print the board
+    void displayBoard();
 
+    bool placeTile(int row, int col, Tile* tile);
+    
 private:
+    
+    int row;
+    int col;
+    char alphabets[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+    'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
-char row;
-int col;
-std::vector<std::vector<Tile*>> board;
+    // board : a vector of vectors of tile
+    std::vector<std::vector<Tile*>> board;
 
 };
 
