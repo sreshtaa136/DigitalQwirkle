@@ -21,6 +21,7 @@ public:
    void remove_front();
    void remove_back();
    void clear();
+   void printList();
 
 private:
    Node* head;

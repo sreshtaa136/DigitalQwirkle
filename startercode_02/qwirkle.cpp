@@ -1,14 +1,25 @@
 
-//#include "LinkedList.h"
-
 #include <iostream>
 #include <cctype>
-//#include "Tile.h"
-//#define EXIT_SUCCESS    0
+
+#include "TileCodes.h"
+#include "Tile.h"
+#include "Node.h"
+#include "LinkedList.h"
+
+
 bool validateName (std :: string name);
 int main(int argc, char** argv) {
 
-   //LinkedList* list = new LinkedList();
+   //TESTING
+   LinkedList* list = new LinkedList();
+   Tile* t1 = new Tile('Y', 1);
+   Tile* t2 = new Tile('Y', 2);
+   list->addToFront(t1);
+   list->printList();
+   list->addToFront(t2);
+   list->printList();
+   //TESTING ENDS
 
    int choice = 0;
    while (choice !=4 ){
@@ -32,7 +43,7 @@ int main(int argc, char** argv) {
       {
          std::string name1;
          std::string name2;
-         
+
          do{
             std::cout << "\nStarting a New Game \n\n";
             std::cout << "Enter a name for player 1 (uppercase characters only) \n"
@@ -89,8 +100,9 @@ int main(int argc, char** argv) {
 
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
-//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp
+//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp
 //./qwirkle
+
 bool validateName(std ::string name)
 {
    for (int i = 0; i < name.length(); i++)
@@ -98,6 +110,7 @@ bool validateName(std ::string name)
       int charAsci = name[i];
       if (!((charAsci >= 65) && (charAsci <= 90)))
       {
+         std::cout << "\nOnly Letters in UPPERCASE are valid! \n";
          return false;
       }
    }

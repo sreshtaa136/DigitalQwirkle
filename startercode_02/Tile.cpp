@@ -31,3 +31,8 @@ void Tile::setShape(Shape shape){
 Shape Tile::getShape(){
     return this->shape;
 }
+
+void Tile::printTile(){
+    std::cout << this->colour;
+    std::cout << this->shape;
+}

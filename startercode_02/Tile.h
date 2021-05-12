@@ -26,6 +26,8 @@ public:
    void setShape(Shape shape);
    Shape getShape();
 
+   void printTile();
+
    Colour colour;
    Shape  shape;
 };
