@@ -7,6 +7,7 @@
 #include "Node.h"
 #include "LinkedList.h"
 #include "TileBag.h"
+#include "GameBoard.h"
 
 
 bool validateName (std :: string name);
@@ -81,20 +82,25 @@ int main(int argc, char** argv) {
       std::cout << "> ";
 
       std::cin >> choice;
-      if (std::cin.fail () ){
-         std::cout << "\n !Invalid Data Type! \n\n";
-         choice =4;
+   
+      while (std::cin.fail())
+      {
+         std::cout << "Invalid Input" << std::endl;
+         std::cin.clear();
+         std::cin.ignore(256, '\n');
+         std::cout << "> ";
+         std::cin >> choice;
+         ;
       }
-      
       if (choice == 1)
       {
          std::string name1;
          std::string name2;
-
+         std::cout << "\nStarting a New Game \n\n";
+         std::cout << "Enter a name for player 1 (uppercase characters only) \n"
+         << "> ";
          do{
-            std::cout << "\nStarting a New Game \n\n";
-            std::cout << "Enter a name for player 1 (uppercase characters only) \n"
-                        << "> ";
+            std::cout << "> "; 
             std::cin >> name1;
          } while (!validateName(name1));
 
@@ -134,11 +140,11 @@ int main(int argc, char** argv) {
       }
       else if (choice == 4)
       {
-         std::cout << "\nGoodbye \n";
+         std::cout << "Goodbye \n";
       }
       else
       {
-         std::cout << "Not a Valid Choice. \n";
+         std::cout << "\n Not a Valid Choice. \n";
          std::cout << "Choose again.\n\n";
       }
    }
@@ -147,7 +153,8 @@ int main(int argc, char** argv) {
 
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
-//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp
+//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp GameBoard.cpp
+//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp GameBoard.cpp
 //./qwirkle
 //valgrind --leak-check=full ./qwirkle
 
@@ -164,3 +171,4 @@ bool validateName(std ::string name)
    }
    return true;
 }
+   
