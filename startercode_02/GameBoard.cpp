@@ -37,6 +37,8 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
         }
     }
 
+    
+
     board[rowIdx][col] = tile;
     return false;
 }
