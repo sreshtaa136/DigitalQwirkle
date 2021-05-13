@@ -47,13 +47,16 @@ void LinkedList::addToEnd(Tile* tile){
 }
 
 // returns -1 if tile does not exist
+// returns first instance of the tile
 int LinkedList::searchTile(Colour colour, Shape shape){
    
    int index = -1;
    Node* currNode = head;
+
    for (int i = 0; i < size; ++i) {
       if(currNode->getTile()->getColour() == colour &&
-      currNode->getTile()->getShape() == shape){
+      currNode->getTile()->getShape() == shape &&
+      index == -1){
          index = i;
       }
       currNode = currNode->getNext();
@@ -120,34 +123,34 @@ Tile* LinkedList::getTileAtIndex(int index){
 }
 
 //replaces t1 with t2
-void LinkedList::replaceTile(Tile* t1, Tile* t2){
+// void LinkedList::replaceTile(Tile* t1, Tile* t2){
 
-   int t1_index = searchTile(t1->getColour(), t1->getShape());
-   Tile* tile;
+//    int t1_index = searchTile(t1->getColour(), t1->getShape());
+//    Tile* tile;
 
-   if(t1_index != -1){
-      if (t1_index == 0) {
-         tile = head->getTile();
-         tile->setColour(t2->getColour());
-         tile->setShape(t2->getShape());
-      }else {
-         Node* currNode = head;
-         for (int i = 0; i < t1_index; ++i) {
-            currNode = currNode->getNext();
-         }
-         tile = currNode->getTile();
-         tile->setColour(t2->getColour());
-         tile->setShape(t2->getShape());
-      }
-   }
-}
+//    if(t1_index != -1){
+//       if (t1_index == 0) {
+//          tile = head->getTile();
+//          tile->setColour(t2->getColour());
+//          tile->setShape(t2->getShape());
+//       }else {
+//          Node* currNode = head;
+//          for (int i = 0; i < t1_index; ++i) {
+//             currNode = currNode->getNext();
+//          }
+//          tile = currNode->getTile();
+//          tile->setColour(t2->getColour());
+//          tile->setShape(t2->getShape());
+//       }
+//    }
+// }
 
-void LinkedList::switchTiles(Tile* t1, Tile* t2){
+// void LinkedList::switchTiles(Tile* t1, Tile* t2){
    
-   Tile* temp = new Tile(*t1);
-   replaceTile(t1, t2);
-   replaceTile(t2, temp);
-}
+//    Tile* temp = new Tile(*t1);
+//    replaceTile(t1, t2);
+//    replaceTile(t2, temp);
+// }
 
 int LinkedList::tileCount(Tile* tile){
 

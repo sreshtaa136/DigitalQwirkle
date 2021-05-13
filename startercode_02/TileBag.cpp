@@ -21,6 +21,10 @@ TileBag::~TileBag(){
     tileBag = nullptr;
 }
 
+LinkedList* TileBag::getTileBag(){
+    return this->tileBag;
+}
+
 LinkedList* TileBag::createBag(){
 
     LinkedList* orderedTileBag = new LinkedList();
@@ -63,11 +67,29 @@ void TileBag::shuffleBag(){
      
         int randIndex1 = uniform_dist(engine);
        
-        Tile* tile1 = orderedTileBag->getTileAtIndex(randIndex1);
+        Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
         if(tileBag->tileCount(tile1) < 2){
             tileBag->addToEnd(tile1);
         }
         //delete tileBag;
         //tileBag = shuffledBag;
     }
+}
+
+Tile* TileBag::drawTile(){
+
+    Tile* tile = new Tile(*tileBag->getTileAtIndex(0));
+    tileBag->removeTile(tile->getColour(), tile->getShape());
+    return tile;
+}
+
+LinkedList* TileBag::createHand(){
+
+    LinkedList* playerHand = new LinkedList();
+
+    while(playerHand->getSize() != 6){
+        playerHand->addToEnd(drawTile());
+    }
+    playerHand->printList();
+    return playerHand;
 }

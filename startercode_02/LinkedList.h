@@ -26,11 +26,11 @@ public:
    void clear();
    void printList();
 
-   void replaceTile(Tile* t1, Tile* t2);
+   //void replaceTile(Tile* t1, Tile* t2);
    Tile* getTileAtIndex(int index);
-   void switchTiles(Tile* t1, Tile* t2);
+   //void switchTiles(Tile* t1, Tile* t2);
    int tileCount(Tile* tile);
-   
+
    //testing
    void printCount();
 

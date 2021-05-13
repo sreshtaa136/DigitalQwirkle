@@ -25,7 +25,7 @@ private:
     'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 
     // board : a vector of vectors of tile
-    std::vector<std::vector<Tile*>> board;
+    std::vector<std::vector<Tile*> > board;
 
 };
 

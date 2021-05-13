@@ -20,6 +20,11 @@ public:
    LinkedList* createBag();
    void shuffleBag();
 
+   LinkedList* createHand();
+   Tile* drawTile();
+
+   LinkedList* getTileBag();
+
 private:
     char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
     int shapes[6] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};

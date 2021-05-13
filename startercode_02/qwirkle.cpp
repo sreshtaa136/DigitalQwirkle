@@ -7,7 +7,9 @@
 #include "Node.h"
 #include "LinkedList.h"
 #include "TileBag.h"
+#include "Player.h"
 #include "GameBoard.h"
+#include "GameEngine.h"
 
 
 bool validateName (std :: string name);
@@ -15,19 +17,19 @@ int main(int argc, char** argv) {
 
    //TESTING
 
-   LinkedList* list = new LinkedList();
-   Tile* t1 = new Tile('Y', 1);
-   Tile* t2 = new Tile('Y', 2);
-   Tile* t3 = new Tile('Y', 3);
-   Tile* t4 = new Tile('Y', 4);
-   //Tile* t5 = new Tile('Y', 1);
+   // LinkedList* list = new LinkedList();
+   // Tile* t1 = new Tile('Y', 1);
+   // Tile* t2 = new Tile('Y', 2);
+   // Tile* t3 = new Tile('Y', 3);
+   // Tile* t4 = new Tile('Y', 4);
+   // //Tile* t5 = new Tile('Y', 1);
 
-   list->addToEnd(t1);
-   list->addToEnd(t2);
-   list->addToEnd(t3);
-   list->addToEnd(t4);
-   //list->addToEnd(t5);
-   list->printList();
+   // list->addToEnd(t1);
+   // list->addToEnd(t2);
+   // list->addToEnd(t3);
+   // list->addToEnd(t4);
+   // //list->addToEnd(t5);
+   // list->printList();
 
    //std::cout << list->tileCount(t1);
    // list->replaceTile(t1,t4);
@@ -53,18 +55,15 @@ int main(int argc, char** argv) {
    // std::cout << list->searchTile('Y', 2) << "\n";
    // std::cout << list->searchTile('Y', 3) << "\n";
 
-   delete list;
-   list = nullptr;
+   // delete list;
+   // list = nullptr;
 
-   TileBag* bag = new TileBag();
+   // TileBag* bag = new TileBag();
    // std::cout << "\n";
-   // bag->createBag();
-   std::cout << "\n";
-   bag->shuffleBag();
-   bag->tileBag->printList();
-   bag->tileBag->printCount();
-
-
+   // bag->shuffleBag();
+   // bag->tileBag->printList();
+   // //bag->tileBag->printCount();
+   // bag->createHand();
    // bag->tileBag->printList();
    
    //TESTING ENDS ------------------------------------------
@@ -153,7 +152,7 @@ int main(int argc, char** argv) {
 
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
-//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp GameBoard.cpp
+//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp GameBoard.cpp Player.cpp GameEngine.cpp
 //g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp GameBoard.cpp
 //./qwirkle
 //valgrind --leak-check=full ./qwirkle

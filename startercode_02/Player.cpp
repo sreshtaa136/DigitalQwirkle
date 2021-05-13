@@ -33,8 +33,3 @@ void Player::setPlayerHand(LinkedList* hand) {
 void Player::incrementScore(int newScore) {
     this->score += newScore;
 }
-
-void Player::replaceTile(Tile* tileToReplace, Tile* newTile) {
-    // playerHand->replace(tileToReplace, newTile);
-
-}
