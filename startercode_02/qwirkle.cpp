@@ -15,17 +15,24 @@ int main(int argc, char** argv) {
    //TESTING
    LinkedList* list = new LinkedList();
    Tile* t1 = new Tile('Y', 1);
-   Tile* t2 = new Tile('Y', 2);
+   Tile* t2 = new Tile('R', 2);
    list->addToFront(t1);
    list->printList();
    list->addToFront(t2);
    list->printList();
    
-
-   Tile* tile = new Tile('R', 1);
    GameBoard* g = new GameBoard();
-   g->placeTile('C', 7, tile);
-   g->placeTile('A', 5, tile);
+   //Tile* t3 = new Tile('R', 1);
+   Tile* t4 = new Tile('Y', 2);
+   g->placeTile('B', 0, t4);
+   
+   g->placeTile('B', 1, t2);
+
+   g->placeTile('A', 4, t1);
+   //g->placeTile('C', 1, t3);
+   //g->placeTile('B', 2, t2);
+   
+
    //tile->printTile();
    g->displayBoard();
    //TESTING ENDS
@@ -106,7 +113,7 @@ int main(int argc, char** argv) {
       }
       else
       {
-         std::cout << "\n Not a Valid Choice. \n";
+         std::cout << "\nNot a Valid Choice. \n";
          std::cout << "Choose again.\n\n";
       }
    }
