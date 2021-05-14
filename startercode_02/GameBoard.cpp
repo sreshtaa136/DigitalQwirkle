@@ -3,12 +3,9 @@
 #include <iostream>
 
 GameBoard::GameBoard() {
-    
-
     for (int row = 0; row < MAX_DIM; ++row) {
 
         std::vector<Tile*> temp;
-        
         for (int col = 0; col < MAX_DIM; ++col) {
             temp.push_back(nullptr);
 	    }
@@ -31,19 +28,14 @@ GameBoard::~GameBoard() {
 }
 
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
-    int rowIdx = 0;
 
-    for (int i = 0; i < MAX_DIM; ++i) {
-        if (row == alphabets[i]) {
-            rowIdx = i;
-        }
-    }
-
-    //check if tile space is empty
-    if (isEmptySpace(rowIdx, col) && isValidMove(rowIdx, col, tile)) 
+    int rowIdx = charToInt(row);
+    
+    //check if tile space is empty and move is valid according to qwirkle rules
+    if (isEmptySpace(rowIdx, col) && isValidMove(rowIdx, col, tile) && !checkLine(rowIdx, col)) 
     {
         board[rowIdx][col] = tile;
-        tilesOnBoard++;
+        ++tilesOnBoard;
     }
     else { std::cout << "error" << std::endl; }
     
@@ -67,6 +59,7 @@ bool GameBoard::isValidMove(int row, int col, Tile* tile) {
     bool leftValid = false;
     bool upValid = false;
     bool downValid = false;
+    int neighbour = 0;
 
     // if it's the first tile
     if (tilesOnBoard == 0) {
@@ -74,94 +67,273 @@ bool GameBoard::isValidMove(int row, int col, Tile* tile) {
 
     } else { 
 
-        // Check if row is in bounds
-        if (row > 0) {
+        if (hasTileAbove(row, col)) {
 
-            // Check if there is a tile above
-            if (board[row-1][col] != nullptr) {
+            ++neighbour;
 
-                // Check if either the colour or shape are same
-                if (board[row-1][col]->getColour() == tile->getColour() ||
-                    board[row-1][col]->getShape() == tile->getShape()) {
-                        upValid = true;
-                } 
+            // Check if either the colour or shape are same
+            if (board[row-1][col]->getColour() == tile->getColour() ||
+                board[row-1][col]->getShape() == tile->getShape()) {
+                    upValid = true;
+            } 
 
-                // Check if it is a duplicate tile
-                if (board[row-1][col]->getColour() == tile->getColour() &&
-                    board[row-1][col]->getShape() == tile->getShape()) {
-                        upValid = false;
-                } 
+            // Check if it is a duplicate tile
+            if (board[row-1][col]->getColour() == tile->getColour() &&
+                board[row-1][col]->getShape() == tile->getShape()) {
+                    upValid = false;
+            } 
+        }
+        
+        if (hasTileBelow(row, col)) {
+
+            ++neighbour;
+
+            // Check if either the colour or shape are same
+            if (board[row+1][col]->getColour() == tile->getColour() ||
+                board[row+1][col]->getShape() == tile->getShape()) {
+                    downValid = true;
             }
-        }
-        
-        // Check if row is in bounds
-        if (row < MAX_DIM-1) {
 
-            // Check if there is a tile below
-            if (board[row+1][col] != nullptr) {
-
-                // Check if either the colour or shape are same
-                if (board[row+1][col]->getColour() == tile->getColour() ||
-                    board[row+1][col]->getShape() == tile->getShape()) {
-                       downValid = true;
-                }
-
-                // Check if it is a duplicate tile
-                if (board[row+1][col]->getColour() == tile->getColour() &&
-                    board[row+1][col]->getShape() == tile->getShape()) {
-                        downValid = false;
-                } 
+            // Check if it is a duplicate tile
+            if (board[row+1][col]->getColour() == tile->getColour() &&
+                board[row+1][col]->getShape() == tile->getShape()) {
+                    downValid = false;
             } 
         }
         
-        // Check if column is in bounds
-        if (col > 0) {
+        if (hasTileAtLeft(row, col)) {
 
-            // Check if there is a tile to the left
-            if (board[row][col-1] != nullptr) {
+            ++neighbour;
 
-                // Check if either the colour or shape are same
-                if (board[row][col-1]->getColour() == tile->getColour() ||
-                    board[row][col-1]->getShape() == tile->getShape()) {
-                        leftValid = true;
-                }
+            // Check if either the colour or shape are same
+            if (board[row][col-1]->getColour() == tile->getColour() ||
+                board[row][col-1]->getShape() == tile->getShape()) {
+                    leftValid = true;
+            }
 
-                // Check if it is a duplicate tile
-                if (board[row][col-1]->getColour() == tile->getColour() &&
-                    board[row][col-1]->getShape() == tile->getShape()) {
-                        leftValid = false;
-                } 
+            // Check if it is a duplicate tile
+            if (board[row][col-1]->getColour() == tile->getColour() &&
+                board[row][col-1]->getShape() == tile->getShape()) {
+                    leftValid = false;
             } 
         }
 
-        // Check if column is in bounds
-        if (col < MAX_DIM-1) {
+        if (hasTileAtRight(row, col)) {
 
-            // Check if there is a tile to the right
-            if (board[row][col+1] != nullptr) {
+            ++neighbour;
 
-                // Check if either the colour or shape are same
-                if (board[row][col+1]->getColour() == tile->getColour() ||
-                    board[row][col+1]->getShape() == tile->getShape()) {
-                        rightValid = true;
-                }
+            // Check if either the colour or shape are same
+            if (board[row][col+1]->getColour() == tile->getColour() ||
+                board[row][col+1]->getShape() == tile->getShape()) {
+                    rightValid = true;
+            }
 
-                // Check if it is a duplicate tile
-                if (board[row][col+1]->getColour() == tile->getColour() &&
-                    board[row][col+1]->getShape() == tile->getShape()) {
-                        rightValid = false;
-                } 
-            } 
+            // Check if it is a duplicate tile
+            if (board[row][col+1]->getColour() == tile->getColour() &&
+                board[row][col+1]->getShape() == tile->getShape()) {
+                    rightValid = false;
+            }
         }
 
         // there must be at least one adjacent tile for move to be valid
-        valid = upValid || downValid || rightValid || leftValid;
-     
+        // should not have more than two adjacent tiles
+        if ((upValid || downValid || rightValid || leftValid) && neighbour <= 2) {
+            valid = true;
+        }
     }
 
     return valid;
 }
 
+int GameBoard::totalTilesAbove(int row, int col) {
+
+    int numAbove = 0;
+
+    while(hasTileAbove(row, col)) {
+        --row;
+        ++numAbove;
+    }
+
+    return numAbove;
+}
+
+int GameBoard::totalTilesBelow(int row, int col) {
+
+    int numBelow = 0;
+
+    while(hasTileBelow(row, col)) {
+        ++row;
+        ++numBelow;
+    }
+
+    return numBelow;
+}
+
+int GameBoard::totalTilesAtLeft(int row, int col) {
+
+    int numLeft = 0;
+
+    while(hasTileAtLeft(row, col)) {
+        --col;
+        ++numLeft;
+    }
+    
+    return numLeft;
+}
+
+int GameBoard::totalTilesAtRight(int row, int col) {
+
+    int numRight = 0;
+
+    while(hasTileAtRight(row, col)) {
+        ++col;
+        ++numRight;
+    }
+
+    return numRight;
+}
+
+int GameBoard::totalTilesInRow(int row, int col) {
+
+    return totalTilesAbove(row, col) + totalTilesBelow(row, col) + 1;
+}
+
+int GameBoard::totalTilesInCol(int row, int col) {
+
+    return totalTilesAtLeft(row, col) + totalTilesAtRight(row, col) + 1;
+}
+
+bool GameBoard::hasTileAbove(int row, int col) {
+    bool hasTileAbove = false;
+
+    // Check the row is in bound
+    if (row > 0) {
+
+        // Check if there is a tile above
+        if (board[row-1][col] != nullptr) {
+            hasTileAbove = true;
+        }
+    }
+
+    return hasTileAbove;
+}
+
+bool GameBoard::hasTileBelow(int row, int col) {
+    bool hasTileBelow = false;
+
+    // Check the row is in bound
+    if (row < MAX_DIM-1) {
+
+        // Check if there is a tile below
+        if (board[row+1][col] != nullptr) {
+            hasTileBelow = true;
+        }
+    }
+
+    return hasTileBelow;
+}
+
+bool GameBoard::hasTileAtLeft(int row, int col) {
+    bool hasTileAtLeft = false;
+
+    // Check the column is in bound
+    if (col > 0) {
+
+        // Check if there is a tile at left
+        if (board[row][col-1] != nullptr) {
+            hasTileAtLeft = true;
+        }
+    }
+
+    return hasTileAtLeft;
+}
+
+bool GameBoard::hasTileAtRight(int row, int col) {
+    bool hasTileAtRight = false;
+
+    // Check the column is in bound
+    if (col < MAX_DIM-1) {
+
+        // Check if there is a tile at right
+        if (board[row][col+1] != nullptr) {
+            hasTileAtRight = true;
+        }
+    }
+
+    return hasTileAtRight;
+}
+
+bool GameBoard::checkLine(int row, int col) {
+    bool lineNotValid = false;
+
+    if (totalTilesInRow(row, col) > QWIRKLE_SCORE || 
+        totalTilesInCol(row, col) > QWIRKLE_SCORE) {
+            lineNotValid = true;
+    }
+
+    return lineNotValid;
+}
+
+bool GameBoard::isQwirkle(int row, int col) {
+    bool qwirkle = false;
+
+    if (totalTilesInRow(row, col) == QWIRKLE_SCORE || 
+        totalTilesInCol(row, col) == QWIRKLE_SCORE) {
+            qwirkle = true;
+    }
+
+    return qwirkle;
+}
+
+int GameBoard::calculatePoints(char row, int col) {
+
+    int rowIdx = charToInt(row);
+    int rowScore = 0;
+    int colScore = 0;
+    int score = 0;
+
+    if(tilesOnBoard == 0) {
+        score = ONE_TILE_SCORE;
+    } else {
+        if (!checkLine(rowIdx, col) && !isQwirkle(rowIdx, col)) {
+            rowScore = totalTilesInRow(rowIdx, col);
+            colScore = totalTilesInCol(rowIdx, col);
+
+            if (rowScore == ONE_TILE_SCORE || colScore == ONE_TILE_SCORE) {
+                score = rowScore + colScore - 1;
+            }
+            else {
+                score = rowScore + colScore;
+            }
+            
+        }
+        else {
+            
+
+            if (totalTilesInRow(rowIdx, col) == QWIRKLE_SCORE) {
+                score += QWIRKLE_SCORE;
+            }
+
+            if (totalTilesInCol(rowIdx, col) == QWIRKLE_SCORE) {
+                score += QWIRKLE_SCORE;
+            }             
+        }
+    }
+
+    return score;
+}
+
+int GameBoard::charToInt(char c) {
+    int num = 0;
+
+    for (int i = 0; i < MAX_DIM; ++i) {
+        if (c == alphabets[i]) {
+            num = i;
+        }
+    }
+
+    return num;
+}
 
 void GameBoard::displayBoard() {
     char seperator = '|';
