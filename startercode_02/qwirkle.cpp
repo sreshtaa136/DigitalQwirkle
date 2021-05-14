@@ -96,13 +96,10 @@ int main(int argc, char** argv) {
    // list->printList();
    // list->addToFront(t2);
    // list->printList();
-<<<<<<< HEAD
    
    // GameBoard* g = new GameBoard();
    // Tile* t3 = new Tile('R', 1);
    // Tile* t4 = new Tile('Y', 2);
-=======
->>>>>>> nish
    
    //TESTING BOARD -------------------------------------------------
    // GameBoard* g = new GameBoard();
@@ -132,17 +129,14 @@ int main(int argc, char** argv) {
    // std::cout << "score 6: " << g->calculatePoints('D', 3) << std::endl;
    // std::cout << "score 4: " << g->calculatePoints('D', 1) << std::endl;
 
-<<<<<<< HEAD
    // g->placeTile('C', 2, t4);
    // g->placeTile('C', 1, t2);
    // g->placeTile('D', 1, t3);
    // g->placeTile('C', 2, t2);
    // g->placeTile('A', 2, t1);
 
-=======
    // g->placeTile('C', 2, t7);
    // std::cout << "score 7: " << g->calculatePoints('C', 2) << std::endl;
->>>>>>> nish
 
    // //g->placeTile('D', 5, t8);
    // // g->placeTile('D', 3, t9);
@@ -156,13 +150,10 @@ int main(int argc, char** argv) {
    std::string a = "replace Y1";
    std::cout << a[0];
 
-<<<<<<< HEAD
-=======
    // //tile->printTile();
    // g->displayBoard();
    //TESTING ENDS ------------------------------------------------
  
->>>>>>> nish
 
    int choice = 0;
    while (choice !=4 ){
