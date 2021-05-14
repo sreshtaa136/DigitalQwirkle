@@ -98,13 +98,10 @@ int main(int argc, char** argv) {
    // list->printList();
    // list->addToFront(t2);
    // list->printList();
-<<<<<<< HEAD
    
    // GameBoard* g = new GameBoard();
    // Tile* t3 = new Tile('R', 1);
    // Tile* t4 = new Tile('Y', 2);
-=======
->>>>>>> nish
    
    //TESTING BOARD -------------------------------------------------
    // GameBoard* g = new GameBoard();
@@ -134,17 +131,14 @@ int main(int argc, char** argv) {
    // std::cout << "score 6: " << g->calculatePoints('D', 3) << std::endl;
    // std::cout << "score 4: " << g->calculatePoints('D', 1) << std::endl;
 
-<<<<<<< HEAD
    // g->placeTile('C', 2, t4);
    // g->placeTile('C', 1, t2);
    // g->placeTile('D', 1, t3);
    // g->placeTile('C', 2, t2);
    // g->placeTile('A', 2, t1);
 
-=======
    // g->placeTile('C', 2, t7);
    // std::cout << "score 7: " << g->calculatePoints('C', 2) << std::endl;
->>>>>>> nish
 
    // //g->placeTile('D', 5, t8);
    // // g->placeTile('D', 3, t9);
@@ -158,13 +152,10 @@ int main(int argc, char** argv) {
    std::string a = "replace Y1";
    std::cout << a[0];
 
-<<<<<<< HEAD
-=======
    // //tile->printTile();
    // g->displayBoard();
    //TESTING ENDS ------------------------------------------------
  
->>>>>>> nish
 
    int choice = 0;
    while (choice !=4 ){
@@ -207,45 +198,71 @@ int main(int argc, char** argv) {
          } while (!validateName(player2) || (player1 == player2));
 
          std::cout << "\nLet's Play!\n\n";
-         std::cout << player1 << ", it's your turn\n";
 
-         GameEngine* engine = new GameEngine();
+         GameEngine *engine = new GameEngine();
          engine->newGame(player1, player2);
-         std::string currentPlayer = player1;
-
-         std::cout << "You hand is\n";
-         engine->getPlayer2()->getPlayerHand()->printList();
-         std::cout << "\n";
-         std::string userAction;
-
-            std::cout << "> ";
-            std::cin.ignore();
-            getline(std::cin, userAction);
-            std::cout << userAction << userAction.length();
-         while (! verifyCommand (userAction))
+        int itretor = 0 ;
+         while (!endGame(engine))
          {
-            /* code */
+            std::cout << player1 << ", it's your turn\n";
+
+            std::string currentPlayer = player1;
+
+            std::cout << "Your hand is\n";
+            engine->getPlayer1()->getPlayerHand()->printList();
+            std::cout << "\n";
+            std::string userAction;
+
             std::cout << "> ";
-          //  std::cin.ignore();
+            if (itretor == 0){
+            std::cin.ignore();
+            itretor ++ ; 
+            }
             getline(std::cin, userAction);
-            std::cout << userAction << userAction.length();
+            std::cout << userAction << userAction.length() << "\n";
+            while (!verifyCommand(userAction))
+            {
+               /* code */
+               std::cout << "> ";
+               //  std::cin.ignore();
+               getline(std::cin, userAction);
+               std::cout << userAction << userAction.length() << "\n";
+            }
+            if (userAction[0] == 'p'){
+               engine->placeTile(userAction[12], userAction[13] - '0', userAction[6], userAction[7] - '0', currentPlayer);
+            }
+            if (userAction[0] == 'r')
+            {
+               engine->replaceTile(userAction[8], userAction[9] - '0', currentPlayer);
+            }
+            std::cout << player2 << ", it's your turn\n";
+
+            currentPlayer = player2;
+
+            std::cout << "Your hand is\n";
+            engine->getPlayer2()->getPlayerHand()->printList();
+            std::cout << "\n";
+            std::cout << "> ";
+            //std::cin.ignore();
+            getline(std::cin, userAction);
+         std::cout << userAction << userAction.length()<< "\n";
+            while (!verifyCommand(userAction))
+            {
+               /* code */
+               std::cout << "> ";
+               //  std::cin.ignore();
+               getline(std::cin, userAction);
+               std::cout << userAction << userAction.length() << "\n";
+            }
+            if (userAction[0] == 'p')
+            {
+               engine->placeTile(userAction[12], userAction[13] - '0', userAction[6], userAction[7] - '0', currentPlayer);
+            }
+            if (userAction[0] == 'r')
+            {
+               engine->replaceTile(userAction[8], userAction[9] - '0', currentPlayer);
+            }
          }
-         
-         // while(!endGame(engine)){
-
-         //    std::string userAction;
-         //    getline(std::cin, userAction);
-         //    std::cout << userAction;
-         //    //std::cin >> userAction;
-        // verifyCommand(userAction);
-
-         //    //user prompt
-         //    if(currentPlayer == player1){
-         //       currentPlayer = player2;
-         //    }else{
-         //       currentPlayer = player1;
-         //    }
-         // }
       }
       else if (choice == 2)
       {
