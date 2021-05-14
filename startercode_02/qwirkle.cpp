@@ -20,7 +20,6 @@ void newGame(std::string player1, std::string player2);
 int main(int argc, char** argv) {
 
    //TESTING
-<<<<<<< HEAD
 
    // GameEngine* engine = new GameEngine();
    // engine->newGame("A", "B");
@@ -88,7 +87,6 @@ int main(int argc, char** argv) {
    // bag->tileBag->printList();
    
    //TESTING ENDS ------------------------------------------
-=======
    LinkedList* list = new LinkedList();
    Tile* t1 = new Tile('Y', 1);
    Tile* t2 = new Tile('R', 2);
@@ -114,7 +112,6 @@ int main(int argc, char** argv) {
    g->displayBoard();
    //TESTING ENDS
  
->>>>>>> nish
 
    int choice = 0;
    while (choice !=4 ){
