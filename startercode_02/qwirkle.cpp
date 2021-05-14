@@ -16,7 +16,6 @@ bool validateName (std :: string name);
 int main(int argc, char** argv) {
 
    //TESTING
-<<<<<<< HEAD
 
    // GameEngine* engine = new GameEngine();
    // engine->newGame("A", "B");
@@ -84,33 +83,31 @@ int main(int argc, char** argv) {
    // bag->tileBag->printList();
    
    //TESTING ENDS ------------------------------------------
-=======
-   LinkedList* list = new LinkedList();
-   Tile* t1 = new Tile('Y', 1);
-   Tile* t2 = new Tile('R', 2);
-   list->addToFront(t1);
-   list->printList();
-   list->addToFront(t2);
-   list->printList();
+   // LinkedList* list = new LinkedList();
+   // Tile* t1 = new Tile('Y', 1);
+   // Tile* t2 = new Tile('R', 2);
+   // list->addToFront(t1);
+   // list->printList();
+   // list->addToFront(t2);
+   // list->printList();
    
-   GameBoard* g = new GameBoard();
-   Tile* t3 = new Tile('R', 1);
-   Tile* t4 = new Tile('Y', 2);
+   // GameBoard* g = new GameBoard();
+   // Tile* t3 = new Tile('R', 1);
+   // Tile* t4 = new Tile('Y', 2);
    
 
-   g->placeTile('C', 2, t4);
-   g->placeTile('C', 1, t2);
-   g->placeTile('D', 1, t3);
-   g->placeTile('C', 2, t2);
-   g->placeTile('A', 2, t1);
+   // g->placeTile('C', 2, t4);
+   // g->placeTile('C', 1, t2);
+   // g->placeTile('D', 1, t3);
+   // g->placeTile('C', 2, t2);
+   // g->placeTile('A', 2, t1);
 
 
 
-   //tile->printTile();
-   g->displayBoard();
-   //TESTING ENDS
+   // //tile->printTile();
+   // g->displayBoard();
+   // //TESTING ENDS
  
->>>>>>> nish
 
    int choice = 0;
    while (choice !=4 ){
@@ -140,8 +137,7 @@ int main(int argc, char** argv) {
          std::string name1;
          std::string name2;
          std::cout << "\nStarting a New Game \n\n";
-         std::cout << "Enter a name for player 1 (uppercase characters only) \n"
-         << "> ";
+         std::cout << "Enter a name for player 1 (uppercase characters only) \n";
          do{
             std::cout << "> "; 
             std::cin >> name1;
@@ -165,7 +161,7 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          std::cout << "Name : David Aziz \n";
          std::cout << "Student ID : s3825605 \n";
-         std::cout << "Email : s3825605@student.rmit.edu.au.edu> \n";
+         std::cout << "Email : s3825605@student.rmit.edu.au.edu \n";
          std::cout << "\n";
          std::cout << "Name : Tanishpreet Kaur \n";
          std::cout << "Student ID : s3825118 \n";
