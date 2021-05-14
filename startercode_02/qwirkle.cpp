@@ -1,8 +1,7 @@
 
 #include <iostream>
 #include <cctype>
-#include <string.h>
-#include <fstream>
+#include <string>
 #include "TileCodes.h"
 #include "Tile.h"
 #include "Node.h"
@@ -11,7 +10,9 @@
 #include "Player.h"
 #include "GameBoard.h"
 #include "GameEngine.h"
-
+char alphabets[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
+int shapes[6] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
 bool validateName (std :: string name);
 bool qwirkle();
@@ -164,30 +165,23 @@ int main(int argc, char** argv) {
          engine->newGame(player1, player2);
          std::string currentPlayer = player1;
 
-         std::cout << "Your hand is\n";
+         std::cout << "You hand is\n";
          engine->getPlayer2()->getPlayerHand()->printList();
          std::cout << "\n";
-         std::cout << "> ";
          std::string userAction;
-         std::cin.ignore();
-         getline(std::cin, userAction);
-         std::cout << userAction;
-        // verifyCommand(userAction);
 
-   while (!endGame(engine))
-   {
-
-      //user prompt
-      if (currentPlayer == player1)
-      {
-         currentPlayer = player2;
-      }
-      else
-      {
-         currentPlayer = player1;
-      }
+            std::cout << "> ";
+            std::cin.ignore();
+            getline(std::cin, userAction);
+            std::cout << userAction << userAction.length();
+         while (! verifyCommand (userAction))
+         {
+            /* code */
+            std::cout << "> ";
+          //  std::cin.ignore();
+            getline(std::cin, userAction);
+            std::cout << userAction << userAction.length();
          }
-
          
          // while(!endGame(engine)){
 
@@ -195,7 +189,7 @@ int main(int argc, char** argv) {
          //    getline(std::cin, userAction);
          //    std::cout << userAction;
          //    //std::cin >> userAction;
-         //    //verifyCommand(userAction);
+        // verifyCommand(userAction);
 
          //    //user prompt
          //    if(currentPlayer == player1){
@@ -265,23 +259,164 @@ bool validateName(std ::string name)
    return true;
 }
 
-bool verifyCommand(std::string command){
-   std :: string temp ;
-   std ::cout << command.length();
-   int pos = command.find(' ');
-   temp = command.substr(0, pos);
-   std ::cout << temp;
-   std ::cout << command.length();
+ bool verifyCommand(std::string command){
+ if (command.length() ==14 || command.length() == 10 ){
+    bool foundColour = false ;
+    bool foundShape = false;
+
     if (command.length() == 14)
-   {
+    {
+       std ::string tmp = command.substr(0, 6);
 
+       if (tmp != "place ")
+       {
+          return false;
+       }
+       for (int i = 0; i < 6; i++)
+       {
+          if (command[6] == colours[i])
+          {
+           foundColour = true;
+          }
+          int sha = command[7] - '0';
+           if (sha== shapes[i])
+          {
+             foundShape = true;
+          }
+       }
+
+         if (!(foundColour && foundShape)){
+
+                return false;
+         }
+         tmp = command.substr(8, 4);
+
+         if (tmp != " at ")
+         {
+            return false;
+         }
+         bool foundcol = false;
+         bool foundrow = false;
+         for (int i = 0; i < 25; i++)
+         {
+            if (command[12] == alphabets[i])
+            {
+               foundrow= true;
+            }
+            int sha = command[13] - '0';
+            if (sha == i)
+            {
+               foundcol = true;
+            }
+         }
+
+         if (!(foundrow && foundcol))
+         {
+            return false;
+         }
+      }
+
+   else {
+      std ::string tmp = command.substr(0, 8);
+
+      if (tmp != "replace ")
+      {
+         return false;
+      }
+      for (int i = 0; i < 6; i++)
+      {
+         if (command[8] == colours[i])
+         {
+            foundColour = true;
+         }
+         int sha = command[9] - '0';
+         if (sha == shapes[i])
+         {
+            foundShape = true;
+         }
+      }
+
+      if (!(foundColour && foundShape))
+      {
+
+         return false;
+      }
    }
-    bool verify = false;
+ }
+ else {
 
-   //todo
-   return verify;
-}
+    std::cout << "\n Invalid input \n";
+    return false;
 
+ } return true ;
+ }
+//     
+//       bool verify = false;
+//    }
+//    else if (command[i] = 14){
+//       if (command[0]!= "p"){
+//          bool verify = false;
+//       }
+//       if (command[1] != "l"){
+//          bool verify = false;
+//       }
+//       if (command[2] != "a")
+//       {
+//          bool verify != false;
+//       }
+//       if (command[3] != "c")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[4] != "e")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[5] != " ")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[6] != Colour)
+//       {
+//          bool verify = false;
+//       }
+//       if (command[7] != Shape)
+//       {
+//          bool verify = false;
+//       }
+//       if (command[8] == " ")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[9] == "a")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[10] == "t")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[11] == " ")
+//       {
+//          bool verify = false;
+//       }
+//       if (command[12] == GameBoard.col)
+//       {
+//          bool verify = false;
+//       }
+//       if (command[13] == GameBoard.row)
+//       {
+//          bool verify = false;
+//       }
+//    } return verify;
+   
+//    else if (command[i] != 10){
+//       bool verify = false;
+//    }
+   
+//       return verify;
+// }
+//}
 // bool qwirkle(){
 //    //check for possible qwirkle
 
