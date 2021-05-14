@@ -113,7 +113,9 @@ int main(int argc, char** argv) {
    // //tile->printTile();
    // g->displayBoard();
    // //TESTING ENDS
- 
+   std::string a = "replace Y1";
+   std::cout << a[0];
+
 
    int choice = 0;
    while (choice !=4 ){
@@ -166,15 +168,10 @@ int main(int argc, char** argv) {
          engine->getPlayer2()->getPlayerHand()->printList();
          std::cout << "\n";
          std::cout << "> ";
-         
          std::string userAction;
          std::cin.ignore();
          getline(std::cin, userAction);
          std::cout << userAction;
-         // pos = userAction.find('c');
-         // std ::string temp = userAction.substr(0, pos);
-         // std ::cout << temp;
-
         // verifyCommand(userAction);
 
    while (!endGame(engine))
@@ -191,6 +188,22 @@ int main(int argc, char** argv) {
       }
          }
 
+         
+         // while(!endGame(engine)){
+
+         //    std::string userAction;
+         //    getline(std::cin, userAction);
+         //    std::cout << userAction;
+         //    //std::cin >> userAction;
+         //    //verifyCommand(userAction);
+
+         //    //user prompt
+         //    if(currentPlayer == player1){
+         //       currentPlayer = player2;
+         //    }else{
+         //       currentPlayer = player1;
+         //    }
+         // }
       }
       else if (choice == 2)
       {
