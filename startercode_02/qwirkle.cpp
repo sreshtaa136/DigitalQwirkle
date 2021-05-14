@@ -16,6 +16,7 @@ bool validateName (std :: string name);
 bool qwirkle();
 bool endGame(GameEngine* engine);
 void newGame(std::string player1, std::string player2);
+bool verifyCommand(std::string command);
 
 int main(int argc, char** argv) {
 
@@ -87,30 +88,30 @@ int main(int argc, char** argv) {
    // bag->tileBag->printList();
    
    //TESTING ENDS ------------------------------------------
-   LinkedList* list = new LinkedList();
-   Tile* t1 = new Tile('Y', 1);
-   Tile* t2 = new Tile('R', 2);
-   list->addToFront(t1);
-   list->printList();
-   list->addToFront(t2);
-   list->printList();
+   // LinkedList* list = new LinkedList();
+   // Tile* t1 = new Tile('Y', 1);
+   // Tile* t2 = new Tile('R', 2);
+   // list->addToFront(t1);
+   // list->printList();
+   // list->addToFront(t2);
+   // list->printList();
    
-   GameBoard* g = new GameBoard();
-   Tile* t3 = new Tile('R', 1);
-   Tile* t4 = new Tile('Y', 2);
+   // GameBoard* g = new GameBoard();
+   // Tile* t3 = new Tile('R', 1);
+   // Tile* t4 = new Tile('Y', 2);
    
 
-   g->placeTile('C', 2, t4);
-   g->placeTile('C', 1, t2);
-   g->placeTile('D', 1, t3);
-   g->placeTile('C', 2, t2);
-   g->placeTile('A', 2, t1);
+   // g->placeTile('C', 2, t4);
+   // g->placeTile('C', 1, t2);
+   // g->placeTile('D', 1, t3);
+   // g->placeTile('C', 2, t2);
+   // g->placeTile('A', 2, t1);
 
 
 
-   //tile->printTile();
-   g->displayBoard();
-   //TESTING ENDS
+   // //tile->printTile();
+   // g->displayBoard();
+   // //TESTING ENDS
  
 
    int choice = 0;
@@ -138,23 +139,45 @@ int main(int argc, char** argv) {
       }
       if (choice == 1)
       {
-         std::string name1;
-         std::string name2;
+         std::string player1;
+         std::string player2;
          std::cout << "\nStarting a New Game \n\n";
-         std::cout << "Enter a name for player 1 (uppercase characters only) \n"
-         << "> ";
+         std::cout << "Enter a name for player 1 (uppercase characters only) \n";
          do{
             std::cout << "> "; 
-            std::cin >> name1;
-         } while (!validateName(name1));
+            std::cin >> player1;
+         } while (!validateName(player1));
 
          do{
             std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
                      << "> ";
-            std::cin >> name2;
-         } while (!validateName(name2));
+            std::cin >> player2;
+         } while (!validateName(player2) || (player1 == player2));
 
-         std::cout << "\nLet's Play!\n";
+         std::cout << "\nLet's Play!\n\n";
+         std::cout << player1 << ", it's your turn\n";
+
+         GameEngine* engine = new GameEngine();
+         engine->newGame(player1, player2);
+         std::string currentPlayer = player1;
+
+         std::cout << "You hand is\n";
+         engine->getPlayer2()->getPlayerHand()->printList();
+         std::cout << "\n";
+
+         while(!endGame(engine)){
+
+            std::string userAction;
+            std::cin >> userAction;
+            verifyCommand(userAction);
+
+            //user prompt
+            if(currentPlayer == player1){
+               currentPlayer = player2;
+            }else{
+               currentPlayer = player1;
+            }
+         }
       }
       else if (choice == 2)
       {
@@ -166,7 +189,7 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          std::cout << "Name : David Aziz \n";
          std::cout << "Student ID : s3825605 \n";
-         std::cout << "Email : s3825605@student.rmit.edu.au.edu> \n";
+         std::cout << "Email : s3825605@student.rmit.edu.au.edu \n";
          std::cout << "\n";
          std::cout << "Name : Tanishpreet Kaur \n";
          std::cout << "Student ID : s3825118 \n";
@@ -216,9 +239,17 @@ bool validateName(std ::string name)
    return true;
 }
 
-bool qwirkle(){
-   //check for possible qwirkle
+bool verifyCommand(std::string command){
+   bool verify = false;
+
+   //todo
+   return verify;
 }
+
+// bool qwirkle(){
+//    //check for possible qwirkle
+
+// }
    
 //will check if you should end the game
 bool endGame(GameEngine* engine){

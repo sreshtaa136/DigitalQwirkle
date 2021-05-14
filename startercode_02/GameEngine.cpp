@@ -9,6 +9,7 @@ void GameEngine::newGame(std::string player1, std::string player2){
     setPlayers(player1, player2);
     this->player1->setPlayerHand(tileBag->createHand());
     this->player2->setPlayerHand(tileBag->createHand());
+    printGameState();
 }
 
 //place tile, remove the tile from player's hand and update hand 
@@ -77,7 +78,7 @@ Player* GameEngine::getPlayer2(){
 
 void GameEngine::printGameState(){
 
-    std::cout << " \n";
+    //std::cout << " \n";
     std::cout << "Score for " << player1->getName() <<
     ": " << player1->getScore() << "\n";
     std::cout << "Score for " << player2->getName() <<
