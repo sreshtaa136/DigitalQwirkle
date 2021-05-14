@@ -1,7 +1,8 @@
 
 #include <iostream>
 #include <cctype>
-
+#include <string.h>
+#include <fstream>
 #include "TileCodes.h"
 #include "Tile.h"
 #include "Node.h"
@@ -161,23 +162,35 @@ int main(int argc, char** argv) {
          engine->newGame(player1, player2);
          std::string currentPlayer = player1;
 
-         std::cout << "You hand is\n";
+         std::cout << "Your hand is\n";
          engine->getPlayer2()->getPlayerHand()->printList();
          std::cout << "\n";
+         std::cout << "> ";
+         
+         std::string userAction;
+         std::cin.ignore();
+         getline(std::cin, userAction);
+         std::cout << userAction;
+         // pos = userAction.find('c');
+         // std ::string temp = userAction.substr(0, pos);
+         // std ::cout << temp;
 
-         while(!endGame(engine)){
+        // verifyCommand(userAction);
 
-            std::string userAction;
-            std::cin >> userAction;
-            verifyCommand(userAction);
+   while (!endGame(engine))
+   {
 
-            //user prompt
-            if(currentPlayer == player1){
-               currentPlayer = player2;
-            }else{
-               currentPlayer = player1;
-            }
+      //user prompt
+      if (currentPlayer == player1)
+      {
+         currentPlayer = player2;
+      }
+      else
+      {
+         currentPlayer = player1;
+      }
          }
+
       }
       else if (choice == 2)
       {
@@ -240,7 +253,17 @@ bool validateName(std ::string name)
 }
 
 bool verifyCommand(std::string command){
-   bool verify = false;
+   std :: string temp ;
+   std ::cout << command.length();
+   int pos = command.find(' ');
+   temp = command.substr(0, pos);
+   std ::cout << temp;
+   std ::cout << command.length();
+    if (command.length() == 14)
+   {
+
+   }
+    bool verify = false;
 
    //todo
    return verify;
