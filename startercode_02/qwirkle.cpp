@@ -22,16 +22,17 @@ int main(int argc, char** argv) {
    list->printList();
    
    GameBoard* g = new GameBoard();
-   //Tile* t3 = new Tile('R', 1);
+   Tile* t3 = new Tile('R', 1);
    Tile* t4 = new Tile('Y', 2);
-   g->placeTile('B', 0, t4);
    
-   g->placeTile('B', 1, t2);
 
-   g->placeTile('A', 4, t1);
-   //g->placeTile('C', 1, t3);
-   //g->placeTile('B', 2, t2);
-   
+   g->placeTile('C', 2, t4);
+   g->placeTile('C', 1, t2);
+   g->placeTile('D', 1, t3);
+   g->placeTile('C', 2, t2);
+   g->placeTile('A', 2, t1);
+
+
 
    //tile->printTile();
    g->displayBoard();

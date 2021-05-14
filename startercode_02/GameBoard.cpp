@@ -68,60 +68,100 @@ bool GameBoard::isValidMove(int row, int col, Tile* tile) {
     bool upValid = false;
     bool downValid = false;
 
+    // if it's the first tile
     if (tilesOnBoard == 0) {
         valid = true;
-    } 
-    else { 
-        //upper tile
-        if (board[row-1][col] != nullptr && row > 0) {
-            
-            if(board[row-1][col]->getColour() == tile->getColour() ||
-               board[row-1][col]->getShape() == tile->getShape()) {
-                   board[row-1][col]->printTile();
-                   upValid = true;
-            } else { 
-                   std::cout << "invalid" << std::endl;}
-        } else { 
-            std::cout << "null/out of boundS" << std::endl;}
 
-        //down tile
-        if (board[row+1][col] != nullptr && row < MAX_DIM) {
-            if(board[row+1][col]->getColour() == tile->getColour() ||
-               board[row+1][col]->getShape() == tile->getShape()) {
-                   downValid = true;
+    } else { 
+
+        // Check if row is in bounds
+        if (row > 0) {
+
+            // Check if there is a tile above
+            if (board[row-1][col] != nullptr) {
+
+                // Check if either the colour or shape are same
+                if (board[row-1][col]->getColour() == tile->getColour() ||
+                    board[row-1][col]->getShape() == tile->getShape()) {
+                        upValid = true;
+                } 
+
+                // Check if it is a duplicate tile
+                if (board[row-1][col]->getColour() == tile->getColour() &&
+                    board[row-1][col]->getShape() == tile->getShape()) {
+                        upValid = false;
+                } 
             }
-        } else { 
-            std::cout << "null/out of boundS" << std::endl;}
-
-    
-        //left tile
-        if (board[row][col-1] != nullptr && col > 0) {
-            if (board[row][col-1]->getColour() == tile->getColour() ||
-                board[row][col-1]->getShape() == tile->getShape()) {
-                    leftValid = true;
-            }
-        } else { 
-            std::cout << "null/out of boundS" << std::endl;}
-
-
-        // //right valid
-        // if (board[row][col+1] != nullptr && col < MAX_DIM) {
-        //     if(board[row][col+1]->getColour() == tile->getColour() ||
-        //        board[row][col+1]->getShape() == tile->getShape()) {
-        //            rightValid = true;
-        //     }
-        // } else { 
-        //     std::cout << "null/out of boundS" << std::endl;}
-
+        }
         
+        // Check if row is in bounds
+        if (row < MAX_DIM-1) {
+
+            // Check if there is a tile below
+            if (board[row+1][col] != nullptr) {
+
+                // Check if either the colour or shape are same
+                if (board[row+1][col]->getColour() == tile->getColour() ||
+                    board[row+1][col]->getShape() == tile->getShape()) {
+                       downValid = true;
+                }
+
+                // Check if it is a duplicate tile
+                if (board[row+1][col]->getColour() == tile->getColour() &&
+                    board[row+1][col]->getShape() == tile->getShape()) {
+                        downValid = false;
+                } 
+            } 
+        }
+        
+        // Check if column is in bounds
+        if (col > 0) {
+
+            // Check if there is a tile to the left
+            if (board[row][col-1] != nullptr) {
+
+                // Check if either the colour or shape are same
+                if (board[row][col-1]->getColour() == tile->getColour() ||
+                    board[row][col-1]->getShape() == tile->getShape()) {
+                        leftValid = true;
+                }
+
+                // Check if it is a duplicate tile
+                if (board[row][col-1]->getColour() == tile->getColour() &&
+                    board[row][col-1]->getShape() == tile->getShape()) {
+                        leftValid = false;
+                } 
+            } 
+        }
+
+        // Check if column is in bounds
+        if (col < MAX_DIM-1) {
+
+            // Check if there is a tile to the right
+            if (board[row][col+1] != nullptr) {
+
+                // Check if either the colour or shape are same
+                if (board[row][col+1]->getColour() == tile->getColour() ||
+                    board[row][col+1]->getShape() == tile->getShape()) {
+                        rightValid = true;
+                }
+
+                // Check if it is a duplicate tile
+                if (board[row][col+1]->getColour() == tile->getColour() &&
+                    board[row][col+1]->getShape() == tile->getShape()) {
+                        rightValid = false;
+                } 
+            } 
+        }
+
+        // there must be at least one adjacent tile for move to be valid
         valid = upValid || downValid || rightValid || leftValid;
+     
     }
 
     return valid;
 }
 
-
-    
 
 void GameBoard::displayBoard() {
     char seperator = '|';
