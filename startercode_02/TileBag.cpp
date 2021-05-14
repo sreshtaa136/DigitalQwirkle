@@ -13,6 +13,7 @@
 
 TileBag::TileBag(){
     tileBag = new LinkedList();
+    shuffleBag();
     bagSize = tileBag->getSize();
 }
 
@@ -23,6 +24,10 @@ TileBag::~TileBag(){
 
 LinkedList* TileBag::getTileBag(){
     return this->tileBag;
+}
+
+int TileBag::getBagSize(){
+    return this->bagSize;
 }
 
 LinkedList* TileBag::createBag(){
@@ -90,6 +95,6 @@ LinkedList* TileBag::createHand(){
     while(playerHand->getSize() != 6){
         playerHand->addToEnd(drawTile());
     }
-    playerHand->printList();
+    //playerHand->printList();
     return playerHand;
 }

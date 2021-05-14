@@ -74,7 +74,9 @@ int LinkedList::searchTile(Tile* tile){
    Node* currNode = head;
    for (int i = 0; i < size; ++i) {
       if(currNode->getTile()->getColour() == colour &&
-      currNode->getTile()->getShape() == shape){
+      currNode->getTile()->getShape() == shape &&
+      index == -1){
+         
          index = i;
       }
       currNode = currNode->getNext();

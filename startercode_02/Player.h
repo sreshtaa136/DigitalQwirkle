@@ -20,6 +20,7 @@ public:
     // set the player's score and hand
     void setScore(int score);
     void setPlayerHand(LinkedList* hand);
+    void printPlayerHand();
 
     // add up the player's score
     void incrementScore(int newScore);

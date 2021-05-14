@@ -17,6 +17,22 @@ int main(int argc, char** argv) {
 
    //TESTING
 
+   // GameEngine* engine = new GameEngine();
+   // engine->newGame("A", "B");
+   // //engine->printGameState();
+   // std::cout << "A's hand: \n";
+   // engine->getPlayer1()->printPlayerHand();
+   // std::cout << "B's hand: \n";
+   // engine->getPlayer2()->printPlayerHand();
+   // std::cout << "\n";
+
+   // engine->tileBag->getTileBag()->printList();
+   // Tile* tile = engine->getPlayer1()->getPlayerHand()->getTileAtIndex(0);
+   // engine->replaceTile(tile->getColour(), tile->getShape(), "A");
+   // std::cout << "A's hand: \n";
+   // engine->getPlayer1()->printPlayerHand();
+   // engine->tileBag->getTileBag()->printList();
+
    // LinkedList* list = new LinkedList();
    // Tile* t1 = new Tile('Y', 1);
    // Tile* t2 = new Tile('Y', 2);

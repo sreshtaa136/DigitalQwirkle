@@ -33,3 +33,7 @@ void Player::setPlayerHand(LinkedList* hand) {
 void Player::incrementScore(int newScore) {
     this->score += newScore;
 }
+
+void Player::printPlayerHand(){
+    playerHand->printList();
+}

@@ -24,6 +24,7 @@ public:
    Tile* drawTile();
 
    LinkedList* getTileBag();
+   int getBagSize();
 
 private:
     char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
