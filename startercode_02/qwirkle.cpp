@@ -170,7 +170,10 @@ int main(int argc, char** argv) {
          std::string userAction;
          std::cin.ignore();
          getline(std::cin, userAction);
-         std::cout << userAction;
+         //std::cout << userAction[8] << userAction[9];
+         char colour = userAction[8];
+         int shape = userAction[9];
+
          // while(!endGame(engine)){
 
          //    std::string userAction;
