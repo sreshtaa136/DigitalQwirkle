@@ -13,6 +13,10 @@
 
 
 bool validateName (std :: string name);
+bool qwirkle();
+bool endGame(GameEngine* engine);
+void newGame(std::string player1, std::string player2);
+
 int main(int argc, char** argv) {
 
    //TESTING
@@ -210,4 +214,53 @@ bool validateName(std ::string name)
    }
    return true;
 }
+
+bool qwirkle(){
+   //check for possible qwirkle
+}
    
+//will check if you should end the game
+bool endGame(GameEngine* engine){
+   bool check = false;
+   bool checkHand = engine->getPlayer1()->getPlayerHand()->getSize() == 0 ||
+                    engine->getPlayer2()->getPlayerHand()->getSize() == 0;
+
+   if(engine->tileBag->getBagSize() == 0 &&
+   checkHand){
+      check = true;
+   }
+   return check;
+}
+
+void newGame(std::string player1, std::string player2){
+
+   GameEngine* engine = new GameEngine();
+   engine->newGame(player1, player2);
+   std::string currentPlayer = player1;
+
+   while(!endGame(engine)){
+      //user prompt
+      if(currentPlayer == player1){
+         currentPlayer = player2;
+      }else{
+         currentPlayer = player1;
+      }
+   }
+   if(endGame(engine)){
+      
+      std::cout << "Game over \n";
+      std::cout << "Score for " << engine->getPlayer1()->getName() 
+      << ": " << engine->getPlayer1()->getScore() << "\n";
+      std::cout << "Score for " << engine->getPlayer2()->getName() 
+      << ": " << engine->getPlayer2()->getScore() << "\n";
+
+      if(engine->getPlayer1()->getScore() > engine->getPlayer2()->getScore()){
+         std::cout << "Player " << engine->getPlayer1()->getName() <<
+         " won!\n\n";
+      }else{
+         std::cout << "Player " << engine->getPlayer2()->getName() <<
+         " won!\n\n";
+      }
+      std::cout << "Goodbye \n";
+   }
+}
