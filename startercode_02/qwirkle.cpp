@@ -16,7 +16,6 @@ bool validateName (std :: string name);
 int main(int argc, char** argv) {
 
    //TESTING
-<<<<<<< HEAD
 
    // GameEngine* engine = new GameEngine();
    // engine->newGame("A", "B");
@@ -35,11 +34,12 @@ int main(int argc, char** argv) {
    // engine->tileBag->getTileBag()->printList();
 
    // LinkedList* list = new LinkedList();
-   // Tile* t1 = new Tile('Y', 1);
-   // Tile* t2 = new Tile('Y', 2);
-   // Tile* t3 = new Tile('Y', 3);
-   // Tile* t4 = new Tile('Y', 4);
-   // //Tile* t5 = new Tile('Y', 1);
+   // Tile* t1 = new Tile('R', 1);
+   // Tile* t2 = new Tile('R', 2);
+   // Tile* t3 = new Tile('R', 3);
+   // Tile* t4 = new Tile('R', 4);
+   // Tile* t5 = new Tile('Y', 4);
+   // Tile* t6 = new Tile('B', 4);
 
    // list->addToEnd(t1);
    // list->addToEnd(t2);
@@ -84,33 +84,56 @@ int main(int argc, char** argv) {
    // bag->tileBag->printList();
    
    //TESTING ENDS ------------------------------------------
-=======
-   LinkedList* list = new LinkedList();
-   Tile* t1 = new Tile('Y', 1);
-   Tile* t2 = new Tile('R', 2);
-   list->addToFront(t1);
-   list->printList();
-   list->addToFront(t2);
-   list->printList();
+   // LinkedList* list = new LinkedList();
+   // Tile* t1 = new Tile('Y', 1);
+   // Tile* t2 = new Tile('R', 2);
+   // list->addToFront(t1);
+   // list->printList();
+   // list->addToFront(t2);
+   // list->printList();
    
-   GameBoard* g = new GameBoard();
-   Tile* t3 = new Tile('R', 1);
-   Tile* t4 = new Tile('Y', 2);
-   
+   //TESTING BOARD -------------------------------------------------
+   // GameBoard* g = new GameBoard();
+   // Tile* t3 = new Tile('R', 1);
+   // Tile* t7 = new Tile('Y', 3);
+   //Tile* t8 = new Tile('R', 5);
+   // Tile* t9 = new Tile('O', 3);
+   // Tile* t10 = new Tile('O', 4);
 
-   g->placeTile('C', 2, t4);
-   g->placeTile('C', 1, t2);
-   g->placeTile('D', 1, t3);
-   g->placeTile('C', 2, t2);
-   g->placeTile('A', 2, t1);
+   // std::cout << g->charToInt('D') << std::endl;
+
+   // g->placeTile('A', 1, t1);
+   // std::cout << "score 1: " << g->calculatePoints('A', 1) << std::endl;
+
+   // g->placeTile('B', 1, t2);
+   // std::cout << "score 2: " << g->calculatePoints('B', 1) << std::endl;
+
+   // g->placeTile('C', 1, t3);
+   // std::cout << "score 3: " << g->calculatePoints('C', 1) << std::endl;
+
+   // g->placeTile('D', 1, t4);
+
+   // g->placeTile('D', 2, t5);
+   // std::cout << "score 5: " << g->calculatePoints('D', 2) << std::endl;
+
+   // g->placeTile('D', 3, t6);
+   // std::cout << "score 6: " << g->calculatePoints('D', 3) << std::endl;
+   // std::cout << "score 4: " << g->calculatePoints('D', 1) << std::endl;
+
+   // g->placeTile('C', 2, t7);
+   // std::cout << "score 7: " << g->calculatePoints('C', 2) << std::endl;
+
+   // //g->placeTile('D', 5, t8);
+   // // g->placeTile('D', 3, t9);
+   // // g->placeTile('D', 4, t10);
+   // g->calculatePoints('D', 5);
+   // std::cout << "score: " << g->calculatePoints('D', 5) << std::endl;
 
 
-
-   //tile->printTile();
-   g->displayBoard();
-   //TESTING ENDS
+   // //tile->printTile();
+   // g->displayBoard();
+   //TESTING ENDS ------------------------------------------------
  
->>>>>>> nish
 
    int choice = 0;
    while (choice !=4 ){
