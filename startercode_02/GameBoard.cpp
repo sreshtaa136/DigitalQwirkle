@@ -29,16 +29,17 @@ GameBoard::~GameBoard() {
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
 
     int rowIdx = charToInt(row);
-    
+    bool place = false;
     //check if tile space is empty and move is valid according to qwirkle rules
     if (isEmptySpace(rowIdx, col) && isValidPosition(rowIdx, col, tile) && !checkLine(rowIdx, col)) 
     {
         board[rowIdx][col] = tile;
         ++tilesOnBoard;
+        place = true;
     }
     else { std::cout << "error" << std::endl; }
     
-    return false;
+    return place;
 }
 
 bool GameBoard::isEmptySpace(int row, int col) {
