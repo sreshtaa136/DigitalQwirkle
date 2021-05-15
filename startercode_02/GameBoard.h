@@ -27,7 +27,7 @@ public:
     // check if the position is valid according to qwirkle rules
     bool isValidPosition(int row, int col, Tile* tile);
 
-    bool checkDuplicates(int row, int col, std::string direction);
+    bool checkDuplicates(int row, int col, std::string direction, Tile* tile);
     
     // calculate adjacent tiles above the current position
     int totalTilesAbove(int row, int col);

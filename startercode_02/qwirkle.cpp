@@ -21,6 +21,7 @@ void newGame(std::string player1, std::string player2);
 bool verifyCommand(std::string command);
 bool verifyHand(std::string command, GameEngine *engine, std::string currentPlayer);
 
+
 int main(int argc, char** argv) {
 
    int choice = 0;
@@ -244,14 +245,14 @@ bool verifyCommand(std::string command){
 
   bool check = true;
 
-  if(command.length() ==14 || command.length() == 10 ){
+  if(command.length() ==14 || command.length() == 10) {
 
-      bool foundColour = false ;
+      bool foundColour = false;
       bool foundShape = false;
 
       if (command.length() == 14)
       {
-         std ::string tmp = command.substr(0, 6);
+         std::string tmp = command.substr(0, 6);
 
          if (tmp != "place ")
          {
@@ -288,7 +289,7 @@ bool verifyCommand(std::string command){
          bool foundcol = false;
          bool foundrow = false;
 
-         for (int i = 0; i < 25; i++)
+         for (int i = 0; i < MAX_DIM; i++)
          {
             if (command[12] == alphabets[i])
             {

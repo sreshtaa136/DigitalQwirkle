@@ -2,12 +2,15 @@
 #include <iostream>
 
 GameBoard::GameBoard() {
+
+    std::vector<Tile*> temp;
+
+    for (int col = 0; col < MAX_DIM; ++col) {
+            temp.push_back(nullptr);
+	}
+
     for (int row = 0; row < MAX_DIM; ++row) {
 
-        std::vector<Tile*> temp;
-        for (int col = 0; col < MAX_DIM; ++col) {
-            temp.push_back(nullptr);
-	    }
         board.push_back(temp);
 	}
 
@@ -77,7 +80,7 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
             } 
 
             // Check if it has any duplicate tile above it
-            if (checkDuplicates(row, col, "above")) {
+            if (checkDuplicates(row, col, "above", tile)) {
                     upValid = false;
             } 
         }
@@ -86,6 +89,7 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
 
             ++neighbour;
 
+
             // Check if either the colour or shape are same for adjacent tile
             if (board[row+1][col]->getColour() == tile->getColour() ||
                 board[row+1][col]->getShape() == tile->getShape()) {
@@ -93,7 +97,7 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
             }
 
             // Check if it has any duplicate tile below it
-            if (checkDuplicates(row, col, "down")) {
+            if (checkDuplicates(row, col, "below", tile)) {
                     downValid = false;
             } 
         }
@@ -109,7 +113,7 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
             }
 
             // Check if it has any duplicate tile to the left 
-            if (checkDuplicates(row, col, "left")) {
+            if (checkDuplicates(row, col, "left", tile)) {
                     leftValid = false;
             } 
         }
@@ -125,61 +129,82 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
             }
 
             // Check if it has any duplicate tile to the right
-            if (checkDuplicates(row, col, "right")) {
+            if (checkDuplicates(row, col, "right", tile)) {
                     rightValid = false;
             } 
            
         }
 
-        // there must be at least one adjacent tile for move to be valid
-        // should not have more than two adjacent tiles
-        if ((upValid || downValid || rightValid || leftValid) && neighbour <= 2) {
+        bool oneMatching = upValid || downValid || rightValid || leftValid;
+
+        bool twoMatching = (upValid && downValid) || (rightValid && leftValid) ||
+                           (upValid && rightValid) || (upValid && leftValid) ||
+                           (downValid && rightValid) || (downValid && leftValid);
+
+        bool threeMatching = (upValid && downValid && rightValid) ||
+                             (downValid && rightValid && leftValid) ||
+                             (rightValid && leftValid && upValid) ||
+                             (upValid && downValid && leftValid);
+
+        bool fourMatching = upValid && downValid && rightValid && leftValid;
+
+
+        if (neighbour == 1 && oneMatching) {
             valid = true;
         }
+
+        if (neighbour == 2 && twoMatching) {
+            valid = true;
+        }
+
+        if (neighbour == 3 && threeMatching) {
+            valid = true;
+        }
+
+        if(neighbour == 4 && fourMatching) {
+            valid = true;
+        }
+        
     }
-    
 
     return valid;
 }
 
-bool GameBoard::checkDuplicates(int row, int col, std::string direction) {
+
+bool GameBoard::checkDuplicates(int row, int col, std::string direction, Tile* tile) {
     bool duplicateFound = false;
 
     if (direction.compare("right") == 0) {
         while (hasTileAtRight(row, col)) {
-             if (board[row][col+1]->getColour() == board[row][col]->getColour() &&
-                 board[row][col+1]->getShape() == board[row][col]->getShape()) {
+             if (board[row][col+1]->getColour() == tile->getColour() &&
+                 board[row][col+1]->getShape() == tile->getShape()) {
                      duplicateFound = true;
             }
-
-        ++col;
+            ++col;
         }
     } else if (direction.compare("left") == 0) {
         while (hasTileAtLeft(row, col)) {
-             if (board[row][col-1]->getColour() == board[row][col]->getColour() &&
-                 board[row][col-1]->getShape() == board[row][col]->getShape()) {
+             if (board[row][col-1]->getColour() == tile->getColour() &&
+                 board[row][col-1]->getShape() == tile->getShape()) {
                      duplicateFound = true;
             }
-
-        --col;
+            --col;
         }
     } else if (direction.compare("above") == 0) {
-        while (hasTileAtRight(row, col)) {
-             if (board[row-1][col]->getColour() == board[row][col]->getColour() &&
-                 board[row-1][col]->getShape() == board[row][col]->getShape()) {
+        while (hasTileAbove(row, col)) {
+             if (board[row-1][col]->getColour() == tile->getColour() &&
+                 board[row-1][col]->getShape() == tile->getShape()) {
                      duplicateFound = true;
             }
-
-        --row;
+            --row;
         }
     } else if (direction.compare("below") == 0) {
-        while (hasTileAtRight(row, col)) {
-             if (board[row+1][col]->getColour() == board[row][col]->getColour() &&
-                 board[row+1][col]->getShape() == board[row][col]->getShape()) {
+        while (hasTileBelow(row, col)) {
+             if (board[row+1][col]->getColour() == tile->getColour() &&
+                 board[row+1][col]->getShape() == tile->getShape()) {
                      duplicateFound = true;
             }
-
-        ++row;
+            ++row;
         }
     }
 
