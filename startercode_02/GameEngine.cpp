@@ -7,9 +7,11 @@ void GameEngine::newGame(std::string player1, std::string player2){
     gameBoard = new GameBoard();
     tileBag = new TileBag();
     setPlayers(player1, player2);
+    currentPlayer = this->player1;
     this->player1->setPlayerHand(tileBag->createHand());
     this->player2->setPlayerHand(tileBag->createHand());
     printGameState();
+    std::cout << "TileBag size: " << tileBag->getBagSize() << std::endl;
 }
 
 //place tile, remove the tile from player's hand and update hand 
@@ -84,6 +86,14 @@ Player* GameEngine::getPlayer1(){
 
 Player* GameEngine::getPlayer2(){
     return this->player2;
+}
+
+Player* GameEngine::getCurrentPlayer(){
+    return this->currentPlayer;
+}
+
+void GameEngine::setCurrentPlayer(std::string playerName){
+    this->currentPlayer = getPlayer(playerName);
 }
 
 Player* GameEngine::getPlayer(std::string playerName){

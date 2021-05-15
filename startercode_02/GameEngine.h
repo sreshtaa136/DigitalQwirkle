@@ -18,6 +18,8 @@ public:
     bool replaceTile(Colour colour, Shape shape, std::string player);
     Player* getPlayer1();
     Player* getPlayer2();
+    Player* getCurrentPlayer();
+    void setCurrentPlayer(std::string playerName);
     Player* getPlayer(std::string playerName);
     TileBag* tileBag;
     GameBoard* gameBoard;
@@ -26,6 +28,7 @@ private:
 
     Player* player1;
     Player* player2;
+    Player* currentPlayer;
     //TileBag* tileBag;
     
 };

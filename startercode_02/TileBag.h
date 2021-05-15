@@ -15,7 +15,6 @@ public:
 
    //LinkedList* orderedTileBag;
    LinkedList* tileBag;
-   int bagSize;
 
    LinkedList* createBag();
    void shuffleBag();

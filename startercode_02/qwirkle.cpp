@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cctype>
 #include <string>
+#include <fstream>
 #include "TileCodes.h"
 #include "Tile.h"
 #include "Node.h"
@@ -20,9 +21,39 @@ bool endGame(GameEngine* engine);
 void newGame(std::string player1, std::string player2);
 bool verifyCommand(std::string command);
 bool verifyHand(std::string command, GameEngine *engine, std::string currentPlayer);
+bool loadGame(std::string fileName);
 
 int main(int argc, char** argv) {
 
+   // TileBag* bag = new TileBag();
+   // bag->shuffleBag();
+   // std::cout<< bag->getBagSize() << std::endl;
+   // LinkedList* list = new LinkedList();
+   // list = bag->createHand();
+   // Tile* tile;
+   // tile = bag->drawTile();
+   //std::cout<< bag->getBagSize() << std::endl;
+   // Tile* t1 = new Tile('Y', 1);
+   // Tile* t2 = new Tile('Y', 2);
+   // Tile* t3 = new Tile('Y', 3);
+   // Tile* t4 = new Tile('Y', 4);
+   
+   // list->addToEnd(t1);
+   // list->addToEnd(t2);
+   // list->addToEnd(t3);
+   // list->addToEnd(t4);
+
+   // std::cout<< list->getSize() << std::endl;
+
+   // list->removeTile('Y', 1);
+   // list->removeTile('Y', 2);
+   // list->removeTile('Y', 3);
+   // list->removeTile('Y', 4);
+
+   // std::cout<< list->getSize() << std::endl;
+   
+   
+   
    int choice = 0;
    while (choice !=4 ){
       std::cout << "\nWelcome to Qwirkle!\n";
@@ -84,6 +115,7 @@ int main(int argc, char** argv) {
                engine->printGameState();
                std::cout << "Your hand is\n";
                engine->getPlayer(currentPlayer)->getPlayerHand()->printList();
+               std::cout << "TileBag size: " << engine->tileBag->getBagSize() << std::endl;
                std::cout << "\n";
             }
 
@@ -95,12 +127,14 @@ int main(int argc, char** argv) {
                iterator ++ ;
             }
 
+            //std::cin.ignore();
             getline(std::cin, userAction);
             
             while (!verifyCommand(userAction))
             {
                std::cout << "\n Invalid input \n";
                std::cout << "> "; 
+               //std::cin.ignore();
                getline(std::cin, userAction);
             }
 
@@ -111,8 +145,16 @@ int main(int argc, char** argv) {
                std::copy(s.begin(), s.end(), cstr);
                cstr[s.size()] = '\0';
 
-               char col = userAction[13];
-               int icol = col - '0'; 
+               int icol;
+               char col;
+
+               if(userAction.size() == 14){
+                  col = userAction[13];
+                  icol = col - '0'; 
+               }else{
+                  std ::string col = userAction.substr(13, 2);
+                  icol = std::stoi(col);
+               }
 
                char shape = userAction[7];
                int ishape = shape - '0';
@@ -129,8 +171,14 @@ int main(int argc, char** argv) {
                   std::copy(s.begin(), s.end(), cstr);
                   cstr[s.size()] = '\0';
 
-                  col = userAction[13];
-                  icol = col - '0'; 
+                  if(userAction.size() == 14){
+                     col = userAction[13];
+                     icol = col - '0'; 
+                  }else{
+                     std ::string col = userAction.substr(13, 2);
+                     icol = std::stoi(col);
+                  } 
+
                   shape = userAction[7];
                   ishape = shape - '0';
                   place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
@@ -155,12 +203,25 @@ int main(int argc, char** argv) {
                   }
                }
                turn++;
-            }
+            }else if (userAction[0] == 's'){
 
-            if(currentPlayer == player1){
-               currentPlayer = player2;
-            }else{
-               currentPlayer = player1;
+               int nameSize = userAction.size() - 5;
+               std ::string fileName = userAction.substr(5, nameSize);
+               
+
+            }
+            
+            if(userAction[0] != 's'){
+               if(currentPlayer == player1){
+               
+                  engine->setCurrentPlayer(player2);
+                  currentPlayer = engine->getCurrentPlayer()->getName();
+
+               }else{
+                  
+                  engine->setCurrentPlayer(player1);
+                  currentPlayer = engine->getCurrentPlayer()->getName();
+               }
             }
          }
          if(endGame(engine)){
@@ -183,7 +244,15 @@ int main(int argc, char** argv) {
       }
       else if (choice == 2)
       {
-         std::cout << "\nStory so far....\n";
+         std::string fileName;
+
+         do{
+            
+            std::cout << "\nEnter the file name from which load a game\n";
+            std::cout << "> ";
+            std::cin >> fileName;
+
+         }while(!loadGame(fileName));
       }
       else if (choice == 3)
       {
@@ -220,9 +289,25 @@ int main(int argc, char** argv) {
    
 }
 
+bool loadGame(std::string fileName){
+
+   bool load = false;
+
+   std::ifstream file(fileName);
+
+   if(file.fail()){
+      load = false;
+   }else{
+
+      load = true;
+      //std::cout<< "\nyep" << std::endl;
+   }
+   return load;
+}
+
 //to run: 
 //make sure you are on starter code dr and run the following in the terminal
-//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp GameBoard.cpp Player.cpp GameEngine.cpp
+//g++ -Wall -Werror -std=c++14 -g -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp TileBag.cpp GameBoard.cpp Player.cpp GameEngine.cpp
 //./qwirkle
 //valgrind --leak-check=full ./qwirkle
 
@@ -242,14 +327,14 @@ bool validateName(std ::string name)
 
 bool verifyCommand(std::string command){
 
-  bool check = true;
+   bool check = true;
 
-  if(command.length() ==14 || command.length() == 10 ){
-
+   if(command.length() == 14 || command.length() == 10 || command.length() == 15){
+      
       bool foundColour = false ;
       bool foundShape = false;
 
-      if (command.length() == 14)
+      if (command.length() == 14 || command.length() == 15)
       {
          std ::string tmp = command.substr(0, 6);
 
@@ -288,15 +373,23 @@ bool verifyCommand(std::string command){
          bool foundcol = false;
          bool foundrow = false;
 
-         for (int i = 0; i < 25; i++)
+         for (int i = 0; i < 26; i++)
          {
             if (command[12] == alphabets[i])
             {
                foundrow= true;
             }
-            
-            int sha = command[13] - '0';
-            if (sha == i)
+
+            int icol;
+
+            if(command.length() == 15){
+               std ::string col = command.substr(13, 2);
+               icol = std::stoi(col);
+            }else{
+               icol = command[13] - '0';
+            }
+
+            if (icol == i)
             {
                foundcol = true;
             }
@@ -341,6 +434,12 @@ bool verifyCommand(std::string command){
       check = false;
       //return false;
    } 
+
+   std ::string tmp = command.substr(0, 5);
+   if(tmp == "save "){
+      check = true;
+   }
+
    return check;
 }
 

@@ -3,7 +3,9 @@
 
 #include "Tile.h"
 #include <vector>
+#include <string>
 #define MAX_DIM 26
+#define MAX_LINE_SIZE 6
 #define QWIRKLE_SCORE 6
 #define ONE_TILE_SCORE 1
 
@@ -23,8 +25,10 @@ public:
     // check if the given position is empty
     bool isEmptySpace(int row, int col);
 
-    // check if the move is valid according to qwirkle rules
-    bool isValidMove(int row, int col, Tile* tile);
+    // check if the position is valid according to qwirkle rules
+    bool isValidPosition(int row, int col, Tile* tile);
+
+    bool checkDuplicates(int row, int col, std::string direction, Tile* tile);
     
     // calculate adjacent tiles above the current position
     int totalTilesAbove(int row, int col);
@@ -60,11 +64,14 @@ public:
 
     int charToInt(char c);
 
+    bool checkSameColourOrShapeLeft(int row, int col, Tile* tile);
+    bool checkSameColourOrShapeRight(int row, int col, Tile* tile);
+    bool checkSameColourOrShapeAbove(int row, int col, Tile* tile);
+    bool checkSameColourOrShapeBelow(int row, int col, Tile* tile);
+
     
 private:
     
-    int row;
-    int col;
     char alphabets[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
     'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
     int tilesOnBoard;
