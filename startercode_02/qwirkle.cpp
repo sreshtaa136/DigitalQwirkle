@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "GameBoard.h"
 #include "GameEngine.h"
+
 char alphabets[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
 int shapes[6] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
@@ -22,6 +23,7 @@ void newGame(std::string player1, std::string player2);
 bool verifyCommand(std::string command);
 bool verifyHand(std::string command, GameEngine *engine, std::string currentPlayer);
 bool loadGame(std::string fileName);
+
 
 int main(int argc, char** argv) {
 
@@ -106,8 +108,9 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          int turn = 0;
          int iterator = 0;
+         bool quit = false;
 
-         while(!endGame(engine)){
+         while(!endGame(engine) && !quit){
 
             if(turn != 0){
                std::cout << "\n";
@@ -209,6 +212,8 @@ int main(int argc, char** argv) {
                std ::string fileName = userAction.substr(5, nameSize);
                
 
+            }else if(userAction[0] == 'q'){
+               quit = true;
             }
             
             if(userAction[0] != 's'){
@@ -223,6 +228,7 @@ int main(int argc, char** argv) {
                   currentPlayer = engine->getCurrentPlayer()->getName();
                }
             }
+
          }
          if(endGame(engine)){
             
@@ -260,7 +266,7 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          std::cout << "Name : David Aziz \n";
          std::cout << "Student ID : s3825605 \n";
-         std::cout << "Email : s3825605@student.rmit.edu.au.edu \n";
+         std::cout << "Email : s3825605@student.rmit.edu.au \n";
          std::cout << "\n";
          std::cout << "Name : Tanishpreet Kaur \n";
          std::cout << "Student ID : s3825118 \n";
@@ -336,7 +342,7 @@ bool verifyCommand(std::string command){
 
       if (command.length() == 14 || command.length() == 15)
       {
-         std ::string tmp = command.substr(0, 6);
+         std::string tmp = command.substr(0, 6);
 
          if (tmp != "place ")
          {
@@ -437,6 +443,10 @@ bool verifyCommand(std::string command){
 
    std ::string tmp = command.substr(0, 5);
    if(tmp == "save "){
+      check = true;
+   }
+
+   if(command == "quit"){
       check = true;
    }
 
