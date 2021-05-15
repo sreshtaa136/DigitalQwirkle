@@ -274,7 +274,7 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          std::cout << "Name : David Aziz \n";
          std::cout << "Student ID : s3825605 \n";
-         std::cout << "Email : s3825605@student.rmit.edu.au.edu \n";
+         std::cout << "Email : s3825605@student.rmit.edu.au \n";
          std::cout << "\n";
          std::cout << "Name : Tanishpreet Kaur \n";
          std::cout << "Student ID : s3825118 \n";

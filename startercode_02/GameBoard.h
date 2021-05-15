@@ -3,6 +3,7 @@
 
 #include "Tile.h"
 #include <vector>
+#include <string>
 #define MAX_DIM 26
 #define QWIRKLE_SCORE 6
 #define ONE_TILE_SCORE 1
@@ -23,8 +24,10 @@ public:
     // check if the given position is empty
     bool isEmptySpace(int row, int col);
 
-    // check if the move is valid according to qwirkle rules
-    bool isValidMove(int row, int col, Tile* tile);
+    // check if the position is valid according to qwirkle rules
+    bool isValidPosition(int row, int col, Tile* tile);
+
+    bool checkDuplicates(int row, int col, std::string direction);
     
     // calculate adjacent tiles above the current position
     int totalTilesAbove(int row, int col);
@@ -59,6 +62,7 @@ public:
     bool isQwirkle(int row, int col);
 
     int charToInt(char c);
+
 
     
 private:
