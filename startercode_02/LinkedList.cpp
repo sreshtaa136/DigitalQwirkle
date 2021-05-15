@@ -193,6 +193,18 @@ void LinkedList::printList(){
    std::cout << "\n";
 }
 
+std::string LinkedList::toString(){
+   std::string string = "";
+   Node* currNode = head;
+   while(currNode != nullptr){
+      string += currNode->getTile()->toString();
+      currNode = currNode->getNext();
+      if(currNode != nullptr){
+         string += ",";
+      }
+   }
+}
+
 //TESTING
 void LinkedList::printCount(){
    Node* currNode = head;

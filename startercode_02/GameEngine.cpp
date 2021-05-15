@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 
 #include <iostream>
+#include <fstream>
 
 void GameEngine::newGame(std::string player1, std::string player2){
     
@@ -106,4 +107,25 @@ void GameEngine::printGameState(){
     ": " << player2->getScore() << "\n\n";
     gameBoard->displayBoard();
     std::cout << " \n";
+}
+
+bool GameEngine::saveGame(std::string fileName, std::string currentPlayer) {
+    bool gameSaved = false;
+
+    fileName += ".save";
+    std::ofstream outFile;
+    outFile.open(fileName);
+
+    outFile << player1->getName() << std::endl;
+    outFile << player1->getScore() << std::endl;
+    outFile << player1->getPlayerHand()->toString() << std::endl;
+    outFile << player2->getName() << std::endl;
+    outFile << player2->getScore() << std::endl;
+    outFile << player2->getPlayerHand()->toString() << std::endl;
+    outFile << gameBoard->dimensionsToString() << std::endl;
+    outFile << gameBoard->toString() << std::endl;
+    outFile << tileBag->getTileBag()->toString() << std::endl;
+    outFile << currentPlayer << std::endl;
+
+    outFile.close();
 }

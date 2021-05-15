@@ -1,12 +1,12 @@
 #include "Tile.h"
 #include <iostream>
 
-Tile::Tile(Colour colour, Shape shape){
+Tile::Tile(Colour colour, Shape shape) {
     this->colour = colour;
     this->shape = shape;
 }
 
-Tile::~Tile(){
+Tile::~Tile() {
     
 }
 
@@ -16,23 +16,30 @@ Tile::Tile(Tile& other) :
     shape(other.shape)
 {}
 
-void Tile::setColour(Colour colour){
+void Tile::setColour(Colour colour) {
     this->colour = colour;
 }
 
-Colour Tile::getColour(){
+Colour Tile::getColour() {
     return this->colour;
 }
 
-void Tile::setShape(Shape shape){
+void Tile::setShape(Shape shape) {
     this->shape = shape;
 }
 
-Shape Tile::getShape(){
+Shape Tile::getShape() {
     return this->shape;
 }
 
-void Tile::printTile(){
+void Tile::printTile() {
     std::cout << this->colour;
     std::cout << this->shape;
+}
+
+std::string Tile::toString() {
+    std::string colourStr;
+    colourStr = colour;
+    std::string shapeStr = std::to_string(shape);
+    return colourStr + shapeStr;
 }

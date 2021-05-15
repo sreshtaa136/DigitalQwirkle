@@ -157,6 +157,9 @@ int main(int argc, char** argv) {
                }
                turn++;
             }
+            else if (userAction[0] == 's') {
+               
+            }
 
             if(currentPlayer == player1){
                currentPlayer = player2;

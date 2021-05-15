@@ -24,6 +24,10 @@ GameBoard::~GameBoard() {
 	}
 }
 
+std::string GameBoard::dimensionsToString() {
+    return std::to_string(board.size()) + "," + std::to_string(board[0].size());
+}
+
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
     int rowIdx = charToInt(row);
     bool place = false;
@@ -38,7 +42,6 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
         ++tilesOnBoard;
         place = true;
     }
-    else { std::cout << "error" << std::endl; }
     
     return place;
 }
@@ -48,6 +51,9 @@ bool GameBoard::isEmptySpace(int row, int col) {
 
     if(board[row][col] == nullptr) {
         empty = true;
+    }
+    else {
+        std::cerr << "Can't place tile at an occupied spot!" << std::endl;
     }
     
     return empty;
@@ -328,6 +334,8 @@ bool GameBoard::checkDuplicates(int row, int col, std::string direction, Tile* t
             }
             ++row;
         }
+    } else {
+        std::cerr << "There cannot be duplicate tiles in a line!" << std::endl;
     }
 
     return duplicateFound;
@@ -448,6 +456,7 @@ bool GameBoard::checkLine(int row, int col) {
     if (totalTilesInRow(row, col) > MAX_LINE_SIZE || 
         totalTilesInCol(row, col) > MAX_LINE_SIZE) {
             lineNotValid = true;
+            std::cerr << "Lines of more than 6 tiles are not allowed!" << std::endl;
     }
 
     return lineNotValid;
@@ -552,4 +561,21 @@ void GameBoard::displayBoard() {
             
         std::cout << "\n";
     }      
+}
+
+std::string GameBoard::toString() {
+    std::string string = "";
+    for (int i = 0; i < MAX_DIM; ++i) {
+        for (int col = 0; col < MAX_DIM; ++col) {
+            if (board[i][col] != nullptr) {
+                string += board[i][col]->toString() + "@" + alphabets[i] + std::to_string(col) + ", "; 
+            } 
+        }
+    }
+
+    if (!string.empty()) {
+        string.resize(string.size() - 2);
+    }
+
+    return string;
 }
