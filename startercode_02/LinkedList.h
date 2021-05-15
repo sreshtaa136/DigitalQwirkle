@@ -4,6 +4,7 @@
 
 #include "Node.h"
 #include "Tile.h"
+#include <string>
 //#include "TileBag.h"
 
 class LinkedList {
@@ -25,6 +26,8 @@ public:
    //void remove_back();
    void clear();
    void printList();
+
+   std::string toString();
 
    //void replaceTile(Tile* t1, Tile* t2);
    Tile* getTileAtIndex(int index);

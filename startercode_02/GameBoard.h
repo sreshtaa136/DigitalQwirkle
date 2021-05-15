@@ -16,6 +16,8 @@ public:
     GameBoard();
     ~GameBoard();
 
+    std::string dimensionsToString();
+
     // print the board
     void displayBoard();
 
@@ -68,6 +70,8 @@ public:
     bool checkSameColourOrShapeRight(int row, int col, Tile* tile);
     bool checkSameColourOrShapeAbove(int row, int col, Tile* tile);
     bool checkSameColourOrShapeBelow(int row, int col, Tile* tile);
+
+    std::string toString();
 
     
 private:

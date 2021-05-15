@@ -3,6 +3,7 @@
 #define ASSIGN2_TILE_H
 
 #include "TileCodes.h"
+#include <string>
 
 // Define a Colour type
 typedef char Colour;
@@ -27,6 +28,7 @@ public:
    Shape getShape();
 
    void printTile();
+   std::string toString();
 
    Colour colour;
    Shape  shape;
