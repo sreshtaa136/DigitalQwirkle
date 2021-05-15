@@ -263,7 +263,7 @@ bool GameBoard::hasTileBelow(int row, int col) {
     bool hasTileBelow = false;
 
     // Check the row is in bound
-    if (row < MAX_DIM) {
+    if (row < MAX_DIM-1) {
 
         // Check if there is a tile below
         if (board[row+1][col] != nullptr) {
@@ -293,7 +293,7 @@ bool GameBoard::hasTileAtRight(int row, int col) {
     bool hasTileAtRight = false;
 
     // Check the column is in bound
-    if (col < MAX_DIM) {
+    if (col < MAX_DIM-1) {
 
         // Check if there is a tile at right
         if (board[row][col+1] != nullptr) {
