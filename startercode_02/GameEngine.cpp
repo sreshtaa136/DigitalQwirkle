@@ -13,34 +13,41 @@ void GameEngine::newGame(std::string player1, std::string player2){
 }
 
 //place tile, remove the tile from player's hand and update hand 
-void GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player){
+bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player){
     
     Tile* tileToPlace = new Tile(colour,shape);
+    bool tilePlaced = false;
 
     if(player == player1->getName()){
         if(player1->getPlayerHand()->searchTile(tileToPlace) != -1){
-            //gameBoard->placeTile(row, col, tileToPlace);
-            player1->getPlayerHand()->removeTile(colour, shape);
-            if(tileBag->getBagSize() != 0){
-                Tile* tile = new Tile(*(tileBag->drawTile()));
-                player1->getPlayerHand()->addToEnd(tile);
+            if(gameBoard->placeTile(row, col, tileToPlace)){
+                player1->getPlayerHand()->removeTile(colour, shape);
+                if(tileBag->getBagSize() != 0){
+                    Tile* tile = new Tile(*(tileBag->drawTile()));
+                    player1->getPlayerHand()->addToEnd(tile);
+                    tilePlaced = true;
+                }
             }
         }
     }else if(player == player2->getName()){
         if(player2->getPlayerHand()->searchTile(tileToPlace) != -1){
-            //gameBoard->placeTile(row, col, tileToPlace);
-            player2->getPlayerHand()->removeTile(colour, shape);
-            if(tileBag->getBagSize() != 0){
-                Tile* tile = new Tile(*(tileBag->drawTile()));
-                player2->getPlayerHand()->addToEnd(tile);
+            if(gameBoard->placeTile(row, col, tileToPlace)){
+                player2->getPlayerHand()->removeTile(colour, shape);
+                if(tileBag->getBagSize() != 0){
+                    Tile* tile = new Tile(*(tileBag->drawTile()));
+                    player2->getPlayerHand()->addToEnd(tile);
+                    tilePlaced = true;
+                }
             }
         }
     }
+    return tilePlaced;
 }
 
-void GameEngine::replaceTile(Colour colour, Shape shape, std::string player){
+bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player){
 
     Tile* tileToReplace = new Tile(colour,shape);
+    bool tileReplaced = false;
 
     if(player == player1->getName()){
         if(player1->getPlayerHand()->searchTile(tileToReplace) != -1){
@@ -49,6 +56,7 @@ void GameEngine::replaceTile(Colour colour, Shape shape, std::string player){
             if(tileBag->getBagSize() != 0){
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player1->getPlayerHand()->addToEnd(tile);
+                tileReplaced = true;
             }
         }
     }else if(player == player2->getName()){
@@ -58,9 +66,11 @@ void GameEngine::replaceTile(Colour colour, Shape shape, std::string player){
             if(tileBag->getBagSize() != 0){
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player2->getPlayerHand()->addToEnd(tile);
+                tileReplaced = true;
             }
         }
     }
+    return tileReplaced;
 }
 
 void GameEngine::setPlayers(std::string player1, std::string player2){
@@ -74,6 +84,17 @@ Player* GameEngine::getPlayer1(){
 
 Player* GameEngine::getPlayer2(){
     return this->player2;
+}
+
+Player* GameEngine::getPlayer(std::string playerName){
+
+    Player* player;
+    if(player1->getName() == playerName){
+        player = player1;
+    }else{
+        player = player2;
+    }
+    return player;
 }
 
 void GameEngine::printGameState(){

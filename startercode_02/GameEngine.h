@@ -12,19 +12,21 @@ class GameEngine{
 public:
 
     void newGame(std::string player1, std::string player2);
-    void placeTile(char row, int col, Colour colour, Shape shape, std::string player);
+    bool placeTile(char row, int col, Colour colour, Shape shape, std::string player);
     void setPlayers(std::string player1, std::string player2);
     void printGameState();
-    void replaceTile(Colour colour, Shape shape, std::string player);
+    bool replaceTile(Colour colour, Shape shape, std::string player);
     Player* getPlayer1();
     Player* getPlayer2();
+    Player* getPlayer(std::string playerName);
     TileBag* tileBag;
+    GameBoard* gameBoard;
 
 private:
 
     Player* player1;
     Player* player2;
     //TileBag* tileBag;
-    GameBoard* gameBoard;
+    
 };
 #endif
