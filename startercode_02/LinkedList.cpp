@@ -203,6 +203,8 @@ std::string LinkedList::toString(){
          string += ",";
       }
    }
+
+   return string;
 }
 
 //TESTING

@@ -16,7 +16,7 @@ public:
     void setPlayers(std::string player1, std::string player2);
     void printGameState();
     bool replaceTile(Colour colour, Shape shape, std::string player);
-    bool saveGame(std::string fileName, std::string currentPlayer);
+    void saveGame(std::string fileName);
     Player* getPlayer1();
     Player* getPlayer2();
     Player* getCurrentPlayer();

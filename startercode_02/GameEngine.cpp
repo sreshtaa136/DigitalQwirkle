@@ -119,8 +119,7 @@ void GameEngine::printGameState(){
     std::cout << " \n";
 }
 
-bool GameEngine::saveGame(std::string fileName, std::string currentPlayer) {
-    bool gameSaved = false;
+void GameEngine::saveGame(std::string fileName) {
 
     fileName += ".save";
     std::ofstream outFile;
@@ -135,7 +134,7 @@ bool GameEngine::saveGame(std::string fileName, std::string currentPlayer) {
     outFile << gameBoard->dimensionsToString() << std::endl;
     outFile << gameBoard->toString() << std::endl;
     outFile << tileBag->getTileBag()->toString() << std::endl;
-    outFile << currentPlayer << std::endl;
+    outFile << currentPlayer->getName() << std::endl;
 
     outFile.close();
 }

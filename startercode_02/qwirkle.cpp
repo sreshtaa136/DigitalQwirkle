@@ -210,6 +210,8 @@ int main(int argc, char** argv) {
 
                int nameSize = userAction.size() - 5;
                std ::string fileName = userAction.substr(5, nameSize);
+               engine->saveGame(fileName);
+               std::cout << "\nGame successfully saved.\n";
                
 
             }else if(userAction[0] == 'q'){
