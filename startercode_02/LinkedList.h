@@ -1,4 +1,3 @@
-
 #ifndef ASSIGN2_LINKEDLIST_H
 #define ASSIGN2_LINKEDLIST_H
 
@@ -9,33 +8,45 @@
 
 class LinkedList {
 public:
-
+   
+   // Constructor/Deconstructor
    LinkedList();
    ~LinkedList();
 
+   // Returns the size of the linked list.
    int getSize();
+
+   // Adds the given tile to the front of the list.
    void addToFront(Tile* tile);
+
+   // Adds the given tile to the back of the list.
    void addToEnd(Tile* tile);
-   //Tile* getTileAtIndex(int index);
+
+   // Removes the given tile from the list.
    void removeTile(Colour colour, Shape shape);
-   //bool doesTileExist(Colour colour, Shape shape);
+
+   // Returns the index of first instance of a tile using shape and colour
+   // Returns -1 if tile not found.
    int searchTile(Colour colour, Shape shape);
+
+   // Returns the index of first instance of a tile using shape and colour
+   // Returns -1 if tile not found.
    int searchTile(Tile* tile);
-   //Contract: Elements should exist in the list to be deleted.
-   //void remove_front();
-   //void remove_back();
+
+   // Removes all the tiles from the list.
    void clear();
+
+   // Prints the list.
    void printList();
 
+   // Returns the list as a string of tiles.
    std::string toString();
 
-   //void replaceTile(Tile* t1, Tile* t2);
+   // Returns a tile at given index.
    Tile* getTileAtIndex(int index);
-   //void switchTiles(Tile* t1, Tile* t2);
-   int tileCount(Tile* tile);
 
-   //testing
-   void printCount();
+   // Helper: returns the number of tiles in the list.
+   int tileCount(Tile* tile);
 
 private:
    Node* head;

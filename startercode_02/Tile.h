@@ -18,18 +18,28 @@ public:
    Tile(Colour colour, Shape shape);
    ~Tile();
 
-   //copy constructor
+   // Copy constructor : returns a shallow copy
    Tile(Tile& other);
 
+   // Set the colour of the tile to given colour
    void setColour(Colour colour);
+
+   // Returns the colour of the tile
    Colour getColour();
 
+   // Set the shape of the tile to given shape
    void setShape(Shape shape);
+
+   // Returns the shape of the tile
    Shape getShape();
 
+   // Prints a tile.
    void printTile();
+
+   // Returns tile as a string.
    std::string toString();
 
+private:
    Colour colour;
    Shape  shape;
 };

@@ -1,11 +1,10 @@
 #include "GameEngine.h"
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <regex>
 
-void GameEngine::newGame(std::string player1, std::string player2){
+void GameEngine::newGame(std::string player1, std::string player2) {
     
     gameBoard = new GameBoard();
     tileBag = new TileBag();
@@ -14,36 +13,46 @@ void GameEngine::newGame(std::string player1, std::string player2){
     this->player1->setPlayerHand(tileBag->createHand());
     this->player2->setPlayerHand(tileBag->createHand());
     printGameState();
-    std::cout << "TileBag size: " << tileBag->getBagSize() << std::endl;
+    //std::cout << "TileBag size: " << tileBag->getBagSize() << std::endl;
 }
 
-//place tile, remove the tile from player's hand and update hand 
-bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player){
-    
+bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player) {
     Tile* tileToPlace = new Tile(colour,shape);
     bool tilePlaced = false;
 
-    if(player == player1->getName()){
-        if(player1->getPlayerHand()->searchTile(tileToPlace) != -1){
-            if(gameBoard->placeTile(row, col, tileToPlace)){
+    if (player == player1->getName()) {
+
+        // Check if tile is in player hand
+        if (player1->getPlayerHand()->searchTile(tileToPlace) != -1) {
+
+            // Remove the tile from player's hand if placed
+            if (gameBoard->placeTile(row, col, tileToPlace)) {
                 player1->getPlayerHand()->removeTile(colour, shape);
-                if(tileBag->getBagSize() != 0){
+
+                // When tilebag is not empty, draw tile to player's hand from the bag
+                if (tileBag->getBagSize() != 0) {
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player1->getPlayerHand()->addToEnd(tile);
+                    //tilePlaced = true;
                 }
-
                 tilePlaced = true;
             }
         }
-    }else if(player == player2->getName()){
-        if(player2->getPlayerHand()->searchTile(tileToPlace) != -1){
-            if(gameBoard->placeTile(row, col, tileToPlace)){
+    } else if (player == player2->getName()) {
+
+        // Check if tile is in player hand
+        if (player2->getPlayerHand()->searchTile(tileToPlace) != -1) {
+
+            // Remove the tile from player's hand if placed
+            if (gameBoard->placeTile(row, col, tileToPlace)) {
                 player2->getPlayerHand()->removeTile(colour, shape);
-                if(tileBag->getBagSize() != 0){
+
+                // When tilebag is not empty, draw tile to player's hand from the bag
+                if (tileBag->getBagSize() != 0) {
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player2->getPlayerHand()->addToEnd(tile);
+                    //tilePlaced = true;
                 }
-
                 tilePlaced = true;
             }
         }
@@ -51,26 +60,37 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
     return tilePlaced;
 }
 
-bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player){
-
+bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player) {
     Tile* tileToReplace = new Tile(colour,shape);
     bool tileReplaced = false;
 
-    if(player == player1->getName()){
-        if(player1->getPlayerHand()->searchTile(tileToReplace) != -1){
+    if (player == player1->getName()) {
+
+         // Check if tile is in player hand
+        if (player1->getPlayerHand()->searchTile(tileToReplace) != -1) {
+
+            // Remove the tile from player's hand and place it back in the tilebag
             player1->getPlayerHand()->removeTile(colour, shape);
             tileBag->getTileBag()->addToEnd(tileToReplace);
-            if(tileBag->getBagSize() != 0){
+
+            // When tilebag is not empty, replace current tile
+            if (tileBag->getBagSize() != 0) {
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player1->getPlayerHand()->addToEnd(tile);
                 tileReplaced = true;
             }
         }
-    }else if(player == player2->getName()){
-        if(player2->getPlayerHand()->searchTile(tileToReplace) != -1){
+    } else if (player == player2->getName()) {
+
+        // Check if tile is in player hand
+        if (player2->getPlayerHand()->searchTile(tileToReplace) != -1) {
+
+            // Remove the tile from player's hand and place it back in the tilebag
             player2->getPlayerHand()->removeTile(colour, shape);
             tileBag->getTileBag()->addToEnd(tileToReplace);
-            if(tileBag->getBagSize() != 0){
+
+            // When tilebag is not empty, replace current tile
+            if (tileBag->getBagSize() != 0) {
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player2->getPlayerHand()->addToEnd(tile);
                 tileReplaced = true;
@@ -102,11 +122,11 @@ void GameEngine::setCurrentPlayer(std::string playerName){
 }
 
 Player* GameEngine::getPlayer(std::string playerName){
-
     Player* player;
-    if(player1->getName() == playerName){
+
+    if (player1->getName() == playerName) {
         player = player1;
-    }else{
+    } else {
         player = player2;
     }
     return player;
@@ -124,12 +144,12 @@ void GameEngine::printGameState(){
 }
 
 void GameEngine::loadHand(std::string hand, std::string name){
-
     LinkedList* playerHand = new LinkedList();
-    
+
+    // Count the number of commas.
     int commaCount = 0;
-    for(int i = 0; i< (int) hand.size(); ++i){
-        if(hand[i] == ','){
+    for (int i = 0; i< (int) hand.size(); ++i) {
+        if (hand[i] == ',') {
             ++commaCount;
         }
     }
@@ -138,15 +158,18 @@ void GameEngine::loadHand(std::string hand, std::string name){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i< (int) hand.size(); ++i){
-        if(hand[i] != ','){
+    // Add all the tiles to a char array
+    for (int i = 0; i< (int) hand.size(); ++i) {
+        if (hand[i] != ',') {
             tileArray[count] = hand[i];
             count++;
         }
     }
 
     count = 0;
-    for(int i = 0; i<tileCount; ++i){
+
+    // Populate the player's hand with thier tiles
+    for (int i = 0; i<tileCount; ++i) {
         char colour = tileArray[count];
         int shape = tileArray[count + 1] - '0';
         Tile* tile = new Tile(colour, shape);
@@ -154,20 +177,21 @@ void GameEngine::loadHand(std::string hand, std::string name){
         count = count + 2;
     }
 
-    if(player1->getName() == name){
+    // Set player's hand for the given player
+    if (player1->getName() == name) {
         this->player1->setPlayerHand(playerHand);
-    }else if(player2->getName() == name){
+    } else if (player2->getName() == name) {
         this->player2->setPlayerHand(playerHand);
     }
-
 }
 
 void GameEngine::saveGame(std::string fileName) {
-
+    // add '.save' extension to the filename
     fileName += ".save";
     std::ofstream outFile;
     outFile.open(fileName);
 
+    // output the details to be saved to the file
     outFile << player1->getName() << std::endl;
     outFile << player1->getScore() << std::endl;
     outFile << player1->getPlayerHand()->toString() << std::endl;
@@ -183,9 +207,6 @@ void GameEngine::saveGame(std::string fileName) {
 }
 
 void GameEngine::loadGame(std::string fileName) {
-
-    //fileName += ".save";
-
     // Open file for reading
     std::ifstream inFile;
     inFile.open(fileName);
@@ -197,7 +218,7 @@ void GameEngine::loadGame(std::string fileName) {
     std::string tileBagString;
     std::string currPlayerName;
 
-    // extract lines from file
+    // extract lines from the file
     getline(inFile, player1Name);
     getline(inFile, player1Score);
     getline(inFile, player1Hand);
@@ -218,21 +239,20 @@ void GameEngine::loadGame(std::string fileName) {
     // if the format is valid
     if (loadValidated) {
 
-        // load players
-
+        // load players -----------------
         this->setPlayers(player1Name, player2Name);
 
+        // load player score -------------
         int p1Score = stoi(player1Score);
         int p2Score = stoi(player2Score);
-
         player1->setScore(p1Score);
         player2->setScore(p2Score);
 
-        // load player hands
+        // load player hands---------------
         loadHand(player1Hand, player1Name);
         loadHand(player2Hand, player2Name);
 
-        // load board
+        // load board ---------------------
         board = new GameBoard();
         std::stringstream shapeStream(boardShape);
 	    std::string line;
@@ -245,9 +265,9 @@ void GameEngine::loadGame(std::string fileName) {
                 getline(boardStream, line, ',');
                 if (line[0] == ' ') {
                     line.erase(line.begin());}
+                
 					    
 				std::string pos = line.substr(3);
-
                 char r = pos[0];
                 int c = stoi(pos.substr(1));
 
@@ -255,31 +275,29 @@ void GameEngine::loadGame(std::string fileName) {
 				board->placeTile(r, c, tileToPlace);
 			}
 		}
-
         this->gameBoard = board;
 
-        // load tilebag
+        // load tilebag ----------------------
         TileBag* bag = new TileBag(true);
         std::string tiles = tileBagString;
         bag->loadBag(tiles);
         this->tileBag = bag; 
 
-        // load current player
+        // load current player ----------------
         this->setCurrentPlayer(currPlayerName);
     }
     else {
-        if(board != nullptr)
+        inFile.close();
+
+        if (board != nullptr)
             delete board;
 
-        std::cerr << "The file is not formatted correctly! Can't load game!" << std::endl;
-    }
-        
+        std::cerr << "The file is not formatted correctly! Can't load game!" 
+                  << std::endl;
+    }      
 }
-   
-    
-
+     
 bool GameEngine::verifyName(std::string s) {
-
 	bool valid = s.length() != 0 ? true : false;
 
 	for (char c : s) {

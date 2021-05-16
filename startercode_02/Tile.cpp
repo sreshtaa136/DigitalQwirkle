@@ -10,7 +10,6 @@ Tile::~Tile() {
     
 }
 
-//shallow copy
 Tile::Tile(Tile& other) :
     colour(other.colour),
     shape(other.shape)
