@@ -249,7 +249,7 @@ void GameEngine::loadGame(std::string fileName) {
 				std::string pos = line.substr(3);
 
                 char r = pos[0];
-                int c = pos[1] - '0';
+                int c = stoi(pos.substr(1));
 
                 Tile* tileToPlace = new Tile(line[0],line[1]-'0');
 				board->placeTile(r, c, tileToPlace);
