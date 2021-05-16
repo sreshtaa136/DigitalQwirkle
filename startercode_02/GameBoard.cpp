@@ -22,6 +22,7 @@ GameBoard::~GameBoard() {
             }
 		}
 	}
+
 }
 
 std::string GameBoard::dimensionsToString() {
@@ -31,6 +32,9 @@ std::string GameBoard::dimensionsToString() {
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
     int rowIdx = charToInt(row);
     bool place = false;
+    std::string position;
+    position.append(1, row);
+    position += std::to_string(col);
 
     // check the following conditions
     // 1. the tile space is empty
@@ -41,6 +45,7 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
         board[rowIdx][col] = tile;
         ++tilesOnBoard;
         place = true;
+        positions.push_back(position);
     }
     
     return place;
@@ -51,9 +56,6 @@ bool GameBoard::isEmptySpace(int row, int col) {
 
     if(board[row][col] == nullptr) {
         empty = true;
-    }
-    else {
-        throw std::runtime_error("Can't place tile at an occupied space!");
     }
     
     return empty;
@@ -565,12 +567,13 @@ void GameBoard::displayBoard() {
 
 std::string GameBoard::toString() {
     std::string string = "";
-    for (int i = 0; i < MAX_DIM; ++i) {
-        for (int col = 0; col < MAX_DIM; ++col) {
-            if (board[i][col] != nullptr) {
-                string += board[i][col]->toString() + "@" + alphabets[i] + std::to_string(col) + ", "; 
-            } 
-        }
+
+    for(std::string p : positions) {
+        int row = charToInt(p[0]);
+        int col =  stoi(p.substr(1));
+
+        string += board[row][col]->toString() + + "@" + p[0] + p.substr(1) + ", "; 
+
     }
 
     if (!string.empty()) {

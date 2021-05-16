@@ -126,7 +126,7 @@ void GameEngine::loadHand(std::string hand, std::string name){
     LinkedList* playerHand = new LinkedList();
     
     int commaCount = 0;
-    for(int i = 0; i<hand.size(); ++i){
+    for(int i = 0; i< (int) hand.size(); ++i){
         if(hand[i] == ','){
             ++commaCount;
         }
@@ -136,7 +136,7 @@ void GameEngine::loadHand(std::string hand, std::string name){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i<hand.size(); ++i){
+    for(int i = 0; i< (int) hand.size(); ++i){
         if(hand[i] != ','){
             tileArray[count] = hand[i];
             count++;
@@ -280,11 +280,9 @@ bool GameEngine::verifyName(std::string s) {
 
 	bool valid = s.length() != 0 ? true : false;
 
-	for (char c : s ) {
-
-		if (!isupper(c)){
-            valid = false;
-        }			
+	for (char c : s) {
+		if (!isupper(c))
+            valid = false;			
 	}
 	return valid;
 }

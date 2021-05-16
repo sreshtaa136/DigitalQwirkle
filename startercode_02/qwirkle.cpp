@@ -130,6 +130,7 @@ int main(int argc, char** argv) {
                std::cout << "\n";
             }
 
+            std::cout << "> ";
             std::string userAction;
             getline(std::cin, userAction);
             
