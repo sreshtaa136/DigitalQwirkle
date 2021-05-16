@@ -79,6 +79,7 @@ private:
     char alphabets[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
     'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
     int tilesOnBoard;
+    std::vector<std::string> positions;
 
     // board : a vector of vectors of tile
     std::vector<std::vector<Tile*> > board;

@@ -109,7 +109,7 @@ void TileBag::shuffleBag(){
 void TileBag::loadBag(std::string tiles){
 
     int commaCount = 0;
-    for(int i = 0; i<tiles.size(); ++i){
+    for(int i = 0; i< (int) tiles.size(); ++i){
         if(tiles[i] == ','){
             ++commaCount;
         }
@@ -119,7 +119,7 @@ void TileBag::loadBag(std::string tiles){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i<tiles.size(); ++i){
+    for(int i = 0; i< (int) tiles.size(); ++i){
         if(tiles[i] != ','){
             tileArray[count] = tiles[i];
             count++;
