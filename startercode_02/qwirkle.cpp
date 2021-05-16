@@ -157,6 +157,7 @@ int main(int argc, char** argv) {
                engine->printGameState();
                std::cout << "Your hand is\n";
                engine->getPlayer(currentPlayer)->getPlayerHand()->printList();
+               //test
                std::cout << "TileBag size: " << engine->tileBag->getBagSize() << std::endl;
                std::cout << "\n";
             }
