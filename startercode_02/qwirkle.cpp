@@ -22,7 +22,7 @@ bool endGame(GameEngine* engine);
 void newGame(std::string player1, std::string player2);
 bool verifyCommand(std::string command);
 bool verifyHand(std::string command, GameEngine *engine, std::string currentPlayer);
-bool loadGame(std::string fileName);
+bool loadGame(std::string fileName, GameEngine* engine);
 
 
 int main(int argc, char** argv) {
@@ -62,6 +62,7 @@ int main(int argc, char** argv) {
    
    int choice = 0;
    while (choice !=4 ){
+
       std::cout << "\nWelcome to Qwirkle!\n";
       std::cout << "-------------------\n";
       std::cout << "Menu\n";
@@ -83,41 +84,71 @@ int main(int argc, char** argv) {
          std::cin >> choice;
          
       }
+
+      bool load = false;
+      GameEngine *engine = new GameEngine();
+
+      if (choice == 2)
+      {
+         std::string fileName;
+
+         do{
+            
+            std::cout << "\nEnter the file name from which load a game\n";
+            std::cout << "> ";
+            std::cin >> fileName;
+
+         }while(!loadGame(fileName, engine));
+
+         load = true;
+         choice = 1;
+      }
+
       if (choice == 1)
       {
-         std::string player1;
-         std::string player2;
-         std::cout << "\nStarting a New Game \n\n";
-         
-         std::cin.ignore();
-
-         do{
-            std::cout << "Enter a name for player 1 (uppercase characters only) \n";
-            std::cout << "> "; 
-            getline(std::cin, player1);
-
-         } while (!validateName(player1));
-
-         do{
-            std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
-                     << "> ";
-            getline(std::cin, player2);
-
-         } while (!validateName(player2) || (player1 == player2));
-
-         std::cout << "\nLet's Play!\n\n";
-
-         GameEngine *engine = new GameEngine();
-         std::string currentPlayer = player1;
-         std::cout << currentPlayer << ", it's your turn\n";
-         engine->newGame(player1, player2);
-
-         std::cout << "Your hand is\n";
-         engine->getPlayer1()->getPlayerHand()->printList();
-         std::cout << "\n";
          int turn = 0;
          bool quit = false;
+         std::string currentPlayer;
+         std::string player1;
+         std::string player2;
+         std::cin.ignore();
 
+         if(load == false){
+
+            std::cout << "\nStarting a New Game \n\n";
+
+            do{
+               std::cout << "Enter a name for player 1 (uppercase characters only) \n";
+               std::cout << "> "; 
+               getline(std::cin, player1);
+
+            } while (!validateName(player1));
+
+            do{
+               std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
+                        << "> ";
+               getline(std::cin, player2);
+
+            } while (!validateName(player2) || (player1 == player2));
+
+            std::cout << "\nLet's Play!\n\n";
+
+            //GameEngine *engine = new GameEngine();
+            currentPlayer = player1;
+            std::cout << currentPlayer << ", it's your turn\n";
+            engine->newGame(player1, player2);
+
+            std::cout << "Your hand is\n";
+            engine->getPlayer1()->getPlayerHand()->printList();
+            std::cout << "\n";
+            
+         }else{
+            currentPlayer = engine->getCurrentPlayer()->getName();
+            player1 = engine->getPlayer1()->getName();
+            player2 = engine->getPlayer2()->getName();
+            turn++;
+         }
+         
          while(!endGame(engine) && !quit){
 
             if(turn != 0){
@@ -126,6 +157,7 @@ int main(int argc, char** argv) {
                engine->printGameState();
                std::cout << "Your hand is\n";
                engine->getPlayer(currentPlayer)->getPlayerHand()->printList();
+               //test
                std::cout << "TileBag size: " << engine->tileBag->getBagSize() << std::endl;
                std::cout << "\n";
             }
@@ -243,9 +275,10 @@ int main(int argc, char** argv) {
                   std::cout << "\nGame successfully saved.\n";
                   executed = true;
                   
-               }else if(userAction[0] == 'q'){
+               }else if(userAction[0] == '^'){
                   quit = true;
                   executed = true;
+                  choice = 4;
                }
             }
            
@@ -283,24 +316,7 @@ int main(int argc, char** argv) {
             std::cout << "Goodbye \n";
          }
       }
-      else if (choice == 2)
-      {
-         std::string fileName;
-
-         do{
-            
-            std::cout << "\nEnter the file name from which load a game\n";
-            std::cout << "> ";
-            std::cin >> fileName;
-
-         }while(!loadGame(fileName));
-
-         GameEngine *engine = new GameEngine();
-         engine->loadGame(fileName);
-         engine->printGameState();
-
-      }
-      else if (choice == 3)
+      if (choice == 3)
       {
          std::cout << "\n----------------------------------\n";
          std::cout << "\n";
@@ -322,9 +338,9 @@ int main(int argc, char** argv) {
          std::cout << "\n";
          std::cout << "----------------------------------\n";
       }
-      else if (choice == 4)
+      if (choice == 4)
       {
-         std::cout << "Goodbye \n";
+         std::cout << "\nGoodbye \n";
       }
       else
       {
@@ -335,7 +351,7 @@ int main(int argc, char** argv) {
    
 }
 
-bool loadGame(std::string fileName){
+bool loadGame(std::string fileName, GameEngine* engine){
 
    bool load = false;
 
@@ -346,6 +362,10 @@ bool loadGame(std::string fileName){
    }else{
 
       load = true;
+      //GameEngine *engine = new GameEngine();
+      engine->loadGame(fileName);
+      //test
+      //engine->printGameState();
       //std::cout<< "\nyep" << std::endl;
    }
    return load;
@@ -495,7 +515,7 @@ bool verifyCommand(std::string command){
       check = true;
    }
 
-   if(command == "quit"){
+   if(command == "^D"){
       check = true;
    }
 
