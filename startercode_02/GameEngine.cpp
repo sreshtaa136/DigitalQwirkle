@@ -206,7 +206,7 @@ void GameEngine::saveGame(std::string fileName) {
     outFile.close();
 }
 
-void GameEngine::loadGame(std::string fileName) {
+bool GameEngine::loadGame(std::string fileName) {
     // Open file for reading
     std::ifstream inFile;
     inFile.open(fileName);
@@ -294,7 +294,8 @@ void GameEngine::loadGame(std::string fileName) {
 
         std::cerr << "The file is not formatted correctly! Can't load game!" 
                   << std::endl;
-    }      
+    } 
+    return loadValidated;     
 }
      
 bool GameEngine::verifyName(std::string s) {

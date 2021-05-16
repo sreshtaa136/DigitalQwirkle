@@ -44,8 +44,8 @@ public:
     // Saves the current game details with the given filename.
     void saveGame(std::string fileName);
 
-    // Loads a saved game from the given file.
-    void loadGame(std::string fileName);
+    // Loads a saved game from the given file, and returns false if wrongly formatted
+    bool loadGame(std::string fileName);
 
     // Getters for players in the game.
     Player* getPlayer1();
