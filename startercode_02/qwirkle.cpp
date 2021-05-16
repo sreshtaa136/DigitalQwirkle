@@ -12,7 +12,9 @@
 #include "GameBoard.h"
 #include "GameEngine.h"
 
-char alphabets[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K','L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+char alphabets[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
 char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
 int shapes[6] = {CIRCLE, STAR_4, DIAMOND, SQUARE, STAR_6, CLOVER};
 
@@ -104,14 +106,16 @@ int main(int argc, char** argv) {
             std::cout << "\nStarting a New Game \n\n";
 
             do{
-               std::cout << "Enter a name for player 1 (uppercase characters only) \n";
+               std::cout << "Enter a name for player 1"
+                        << "(uppercase characters only) \n";
                std::cout << "> "; 
                getline(std::cin, player1);
 
             } while (!validateName(player1));
 
             do{
-               std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
+               std::cout << "\nEnter a name for player 2"
+               << "(uppercase characters only) \n"
                         << "> ";
                getline(std::cin, player2);
 
@@ -149,8 +153,9 @@ int main(int argc, char** argv) {
                std::cout << "Your hand is\n";
                engine->getPlayer(currentPlayer)->getPlayerHand()->printList();
                //test
-               std::cout << "TileBag size: " << engine->tileBag->getBagSize() << std::endl;
-               std::cout << "\n";
+               // std::cout << "TileBag size: " 
+               //<< engine->tileBag->getBagSize() << std::endl;
+               // std::cout << "\n";
             }
 
             // taking user command (place/replace/save/quit)
@@ -195,9 +200,11 @@ int main(int argc, char** argv) {
                   char shape = userAction[7];
                   int ishape = shape - '0';
 
-                  bool place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
+                  bool place = engine->placeTile(userAction[12], icol, 
+                                          userAction[6], ishape, currentPlayer);
                   
-                  // asking for input until tile is placed successfully or a different command is entered
+                  // asking for input until tile is placed successfully or 
+                  // a different command is entered
                   while(!place && userAction[0] == 'p'){
                   
                      std::cout << "\n Invalid tile \n";
@@ -221,7 +228,8 @@ int main(int argc, char** argv) {
 
                         shape = userAction[7];
                         ishape = shape - '0';
-                        place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
+                        place = engine->placeTile(userAction[12], icol, 
+                                 userAction[6], ishape, currentPlayer);
                      }
                      
                   }
@@ -242,7 +250,7 @@ int main(int argc, char** argv) {
                      if(qwirkle){
                         std::cout<< "QWIRKLE!!!\n";
                      }
-                     //int points = engine->gameBoard->calculatePoints(userAction[12], userAction[13] - '0');
+                     
                      int points = engine->gameBoard->calculatePoints(userAction[12], icol);
                      engine->getPlayer(currentPlayer)->incrementScore(points);
                      executed = true;
@@ -253,12 +261,15 @@ int main(int argc, char** argv) {
                {
                   // replacing a tile
 
-                  bool replace = engine->replaceTile(userAction[8], userAction[9] - '0', currentPlayer);
+                  bool replace = engine->replaceTile(userAction[8], 
+                                 userAction[9] - '0', currentPlayer);
 
-                  // asking for input until tile is replaced successfully or a different command is entered
+                  // asking for input until tile is replaced successfully or
+                  // a different command is entered
                   while(!replace && userAction[0] == 'r'){
                      if(engine->tileBag->getBagSize()==0){
-                        std::cout << "\n Cannot replace. Tile bag is empty. Enter a different command.\n";
+                        std::cout << "\n Cannot replace. Tile bag is empty. "
+                                 << "Enter a different command.\n";
                         std::cout << "> ";
                         getline(std::cin, userAction);
                      }else{
@@ -325,6 +336,9 @@ int main(int argc, char** argv) {
                " won!\n\n";
             }
             std::cout << "Goodbye \n";
+
+            delete engine;
+            engine = nullptr;
          }
       }
 
@@ -357,7 +371,8 @@ int main(int argc, char** argv) {
       {
          std::cout << "\nGoodbye \n";
       }
-      else
+      
+      if(choice < 1 || choice > 4)
       {
          std::cout << "\nNot a Valid Choice. \n";
          std::cout << "Choose again.\n\n";
@@ -543,6 +558,7 @@ bool verifyCommand(std::string command){
 
 //will check if you should end the game
 bool endGame(GameEngine* engine){
+
    bool check = false;
    bool checkHand = engine->getPlayer1()->getPlayerHand()->getSize() == 0 ||
                     engine->getPlayer2()->getPlayerHand()->getSize() == 0;

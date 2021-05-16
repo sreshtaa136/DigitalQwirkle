@@ -13,6 +13,10 @@
 class GameEngine{
 public:
     
+
+    GameEngine();
+    ~GameEngine();
+
     /*
     * Initializes a new game.
     * 1. Create a new board and tilebag.
@@ -79,7 +83,6 @@ private:
     Player* player1;
     Player* player2;
     Player* currentPlayer;
-    //TileBag* tileBag;
     
 };
 #endif

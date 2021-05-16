@@ -4,6 +4,25 @@
 #include <sstream>
 #include <regex>
 
+GameEngine::GameEngine() {
+
+}
+
+GameEngine::~GameEngine() {
+    
+    delete tileBag;
+    delete gameBoard;
+    delete player1;
+    delete player2;
+    delete currentPlayer;
+
+    tileBag = nullptr;
+    gameBoard = nullptr;
+    player1 = nullptr;
+    player2 = nullptr;
+    currentPlayer = nullptr;
+}
+
 void GameEngine::newGame(std::string player1, std::string player2) {
     
     gameBoard = new GameBoard();
@@ -13,10 +32,11 @@ void GameEngine::newGame(std::string player1, std::string player2) {
     this->player1->setPlayerHand(tileBag->createHand());
     this->player2->setPlayerHand(tileBag->createHand());
     printGameState();
-    //std::cout << "TileBag size: " << tileBag->getBagSize() << std::endl;
+    
 }
 
 bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player) {
+
     Tile* tileToPlace = new Tile(colour,shape);
     bool tilePlaced = false;
 
@@ -38,6 +58,7 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 tilePlaced = true;
             }
         }
+
     } else if (player == player2->getName()) {
 
         // Check if tile is in player hand
@@ -51,7 +72,6 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 if (tileBag->getBagSize() != 0) {
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player2->getPlayerHand()->addToEnd(tile);
-                    //tilePlaced = true;
                 }
                 tilePlaced = true;
             }
@@ -61,6 +81,7 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
 }
 
 bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player) {
+
     Tile* tileToReplace = new Tile(colour,shape);
     bool tileReplaced = false;
 
@@ -75,6 +96,7 @@ bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player) {
 
             // When tilebag is not empty, replace current tile
             if (tileBag->getBagSize() != 0) {
+
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player1->getPlayerHand()->addToEnd(tile);
                 tileReplaced = true;
@@ -91,6 +113,7 @@ bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player) {
 
             // When tilebag is not empty, replace current tile
             if (tileBag->getBagSize() != 0) {
+
                 Tile* tile = new Tile(*(tileBag->drawTile()));
                 player2->getPlayerHand()->addToEnd(tile);
                 tileReplaced = true;
@@ -101,6 +124,7 @@ bool GameEngine::replaceTile(Colour colour, Shape shape, std::string player) {
 }
 
 void GameEngine::setPlayers(std::string player1, std::string player2){
+
     this->player1 = new Player(player1);
     this->player2 = new Player(player2);
 }
@@ -122,6 +146,7 @@ void GameEngine::setCurrentPlayer(std::string playerName){
 }
 
 Player* GameEngine::getPlayer(std::string playerName){
+
     Player* player;
 
     if (player1->getName() == playerName) {
@@ -144,6 +169,7 @@ void GameEngine::printGameState(){
 }
 
 void GameEngine::loadHand(std::string hand, std::string name){
+
     LinkedList* playerHand = new LinkedList();
 
     // Count the number of commas.
@@ -231,10 +257,10 @@ bool GameEngine::loadGame(std::string fileName) {
     getline(inFile, currPlayerName);
 
     bool loadValidated = verifyName(player1Name) && verifyName(player2Name) && 
-                         verifyListString(player1Hand) && verifyListString(player2Hand) &&
-                         verifyBoardShapeString(boardShape) && verifyBoardString(boardString) &&
-                         verifyBoardSize(boardShape) && verifyListString(tileBagString) && 
-                         verifyName(currPlayerName);
+            verifyListString(player1Hand) && verifyListString(player2Hand) &&
+            verifyBoardShapeString(boardShape) && verifyBoardString(boardString) &&
+            verifyBoardSize(boardShape) && verifyListString(tileBagString) && 
+            verifyName(currPlayerName);
 
     // if the format is valid
     if (loadValidated) {
@@ -328,6 +354,7 @@ bool GameEngine::verifyBoardShapeString(std::string s) {
 }
 
 bool GameEngine::verifyBoardString(std::string s) {
+    
     bool valid = false;
 	std::regex r("^([ROYGBP][1-6]@[A-Z]\\d{1,2}(, {0,1}[ROYGBP][1-6]@[A-Z]\\d{1,2})*){0,1}$");
 
@@ -338,6 +365,7 @@ bool GameEngine::verifyBoardString(std::string s) {
 }
 
 bool GameEngine::verifyBoardSize(std::string s) {
+
     bool valid = false;
     int rows, cols;
 	std::stringstream shapeStream(s);
