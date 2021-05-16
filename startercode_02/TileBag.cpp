@@ -44,24 +44,9 @@ LinkedList* TileBag::createBag(){
     LinkedList* orderedTileBag = new LinkedList();
     char colour;
     int shape;
-    //int count = 0;
+    int count = 0;
 
-    // while(count != 2){
-    //   for(int i = 0; i <6; ++i){
-    //         colour = colours[i];
-    //         for(int j = 0; j <6; ++j){
-    //             shape = shapes[j];
-    //             Tile* tile = new Tile(colour, shape);
-    //             orderedTileBag->addToEnd(tile);
-    //         }
-    //     }
-    //   count++;
-    // }
-    // tileBag->printList();
-    // tileBag->printCount();
-    
-    //Testing
-
+    while(count != 2){
       for(int i = 0; i <6; ++i){
             colour = colours[i];
             for(int j = 0; j <6; ++j){
@@ -70,7 +55,22 @@ LinkedList* TileBag::createBag(){
                 orderedTileBag->addToEnd(tile);
             }
         }
-    return orderedTileBag;
+      count++;
+    }
+    // tileBag->printList();
+    // tileBag->printCount();
+    
+    //Testing
+
+//       for(int i = 0; i <6; ++i){
+//             colour = colours[i];
+//             for(int j = 0; j <6; ++j){
+//                 shape = shapes[j];
+//                 Tile* tile = new Tile(colour, shape);
+//                 orderedTileBag->addToEnd(tile);
+//             }
+//         }
+     return orderedTileBag;
 }
 
 void TileBag::shuffleBag(){
@@ -103,37 +103,37 @@ void TileBag::shuffleBag(){
     // }
 
     //Testing
+    // std::default_random_engine engine(28);
+    // std::uniform_int_distribution<int> uniform_dist(min, max);
+    // while(tileBag->getSize() != orderedTileBag->getSize()){
+    //     int randIndex1 = uniform_dist(engine);
+    //     Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
+    //     if(tileBag->tileCount(tile1) == 0){
+    //         tileBag->addToEnd(tile1);
+    //     }
+    // }
+
+    //Testing
     std::default_random_engine engine(28);
-    std::uniform_int_distribution<int> uniform_dist(min, max);
+	std::uniform_int_distribution<int> uniform_dist(min, max);
     while(tileBag->getSize() != orderedTileBag->getSize()){
+     
         int randIndex1 = uniform_dist(engine);
+       
         Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
         if(tileBag->tileCount(tile1) < 2){
             tileBag->addToEnd(tile1);
         }
+        //delete tileBag;
+        //tileBag = shuffledBag;
     }
-
-    //Testing
-    // std::default_random_engine engine(28);
-	// std::uniform_int_distribution<int> uniform_dist(min, max);
-    // while(tileBag->getSize() != orderedTileBag->getSize()){
-     
-    //     int randIndex1 = uniform_dist(engine);
-       
-    //     Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
-    //     if(tileBag->tileCount(tile1) < 2){
-    //         tileBag->addToEnd(tile1);
-    //     }
-    //     //delete tileBag;
-    //     //tileBag = shuffledBag;
-    // }
 
 }
 
 void TileBag::loadBag(std::string tiles){
 
     int commaCount = 0;
-    for(int i = 0; i<(int)tiles.size(); ++i){
+    for(int i = 0; i< (int) tiles.size(); ++i){
         if(tiles[i] == ','){
             ++commaCount;
         }
@@ -143,7 +143,7 @@ void TileBag::loadBag(std::string tiles){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i<(int)tiles.size(); ++i){
+    for(int i = 0; i< (int) tiles.size(); ++i){
         if(tiles[i] != ','){
             tileArray[count] = tiles[i];
             count++;

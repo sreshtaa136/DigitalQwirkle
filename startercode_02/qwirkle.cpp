@@ -58,9 +58,6 @@ int main(int argc, char** argv) {
 
    // std::cout<< list->getSize() << std::endl;
    
-   TileBag* bag = new TileBag();
-   bag->tileBag->printList();
-   
    int choice = 0;
    while (choice !=4 ){
       std::cout << "\nWelcome to Qwirkle!\n";
@@ -131,6 +128,7 @@ int main(int argc, char** argv) {
                std::cout << "\n";
             }
 
+            std::cout << "> ";
             std::string userAction;
             getline(std::cin, userAction);
             

@@ -30,8 +30,9 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 if(tileBag->getBagSize() != 0){
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player1->getPlayerHand()->addToEnd(tile);
-                    tilePlaced = true;
                 }
+
+                tilePlaced = true;
             }
         }
     }else if(player == player2->getName()){
@@ -41,8 +42,9 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 if(tileBag->getBagSize() != 0){
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player2->getPlayerHand()->addToEnd(tile);
-                    tilePlaced = true;
                 }
+
+                tilePlaced = true;
             }
         }
     }
@@ -126,7 +128,7 @@ void GameEngine::loadHand(std::string hand, std::string name){
     LinkedList* playerHand = new LinkedList();
     
     int commaCount = 0;
-    for(int i = 0; i<(int)hand.size(); ++i){
+    for(int i = 0; i< (int) hand.size(); ++i){
         if(hand[i] == ','){
             ++commaCount;
         }
@@ -136,7 +138,7 @@ void GameEngine::loadHand(std::string hand, std::string name){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i<(int)hand.size(); ++i){
+    for(int i = 0; i< (int) hand.size(); ++i){
         if(hand[i] != ','){
             tileArray[count] = hand[i];
             count++;
@@ -247,7 +249,7 @@ void GameEngine::loadGame(std::string fileName) {
 				std::string pos = line.substr(3);
 
                 char r = pos[0];
-                int c = pos[1] - '0';
+                int c = stoi(pos.substr(1));
 
                 Tile* tileToPlace = new Tile(line[0],line[1]-'0');
 				board->placeTile(r, c, tileToPlace);
@@ -260,7 +262,7 @@ void GameEngine::loadGame(std::string fileName) {
         TileBag* bag = new TileBag(true);
         std::string tiles = tileBagString;
         bag->loadBag(tiles);
-        this->tileBag = bag;
+        this->tileBag = bag; 
 
         // load current player
         this->setCurrentPlayer(currPlayerName);
@@ -280,11 +282,9 @@ bool GameEngine::verifyName(std::string s) {
 
 	bool valid = s.length() != 0 ? true : false;
 
-	for (char c : s ) {
-
-		if (!isupper(c)){
-            valid = false;
-        }			
+	for (char c : s) {
+		if (!isupper(c))
+            valid = false;			
 	}
 	return valid;
 }
