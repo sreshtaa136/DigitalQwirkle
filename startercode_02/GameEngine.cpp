@@ -121,6 +121,45 @@ void GameEngine::printGameState(){
     std::cout << " \n";
 }
 
+void GameEngine::loadHand(std::string hand, std::string name){
+
+    LinkedList* playerHand = new LinkedList();
+    
+    int commaCount = 0;
+    for(int i = 0; i<hand.size(); ++i){
+        if(hand[i] == ','){
+            ++commaCount;
+        }
+    }
+
+    int tileCount = (hand.size() - commaCount)/2;
+    char tileArray[tileCount*2];
+    int count = 0;
+
+    for(int i = 0; i<hand.size(); ++i){
+        if(hand[i] != ','){
+            tileArray[count] = hand[i];
+            count++;
+        }
+    }
+
+    count = 0;
+    for(int i = 0; i<tileCount; ++i){
+        char colour = tileArray[count];
+        int shape = tileArray[count + 1] - '0';
+        Tile* tile = new Tile(colour, shape);
+        playerHand->addToEnd(tile);
+        count = count + 2;
+    }
+
+    if(player1->getName() == name){
+        this->player1->setPlayerHand(playerHand);
+    }else if(player2->getName() == name){
+        this->player2->setPlayerHand(playerHand);
+    }
+
+}
+
 void GameEngine::saveGame(std::string fileName) {
 
     fileName += ".save";
@@ -143,7 +182,7 @@ void GameEngine::saveGame(std::string fileName) {
 
 void GameEngine::loadGame(std::string fileName) {
 
-    fileName += ".save";
+    //fileName += ".save";
 
     // Open file for reading
     std::ifstream inFile;
@@ -178,6 +217,7 @@ void GameEngine::loadGame(std::string fileName) {
     if (loadValidated) {
 
         // load players
+
         this->setPlayers(player1Name, player2Name);
 
         int p1Score = stoi(player1Score);
@@ -187,6 +227,8 @@ void GameEngine::loadGame(std::string fileName) {
         player2->setScore(p2Score);
 
         // load player hands
+        loadHand(player1Hand, player1Name);
+        loadHand(player2Hand, player2Name);
 
         // load board
         board = new GameBoard();
@@ -203,10 +245,11 @@ void GameEngine::loadGame(std::string fileName) {
                     line.erase(line.begin());}
 					    
 				std::string pos = line.substr(3);
+
                 char r = pos[0];
                 int c = pos[1] - '0';
 
-                Tile* tileToPlace = new Tile(line[0],line[1]);
+                Tile* tileToPlace = new Tile(line[0],line[1]-'0');
 				board->placeTile(r, c, tileToPlace);
 			}
 		}
@@ -214,6 +257,10 @@ void GameEngine::loadGame(std::string fileName) {
         this->gameBoard = board;
 
         // load tilebag
+        TileBag* bag = new TileBag(true);
+        std::string tiles = tileBagString;
+        bag->loadBag(tiles);
+        this->tileBag = bag;
 
         // load current player
         this->setCurrentPlayer(currPlayerName);
@@ -230,10 +277,14 @@ void GameEngine::loadGame(std::string fileName) {
     
 
 bool GameEngine::verifyName(std::string s) {
+
 	bool valid = s.length() != 0 ? true : false;
-	for (char c : s) {
-		if (!isupper(c))
-			valid = false;
+
+	for (char c : s ) {
+
+		if (!isupper(c)){
+            valid = false;
+        }			
 	}
 	return valid;
 }

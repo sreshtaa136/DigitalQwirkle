@@ -27,8 +27,12 @@ bool loadGame(std::string fileName);
 
 int main(int argc, char** argv) {
 
-   // TileBag* bag = new TileBag();
-   // bag->shuffleBag();
+
+   // TileBag* bag = new TileBag(true);
+   // std::string s = "P6,G4,G2,P2,P5,Y3,P2,R2,O6,G2,G1,B3,R3,O3,G4,P6,O3,R2,G5,O1,B2,R3,B6,P3,Y2,R1,G3,O1,G6,O4,O2,R4,Y5,Y6,O4,B5,R5,Y1,Y4,B3,R6,P1,Y3,Y6,R1,P4,G5,B5,R5,B6,R4,P4,G3,G1,P5,R6,B4,Y2,G6,B4,Y5,O5,B1,O6,P1,B2,O2,O5,Y1,B1,Y4,P3";
+   // bag->loadBag(s);
+   
+   // bag->tileBag->printList();
    // std::cout<< bag->getBagSize() << std::endl;
    // LinkedList* list = new LinkedList();
    // list = bag->createHand();
@@ -77,23 +81,28 @@ int main(int argc, char** argv) {
          std::cin.ignore(256, '\n');
          std::cout << "> ";
          std::cin >> choice;
-         ;
+         
       }
       if (choice == 1)
       {
          std::string player1;
          std::string player2;
          std::cout << "\nStarting a New Game \n\n";
-         std::cout << "Enter a name for player 1 (uppercase characters only) \n";
+         
+         std::cin.ignore();
+
          do{
+            std::cout << "Enter a name for player 1 (uppercase characters only) \n";
             std::cout << "> "; 
-            std::cin >> player1;
+            getline(std::cin, player1);
+
          } while (!validateName(player1));
 
          do{
             std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
                      << "> ";
-            std::cin >> player2;
+            getline(std::cin, player2);
+
          } while (!validateName(player2) || (player1 == player2));
 
          std::cout << "\nLet's Play!\n\n";
@@ -107,7 +116,6 @@ int main(int argc, char** argv) {
          engine->getPlayer1()->getPlayerHand()->printList();
          std::cout << "\n";
          int turn = 0;
-         int iterator = 0;
          bool quit = false;
 
          while(!endGame(engine) && !quit){
@@ -123,56 +131,27 @@ int main(int argc, char** argv) {
             }
 
             std::string userAction;
-
-            std::cout << "> ";
-            if (iterator == 0){
-               std::cin.ignore();
-               iterator ++ ;
-            }
-
-            //std::cin.ignore();
             getline(std::cin, userAction);
             
             while (!verifyCommand(userAction))
             {
                std::cout << "\n Invalid input \n";
                std::cout << "> "; 
-               //std::cin.ignore();
                getline(std::cin, userAction);
             }
 
-            if (userAction[0] == 'p'){
+            bool executed = false;
+            while(!executed){
 
-               std::string s = userAction;
-               char cstr[s.size() + 1];
-               std::copy(s.begin(), s.end(), cstr);
-               cstr[s.size()] = '\0';
+               if (userAction[0] == 'p'){
 
-               int icol;
-               char col;
-
-               if(userAction.size() == 14){
-                  col = userAction[13];
-                  icol = col - '0'; 
-               }else{
-                  std ::string col = userAction.substr(13, 2);
-                  icol = std::stoi(col);
-               }
-
-               char shape = userAction[7];
-               int ishape = shape - '0';
-
-               bool place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
-               while(!place){
-                 
-                  std::cout << "\n Invalid tile \n";
-                  std::cout << "> ";
-                  getline(std::cin, userAction);
-
-                  s = userAction;
+                  std::string s = userAction;
                   char cstr[s.size() + 1];
                   std::copy(s.begin(), s.end(), cstr);
                   cstr[s.size()] = '\0';
+
+                  int icol;
+                  char col;
 
                   if(userAction.size() == 14){
                      col = userAction[13];
@@ -180,44 +159,95 @@ int main(int argc, char** argv) {
                   }else{
                      std ::string col = userAction.substr(13, 2);
                      icol = std::stoi(col);
-                  } 
+                  }
 
-                  shape = userAction[7];
-                  ishape = shape - '0';
-                  place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
-               }
+                  char shape = userAction[7];
+                  int ishape = shape - '0';
 
-               int points = engine->gameBoard->calculatePoints(userAction[12], userAction[13] - '0');
-               engine->getPlayer(currentPlayer)->incrementScore(points);
-               turn++;
-            }
-            else if (userAction[0] == 'r')
-            {
-               bool replace = engine->replaceTile(userAction[8], userAction[9] - '0', currentPlayer);
-               while(!replace){
-                  if(engine->tileBag->getBagSize()==0){
-                     std::cout << "\n Cannot replace. Tile bag is empty. Enter a different command.\n";
-                     std::cout << "> ";
-                     getline(std::cin, userAction);
-                  }else{
+                  bool place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
+                  
+                  while(!place && userAction[0] == 'p'){
+                  
                      std::cout << "\n Invalid tile \n";
                      std::cout << "> ";
                      getline(std::cin, userAction);
+
+                     if(userAction[0] == 'p'){
+
+                        s = userAction;
+                        char cstr[s.size() + 1];
+                        std::copy(s.begin(), s.end(), cstr);
+                        cstr[s.size()] = '\0';
+
+                        if(userAction.size() == 14){
+                           col = userAction[13];
+                           icol = col - '0'; 
+                        }else{
+                           std ::string col = userAction.substr(13, 2);
+                           icol = std::stoi(col);
+                        } 
+
+                        shape = userAction[7];
+                        ishape = shape - '0';
+                        place = engine->placeTile(userAction[12], icol, userAction[6], ishape, currentPlayer);
+                     }
+                     
                   }
+                  if(place == true){
+
+                     if(userAction.size() == 14){
+                        col = userAction[13];
+                        icol = col - '0'; 
+                     }else{
+                        std ::string col = userAction.substr(13, 2);
+                        icol = std::stoi(col);
+                     } 
+
+                     int row = engine->gameBoard->charToInt(userAction[12]);
+                     bool qwirkle = engine->gameBoard->isQwirkle(row, icol);
+                     if(qwirkle){
+                        std::cout<< "QWIRKLE!!!\n";
+                     }
+                     //int points = engine->gameBoard->calculatePoints(userAction[12], userAction[13] - '0');
+                     int points = engine->gameBoard->calculatePoints(userAction[12], icol);
+                     engine->getPlayer(currentPlayer)->incrementScore(points);
+                     executed = true;
+                     turn++;
+                  }                 
                }
-               turn++;
-            }else if (userAction[0] == 's'){
+               else if (userAction[0] == 'r')
+               {
+                  bool replace = engine->replaceTile(userAction[8], userAction[9] - '0', currentPlayer);
+                  while(!replace && userAction[0] == 'r'){
+                     if(engine->tileBag->getBagSize()==0){
+                        std::cout << "\n Cannot replace. Tile bag is empty. Enter a different command.\n";
+                        std::cout << "> ";
+                        getline(std::cin, userAction);
+                     }else{
+                        std::cout << "\n Invalid tile \n";
+                        std::cout << "> ";
+                        getline(std::cin, userAction);
+                     }
+                  }
+                  if(replace == true){
+                     turn++;
+                     executed = true;
+                  }
 
-               int nameSize = userAction.size() - 5;
-               std ::string fileName = userAction.substr(5, nameSize);
-               engine->saveGame(fileName);
-               std::cout << "\nGame successfully saved.\n";
-               
+               }else if (userAction[0] == 's'){
 
-            }else if(userAction[0] == 'q'){
-               quit = true;
+                  int nameSize = userAction.size() - 5;
+                  std ::string fileName = userAction.substr(5, nameSize);
+                  engine->saveGame(fileName);
+                  std::cout << "\nGame successfully saved.\n";
+                  executed = true;
+                  
+               }else if(userAction[0] == 'q'){
+                  quit = true;
+                  executed = true;
+               }
             }
-            
+           
             if(userAction[0] != 's'){
                if(currentPlayer == player1){
                
@@ -261,6 +291,11 @@ int main(int argc, char** argv) {
             std::cin >> fileName;
 
          }while(!loadGame(fileName));
+
+         GameEngine *engine = new GameEngine();
+         engine->loadGame(fileName);
+         engine->printGameState();
+
       }
       else if (choice == 3)
       {
@@ -321,16 +356,24 @@ bool loadGame(std::string fileName){
 
 bool validateName(std ::string name)
 {
+   bool check = true;
    for (int i = 0; i < (int) name.length(); i++)
    {
       int charAsci = name[i];
-      if (!((charAsci >= 65) && (charAsci <= 90)))
+      if (!((charAsci >= 65) && (charAsci <= 90)) && check == true)
       {
-         std::cout << "\nOnly Letters in UPPERCASE are valid! \n";
-         return false;
+         check = false;
+      }else if(charAsci == ' '){
+         check = false;
       }
    }
-   return true;
+   if(check == false){
+      std::cout << "\nOnly Letters in UPPERCASE WITHOUT SPACES are valid! \n";
+   }
+   // if(name[0] == ' '){
+   //    check = false;
+   // }
+   return check;
 }
 
 bool verifyCommand(std::string command){
@@ -342,7 +385,8 @@ bool verifyCommand(std::string command){
       bool foundColour = false ;
       bool foundShape = false;
 
-      if ((command.length() == 14 || command.length() == 15) && command[0] == 'p')
+      if ((command.length() == 14 || command.length() == 15) &&
+         command[0] == 'p')
       {
          std::string tmp = command.substr(0, 6);
 

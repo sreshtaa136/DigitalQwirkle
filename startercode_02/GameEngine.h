@@ -25,6 +25,7 @@ public:
     Player* getCurrentPlayer();
     void setCurrentPlayer(std::string playerName);
     Player* getPlayer(std::string playerName);
+    void loadHand(std::string hand, std::string name);
     void setTileBag(TileBag* tileBag);
 
     bool verifyName(std::string s);
