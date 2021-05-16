@@ -28,11 +28,11 @@ bool loadGame(std::string fileName);
 int main(int argc, char** argv) {
 
 
-   TileBag* bag = new TileBag(true);
-   std::string s = "P6,G4,G2,P2,P5,Y3,P2,R2,O6,G2,G1,B3,R3,O3,G4,P6,O3,R2,G5,O1,B2,R3,B6,P3,Y2,R1,G3,O1,G6,O4,O2,R4,Y5,Y6,O4,B5,R5,Y1,Y4,B3,R6,P1,Y3,Y6,R1,P4,G5,B5,R5,B6,R4,P4,G3,G1,P5,R6,B4,Y2,G6,B4,Y5,O5,B1,O6,P1,B2,O2,O5,Y1,B1,Y4,P3";
-   bag->loadBag(s);
+   // TileBag* bag = new TileBag(true);
+   // std::string s = "P6,G4,G2,P2,P5,Y3,P2,R2,O6,G2,G1,B3,R3,O3,G4,P6,O3,R2,G5,O1,B2,R3,B6,P3,Y2,R1,G3,O1,G6,O4,O2,R4,Y5,Y6,O4,B5,R5,Y1,Y4,B3,R6,P1,Y3,Y6,R1,P4,G5,B5,R5,B6,R4,P4,G3,G1,P5,R6,B4,Y2,G6,B4,Y5,O5,B1,O6,P1,B2,O2,O5,Y1,B1,Y4,P3";
+   // bag->loadBag(s);
    
-   bag->tileBag->printList();
+   // bag->tileBag->printList();
    // std::cout<< bag->getBagSize() << std::endl;
    // LinkedList* list = new LinkedList();
    // list = bag->createHand();
@@ -291,6 +291,11 @@ int main(int argc, char** argv) {
             std::cin >> fileName;
 
          }while(!loadGame(fileName));
+
+         GameEngine *engine = new GameEngine();
+         engine->loadGame(fileName);
+         engine->printGameState();
+
       }
       else if (choice == 3)
       {

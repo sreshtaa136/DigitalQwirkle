@@ -182,7 +182,7 @@ void GameEngine::saveGame(std::string fileName) {
 
 void GameEngine::loadGame(std::string fileName) {
 
-    fileName += ".save";
+    //fileName += ".save";
 
     // Open file for reading
     std::ifstream inFile;
@@ -217,6 +217,7 @@ void GameEngine::loadGame(std::string fileName) {
     if (loadValidated) {
 
         // load players
+
         this->setPlayers(player1Name, player2Name);
 
         int p1Score = stoi(player1Score);
@@ -226,6 +227,8 @@ void GameEngine::loadGame(std::string fileName) {
         player2->setScore(p2Score);
 
         // load player hands
+        loadHand(player1Hand, player1Name);
+        loadHand(player2Hand, player2Name);
 
         // load board
         board = new GameBoard();
@@ -242,10 +245,11 @@ void GameEngine::loadGame(std::string fileName) {
                     line.erase(line.begin());}
 					    
 				std::string pos = line.substr(3);
+
                 char r = pos[0];
                 int c = pos[1] - '0';
 
-                Tile* tileToPlace = new Tile(line[0],line[1]);
+                Tile* tileToPlace = new Tile(line[0],line[1]-'0');
 				board->placeTile(r, c, tileToPlace);
 			}
 		}
@@ -253,6 +257,10 @@ void GameEngine::loadGame(std::string fileName) {
         this->gameBoard = board;
 
         // load tilebag
+        TileBag* bag = new TileBag(true);
+        std::string tiles = tileBagString;
+        bag->loadBag(tiles);
+        this->tileBag = bag;
 
         // load current player
         this->setCurrentPlayer(currPlayerName);
@@ -269,10 +277,14 @@ void GameEngine::loadGame(std::string fileName) {
     
 
 bool GameEngine::verifyName(std::string s) {
+
 	bool valid = s.length() != 0 ? true : false;
-	for (char c : s) {
-		if (!isupper(c))
-			valid = false;
+
+	for (char c : s ) {
+
+		if (!isupper(c)){
+            valid = false;
+        }			
 	}
 	return valid;
 }
