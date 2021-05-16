@@ -342,7 +342,7 @@ bool verifyCommand(std::string command){
       bool foundColour = false ;
       bool foundShape = false;
 
-      if (command.length() == 14 || command.length() == 15)
+      if ((command.length() == 14 || command.length() == 15) && command[0] == 'p')
       {
          std::string tmp = command.substr(0, 6);
 
@@ -409,7 +409,7 @@ bool verifyCommand(std::string command){
             //return false;
          }
 
-      }else {
+      }else if (command.length() == 10  && command[0] == 'r'){
 
          std ::string tmp = command.substr(0, 8);
 

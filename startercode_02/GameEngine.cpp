@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <regex>
 
 void GameEngine::newGame(std::string player1, std::string player2){
     
@@ -137,4 +139,151 @@ void GameEngine::saveGame(std::string fileName) {
     outFile << currentPlayer->getName() << std::endl;
 
     outFile.close();
+}
+
+void GameEngine::loadGame(std::string fileName) {
+
+    fileName += ".save";
+
+    // Open file for reading
+    std::ifstream inFile;
+    inFile.open(fileName);
+    GameBoard* board = nullptr;
+
+    std::string player1Name, player1Score, player1Hand;
+    std::string player2Name, player2Score, player2Hand;
+    std::string boardShape, boardString;
+    std::string tileBagString;
+    std::string currPlayerName;
+
+    // extract lines from file
+    getline(inFile, player1Name);
+    getline(inFile, player1Score);
+    getline(inFile, player1Hand);
+    getline(inFile, player2Name);
+    getline(inFile, player2Score);
+    getline(inFile, player2Hand);
+    getline(inFile, boardShape);
+    getline(inFile, boardString);
+    getline(inFile, tileBagString);
+    getline(inFile, currPlayerName);
+
+    bool loadValidated = verifyName(player1Name) && verifyName(player2Name) && 
+                         verifyListString(player1Hand) && verifyListString(player2Hand) &&
+                         verifyBoardShapeString(boardShape) && verifyBoardString(boardString) &&
+                         verifyBoardSize(boardShape) && verifyListString(tileBagString) && 
+                         verifyName(currPlayerName);
+
+    // if the format is valid
+    if (loadValidated) {
+
+        // load players
+        this->setPlayers(player1Name, player2Name);
+
+        int p1Score = stoi(player1Score);
+        int p2Score = stoi(player2Score);
+
+        player1->setScore(p1Score);
+        player2->setScore(p2Score);
+
+        // load player hands
+
+        // load board
+        board = new GameBoard();
+        std::stringstream shapeStream(boardShape);
+	    std::string line;
+	    getline(shapeStream, line, ',');
+
+        // place tiles on board
+        if (boardString != "") {
+            std::stringstream boardStream(boardString);
+            while (boardStream.good()) {
+                getline(boardStream, line, ',');
+                if (line[0] == ' ') {
+                    line.erase(line.begin());}
+					    
+				std::string pos = line.substr(3);
+                char r = pos[0];
+                int c = pos[1] - '0';
+
+                Tile* tileToPlace = new Tile(line[0],line[1]);
+				board->placeTile(r, c, tileToPlace);
+			}
+		}
+
+        this->gameBoard = board;
+
+        // load tilebag
+
+        // load current player
+        this->setCurrentPlayer(currPlayerName);
+    }
+    else {
+        if(board != nullptr)
+            delete board;
+
+        std::cerr << "The file is not formatted correctly! Can't load game!" << std::endl;
+    }
+        
+}
+   
+    
+
+bool GameEngine::verifyName(std::string s) {
+	bool valid = s.length() != 0 ? true : false;
+	for (char c : s) {
+		if (!isupper(c))
+			valid = false;
+	}
+	return valid;
+}
+
+bool GameEngine::verifyListString(std::string s){
+    bool valid = false;
+	std::regex r("^([ROYGBP][1-6](, {0,1}[ROYGBP][1-6])*){0,1}$");
+
+	if (regex_match(s, r))
+		valid = true;
+	
+	return valid;
+}
+
+bool GameEngine::verifyBoardShapeString(std::string s) {
+    bool valid = false;
+	std::regex r("^\\d{1,2}, {0,1}\\d{1,2}$");
+	if (regex_match(s, r))
+		valid = true;
+	
+	return valid;
+}
+
+bool GameEngine::verifyBoardString(std::string s) {
+    bool valid = false;
+	std::regex r("^([ROYGBP][1-6]@[A-Z]\\d{1,2}(, {0,1}[ROYGBP][1-6]@[A-Z]\\d{1,2})*){0,1}$");
+
+	if (regex_match(s, r))
+		valid = true;
+
+	return valid;
+}
+
+bool GameEngine::verifyBoardSize(std::string s) {
+    bool valid = false;
+    int rows, cols;
+	std::stringstream shapeStream(s);
+	std::string line;
+	getline(shapeStream, line, ',');
+
+	rows = stoi(line);
+	getline(shapeStream, line, ',');
+
+	if (line[0] == ' ')
+		line.erase(line.begin());
+
+	cols = stoi(line);
+
+    if (rows == MAX_DIM && cols == MAX_DIM) 
+        valid = true;
+    
+    return valid; 
 }

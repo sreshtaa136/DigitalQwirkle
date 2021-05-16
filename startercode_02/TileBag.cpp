@@ -30,6 +30,10 @@ int TileBag::getBagSize(){
     return tileBag->getSize();
 }
 
+void TileBag::setTileBag(LinkedList* tileBag) {
+    this->tileBag = tileBag;
+}
+
 LinkedList* TileBag::createBag(){
 
     LinkedList* orderedTileBag = new LinkedList();
@@ -99,3 +103,4 @@ LinkedList* TileBag::createHand(){
     //playerHand->printList();
     return playerHand;
 }
+
