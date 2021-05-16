@@ -54,7 +54,8 @@ int main(int argc, char** argv) {
 
    // std::cout<< list->getSize() << std::endl;
    
-   
+   TileBag* bag = new TileBag();
+   bag->tileBag->printList();
    
    int choice = 0;
    while (choice !=4 ){
@@ -84,16 +85,19 @@ int main(int argc, char** argv) {
          std::string player1;
          std::string player2;
          std::cout << "\nStarting a New Game \n\n";
-         std::cout << "Enter a name for player 1 (uppercase characters only) \n";
+         std::cin.ignore();
          do{
+            std::cout << "Enter a name for player 1 (uppercase characters only) \n";
             std::cout << "> "; 
-            std::cin >> player1;
+            // std::cin >> player1;
+            getline(std::cin, player1);
          } while (!validateName(player1));
 
          do{
             std::cout << "\nEnter a name for player 2 (uppercase characters only) \n"
                      << "> ";
-            std::cin >> player2;
+            // std::cin >> player2;
+            getline(std::cin, player2);
          } while (!validateName(player2) || (player1 == player2));
 
          std::cout << "\nLet's Play!\n\n";
@@ -107,7 +111,6 @@ int main(int argc, char** argv) {
          engine->getPlayer1()->getPlayerHand()->printList();
          std::cout << "\n";
          int turn = 0;
-         int iterator = 0;
          bool quit = false;
 
          while(!endGame(engine) && !quit){
@@ -125,10 +128,6 @@ int main(int argc, char** argv) {
             std::string userAction;
 
             std::cout << "> ";
-            if (iterator == 0){
-               std::cin.ignore();
-               iterator ++ ;
-            }
 
             //std::cin.ignore();
             getline(std::cin, userAction);
@@ -319,18 +318,22 @@ bool loadGame(std::string fileName){
 //./qwirkle
 //valgrind --leak-check=full ./qwirkle
 
-bool validateName(std ::string name)
-{
+bool validateName(std ::string name) {
+   bool check = true;
    for (int i = 0; i < (int) name.length(); i++)
    {
       int charAsci = name[i];
-      if (!((charAsci >= 65) && (charAsci <= 90)))
+      if (!((charAsci >= 65) && (charAsci <= 90)) && check == true)
       {
-         std::cout << "\nOnly Letters in UPPERCASE are valid! \n";
-         return false;
+         check = false;
+      } else if (charAsci == ' ') {
+         check = false;
       }
    }
-   return true;
+   if(check == false){
+      std::cout << "\nOnly Letters in UPPERCASE WITHOUT SPACES are valid! \n";
+   }
+   return check;
 }
 
 bool verifyCommand(std::string command){

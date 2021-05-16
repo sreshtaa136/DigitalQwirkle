@@ -51,8 +51,6 @@ LinkedList* TileBag::createBag(){
     // tileBag->printList();
     // tileBag->printCount();
     return orderedTileBag;
-    // delete orderedTileBag;
-    // orderedTileBag = nullptr;
 }
 
 void TileBag::shuffleBag(){
@@ -65,19 +63,31 @@ void TileBag::shuffleBag(){
     //bag with shuffled tiles
     //LinkedList* shuffledBag = new LinkedList();
 
-    std::random_device engine;
-	std::uniform_int_distribution<int> uniform_dist(min, max);
+    // std::random_device engine;
+	// std::uniform_int_distribution<int> uniform_dist(min, max);
     
-    while(tileBag->getSize() != orderedTileBag->getSize()){
+    // while(tileBag->getSize() != orderedTileBag->getSize()){
      
-        int randIndex1 = uniform_dist(engine);
+    //     int randIndex1 = uniform_dist(engine);
        
+    //     Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
+    //     if(tileBag->tileCount(tile1) < 2){
+    //         tileBag->addToEnd(tile1);
+    //     }
+    //     //delete tileBag;
+    //     //tileBag = shuffledBag;
+
+    // }
+
+    //Testing
+    std::default_random_engine engine(28);
+    std::uniform_int_distribution<int> uniform_dist(min, max);
+    while(tileBag->getSize() != orderedTileBag->getSize()){
+        int randIndex1 = uniform_dist(engine);
         Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
         if(tileBag->tileCount(tile1) < 2){
             tileBag->addToEnd(tile1);
         }
-        //delete tileBag;
-        //tileBag = shuffledBag;
     }
 }
 
