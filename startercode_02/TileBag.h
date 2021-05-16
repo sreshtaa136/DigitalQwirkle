@@ -11,6 +11,7 @@ class TileBag {
 public:
 
    TileBag();
+   TileBag(bool shuffle);
    ~TileBag();
 
    //LinkedList* orderedTileBag;
@@ -24,6 +25,8 @@ public:
 
    LinkedList* getTileBag();
    int getBagSize();
+
+   void loadBag(std::string tiles);
 
 private:
     char colours[6] = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};

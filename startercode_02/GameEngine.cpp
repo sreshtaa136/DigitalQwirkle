@@ -119,6 +119,45 @@ void GameEngine::printGameState(){
     std::cout << " \n";
 }
 
+void GameEngine::loadHand(std::string hand, std::string name){
+
+    LinkedList* playerHand = new LinkedList();
+    
+    int commaCount = 0;
+    for(int i = 0; i<hand.size(); ++i){
+        if(hand[i] == ','){
+            ++commaCount;
+        }
+    }
+
+    int tileCount = (hand.size() - commaCount)/2;
+    char tileArray[tileCount*2];
+    int count = 0;
+
+    for(int i = 0; i<hand.size(); ++i){
+        if(hand[i] != ','){
+            tileArray[count] = hand[i];
+            count++;
+        }
+    }
+
+    count = 0;
+    for(int i = 0; i<tileCount; ++i){
+        char colour = tileArray[count];
+        int shape = tileArray[count + 1] - '0';
+        Tile* tile = new Tile(colour, shape);
+        playerHand->addToEnd(tile);
+        count = count + 2;
+    }
+
+    if(player1->getName() == name){
+        this->player1->setPlayerHand(playerHand);
+    }else if(player2->getName() == name){
+        this->player2->setPlayerHand(playerHand);
+    }
+
+}
+
 void GameEngine::saveGame(std::string fileName) {
 
     fileName += ".save";

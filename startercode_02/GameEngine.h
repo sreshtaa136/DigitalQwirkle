@@ -22,6 +22,7 @@ public:
     Player* getCurrentPlayer();
     void setCurrentPlayer(std::string playerName);
     Player* getPlayer(std::string playerName);
+    void loadHand(std::string hand, std::string name);
     TileBag* tileBag;
     GameBoard* gameBoard;
 

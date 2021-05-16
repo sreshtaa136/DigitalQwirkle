@@ -17,6 +17,11 @@ TileBag::TileBag(){
     shuffleBag();
 }
 
+TileBag::TileBag(bool shuffle){
+
+    tileBag = new LinkedList();
+}
+
 TileBag::~TileBag(){
     delete tileBag;
     tileBag = nullptr;
@@ -78,6 +83,52 @@ void TileBag::shuffleBag(){
         }
         //delete tileBag;
         //tileBag = shuffledBag;
+    }
+
+    //Testing
+    // std::default_random_engine engine(28);
+	// std::uniform_int_distribution<int> uniform_dist(min, max);
+    // while(tileBag->getSize() != orderedTileBag->getSize()){
+     
+    //     int randIndex1 = uniform_dist(engine);
+       
+    //     Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
+    //     if(tileBag->tileCount(tile1) < 2){
+    //         tileBag->addToEnd(tile1);
+    //     }
+    //     //delete tileBag;
+    //     //tileBag = shuffledBag;
+    // }
+
+}
+
+void TileBag::loadBag(std::string tiles){
+
+    int commaCount = 0;
+    for(int i = 0; i<tiles.size(); ++i){
+        if(tiles[i] == ','){
+            ++commaCount;
+        }
+    }
+
+    int tileCount = (tiles.size() - commaCount)/2;
+    char tileArray[tileCount*2];
+    int count = 0;
+
+    for(int i = 0; i<tiles.size(); ++i){
+        if(tiles[i] != ','){
+            tileArray[count] = tiles[i];
+            count++;
+        }
+    }
+
+    count = 0;
+    for(int i = 0; i<tileCount; ++i){
+        char colour = tileArray[count];
+        int shape = tileArray[count + 1] - '0';
+        Tile* tile = new Tile(colour, shape);
+        tileBag->addToEnd(tile);
+        count = count + 2;
     }
 }
 
