@@ -1,0 +1,41 @@
+1
+DAVID
+RIFF
+place R1 at J11
+place Y1 at J10
+place B1 at J12
+place Y6 at K10
+place P1 at J13
+place G6 at K9
+place P6 at K8
+place R2 at I11
+place G2 at L9
+place G5 at M9
+place G4 at N9
+place Y4 at N10
+place Y5 at M10
+place R4 at H11
+place G1 at J9
+place R6 at G11
+place Y2 at L10
+replace R1
+place O4 at H10
+place P4 at H9
+place B2 at I12
+replace Y5
+place O4 at N11
+place R4 at N12
+replace P6
+place Y4 at H8
+place Y1 at G8
+place O1 at J14
+place P1 at J15
+place P1 at G9   
+replace G2
+place P4 at N13
+place O5 at K14
+place P1 at J15
+place O6 at L14
+place Y3 at O10
+place Y2 at P10
+^D

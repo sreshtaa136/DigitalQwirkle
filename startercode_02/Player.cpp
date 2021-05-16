@@ -1,13 +1,14 @@
 #include "Player.h"
 
-Player::Player(std::string name){
+Player::Player(std::string name) {
     this->name = name;
     this->score = 0;
     this->playerHand = new LinkedList();
 }
 
-Player::~Player(){
+Player::~Player() {
     delete playerHand;
+    playerHand = nullptr;
 }
     
 std::string Player::getName() {
