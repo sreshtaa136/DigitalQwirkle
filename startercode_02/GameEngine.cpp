@@ -30,8 +30,9 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 if(tileBag->getBagSize() != 0){
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player1->getPlayerHand()->addToEnd(tile);
-                    tilePlaced = true;
+                    //tilePlaced = true;
                 }
+                tilePlaced = true;
             }
         }
     }else if(player == player2->getName()){
@@ -41,8 +42,9 @@ bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::s
                 if(tileBag->getBagSize() != 0){
                     Tile* tile = new Tile(*(tileBag->drawTile()));
                     player2->getPlayerHand()->addToEnd(tile);
-                    tilePlaced = true;
+                    //tilePlaced = true;
                 }
+                tilePlaced = true;
             }
         }
     }

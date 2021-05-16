@@ -130,6 +130,7 @@ int main(int argc, char** argv) {
                std::cout << "\n";
             }
 
+            std::cout << "> ";
             std::string userAction;
             getline(std::cin, userAction);
             
@@ -273,6 +274,8 @@ int main(int argc, char** argv) {
             if(engine->getPlayer1()->getScore() > engine->getPlayer2()->getScore()){
                std::cout << "Player " << engine->getPlayer1()->getName() <<
                " won!\n\n";
+            }else if(engine->getPlayer1()->getScore() == engine->getPlayer2()->getScore()){
+               std::cout << "Oops! It's a tie! Play again?" << std::endl;
             }else{
                std::cout << "Player " << engine->getPlayer2()->getName() <<
                " won!\n\n";
