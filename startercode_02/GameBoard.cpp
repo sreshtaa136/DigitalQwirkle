@@ -48,7 +48,8 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
     // 1. the tile space is empty
     // 2. the position is valid according to qwirkle rules
     // 3. a single line does not have more than 6 tiles
-    if (isEmptySpace(rowIdx, col) && isValidPosition(rowIdx, col, tile) && !checkLine(rowIdx, col)) 
+    if (isEmptySpace(rowIdx, col) && isValidPosition(rowIdx, col, tile) && 
+        !checkLine(rowIdx, col)) 
     {
         board[rowIdx][col] = tile;
         ++tilesOnBoard;
@@ -57,14 +58,14 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
 
     // Error message if space is occupied.
     } else if (!isEmptySpace(rowIdx, col)) {
-        std::cerr << "Tile can't be placed as the position is occupied!" << std::endl;
+        std::cerr << "Tile can't be placed as the position is occupied!" 
+        << std::endl;
     
     // Error message if move is invalid.
     } else if (!isValidPosition(rowIdx, col, tile) || checkLine(rowIdx, col)) {
         std::cerr << "Tile can't be placed as you broke a qwirkle game rule!" 
                   << std::endl;
-    }
-    
+    }  
     return place;
 }
 
@@ -152,9 +153,9 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
 
         bool oneMatching = upValid || downValid || rightValid || leftValid;
 
-        bool twoMatching = (upValid && downValid) || (rightValid && leftValid) ||
+        bool twoMatching = (upValid && downValid) || (rightValid && leftValid)||
                            (upValid && rightValid) || (upValid && leftValid) ||
-                           (downValid && rightValid) || (downValid && leftValid);
+                         (downValid && rightValid) || (downValid && leftValid);
 
         bool threeMatching = (upValid && downValid && rightValid) ||
                              (downValid && rightValid && leftValid) ||

@@ -13,6 +13,10 @@
 class GameEngine{
 public:
     
+
+    GameEngine();
+    ~GameEngine();
+
     /*
     * Initializes a new game.
     * 1. Create a new board and tilebag.
@@ -44,8 +48,8 @@ public:
     // Saves the current game details with the given filename.
     void saveGame(std::string fileName);
 
-    // Loads a saved game from the given file.
-    void loadGame(std::string fileName);
+    // Loads a saved game from the given file, and returns false if wrongly formatted
+    bool loadGame(std::string fileName);
 
     // Getters for players in the game.
     Player* getPlayer1();
@@ -79,7 +83,6 @@ private:
     Player* player1;
     Player* player2;
     Player* currentPlayer;
-    //TileBag* tileBag;
     
 };
 #endif

@@ -9,6 +9,7 @@
 
 class TileBag {
 public:
+
    // Default constructor
    TileBag();
 
@@ -19,8 +20,9 @@ public:
    ~TileBag();
 
    /*
-    * Returns a tilebag containing 72 tiles.
-    * Contains tiles in 6 colors and with 6 different shapes and 2 of each type.
+    * Returns an ordered tilebag containing 72 tiles.
+    * Contains tiles in 6 colors and with 6 different shapes 
+    * and 2 of each type.
     */
    LinkedList* createBag();
 
@@ -30,13 +32,13 @@ public:
    // Creates and returns a player's hand from tilebag
    LinkedList* createHand();
 
-   // Draws and returns a tile from the tilebag
+   // Draws and returns a tile from the front of the tilebag
    Tile* drawTile();
 
-   // Returns the tilebag.
+   // Returns the tilebag
    LinkedList* getTileBag();
 
-   // Returns the size of the tilebag.
+   // Returns the size of the tilebag
    int getBagSize();
 
    // Helper: extracts the tilebag for loading a game.
