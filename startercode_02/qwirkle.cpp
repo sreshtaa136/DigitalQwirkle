@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
    int choice = 0;
 
    // keep showing the main menu as long as choice = 4
-   while (choice !=4 ){
+   while (choice !=4 ) {
 
       std::cout << "\nWelcome to Qwirkle!\n";
       std::cout << "-------------------\n";
@@ -49,14 +49,13 @@ int main(int argc, char** argv) {
       std::cin >> choice;
 
       //checking if input is integer or not
-      while (std::cin.fail())
-      {
+      while (std::cin.fail()) {
+
          std::cout << "Invalid Input" << std::endl;
          std::cin.clear();
          std::cin.ignore(256, '\n');
          std::cout << "> ";
          std::cin >> choice;
-         
       }
       
       // checker for loading a game
@@ -64,21 +63,22 @@ int main(int argc, char** argv) {
       GameEngine *engine = new GameEngine();
 
       // loading a game 
-      if (choice == 2)
-      {
+      if (choice == 2) {
+
          std::string fileName;
 
-         do{
+         do {
             
             std::cout << "\nEnter the file name from which load a game\n";
             std::cout << "> ";
             std::cin >> fileName;
 
-         }while(!validateLoadGame(fileName, engine));
+         } while (!validateLoadGame(fileName, engine));
 
-         if(fileName == "^D"){
+         if (fileName == "^D") {
             choice = 4;
-         }else{
+
+         } else {
             load = true;
             std::cout << "\nQwirkle game successfully loaded\n";
             // redirecting to new game to continue playing
@@ -87,8 +87,7 @@ int main(int argc, char** argv) {
       }
 
       // starting a new game
-      if (choice == 1)
-      {
+      if (choice == 1) {
          // checker to keep track of player turns
          int turn = 0;
 
@@ -101,11 +100,11 @@ int main(int argc, char** argv) {
          std::cin.ignore();
 
          // starts a new game only if load game was not selected
-         if(load == false){
+         if (load == false) {
 
             std::cout << "\nStarting a New Game \n\n";
 
-            do{
+            do {
                std::cout << "Enter a name for player 1"
                         << "(uppercase characters only) \n";
                std::cout << "> "; 
@@ -113,7 +112,7 @@ int main(int argc, char** argv) {
 
             } while (!validateName(player1));
 
-            do{
+            do {
                std::cout << "\nEnter a name for player 2"
                << "(uppercase characters only) \n"
                         << "> ";
@@ -133,7 +132,7 @@ int main(int argc, char** argv) {
             engine->getPlayer1()->getPlayerHand()->printList();
             std::cout << "\n";
             
-         }else{
+         } else {
 
             // sets the game state according to the loaded game
             currentPlayer = engine->getCurrentPlayer()->getName();
@@ -143,10 +142,11 @@ int main(int argc, char** argv) {
          }
 
          // runs as long as game ends or exit command is entered
-         while(!endGame(engine) && !quit){
+         while (!endGame(engine) && !quit) {
 
             // updating the game state and displaying after the first turn
-            if(turn != 0){
+            if (turn != 0) {
+
                std::cout << "\n";
                std::cout << currentPlayer << ", it's your turn\n";
                engine->printGameState();
@@ -164,8 +164,7 @@ int main(int argc, char** argv) {
             getline(std::cin, userAction);
             
             // verifying the format of the command
-            while (!verifyCommand(userAction))
-            {
+            while (!verifyCommand(userAction)) {
                std::cout << "\n Invalid input \n";
                std::cout << "> "; 
                getline(std::cin, userAction);
@@ -173,7 +172,7 @@ int main(int argc, char** argv) {
 
             // checker to check if any command has been executed
             bool executed = false;
-            while(!executed){
+            while (!executed) {
 
                // executing the "place" command
                if (userAction[0] == 'p'){
@@ -188,10 +187,11 @@ int main(int argc, char** argv) {
                   char col;
 
                   // extracting column number and converting it into integer
-                  if(userAction.size() == 14){
+                  if (userAction.size() == 14) {
                      col = userAction[13];
                      icol = col - '0'; 
-                  }else{
+
+                  } else {
                      std ::string col = userAction.substr(13, 2);
                      icol = std::stoi(col);
                   }
@@ -205,23 +205,23 @@ int main(int argc, char** argv) {
                   
                   // asking for input until tile is placed successfully or 
                   // a different command is entered
-                  while(!place && userAction[0] == 'p'){
+                  while (!place && userAction[0] == 'p') {
                   
                      std::cout << "\n Invalid tile \n";
                      std::cout << "> ";
                      getline(std::cin, userAction);
 
-                     if(userAction[0] == 'p'){
+                     if (userAction[0] == 'p') {
 
                         s = userAction;
                         char cstr[s.size() + 1];
                         std::copy(s.begin(), s.end(), cstr);
                         cstr[s.size()] = '\0';
 
-                        if(userAction.size() == 14){
+                        if (userAction.size() == 14) {
                            col = userAction[13];
                            icol = col - '0'; 
-                        }else{
+                        } else {
                            std ::string col = userAction.substr(13, 2);
                            icol = std::stoi(col);
                         } 
@@ -235,19 +235,21 @@ int main(int argc, char** argv) {
                   }
 
                   // checking for qwirkle if at all the tile was placed
-                  if(place == true){
+                  if (place == true) {
 
-                     if(userAction.size() == 14){
+                     if (userAction.size() == 14) {
                         col = userAction[13];
                         icol = col - '0'; 
-                     }else{
+
+                     } else {
                         std ::string col = userAction.substr(13, 2);
                         icol = std::stoi(col);
                      } 
 
                      int row = engine->gameBoard->charToInt(userAction[12]);
                      bool qwirkle = engine->gameBoard->isQwirkle(row, icol);
-                     if(qwirkle){
+
+                     if (qwirkle) {
                         std::cout<< "QWIRKLE!!!\n";
                      }
                      
@@ -257,33 +259,34 @@ int main(int argc, char** argv) {
                      turn++;
                   }                 
                }
-               else if (userAction[0] == 'r')
-               {
+               else if (userAction[0] == 'r') {
                   // replacing a tile
-
                   bool replace = engine->replaceTile(userAction[8], 
                                  userAction[9] - '0', currentPlayer);
 
                   // asking for input until tile is replaced successfully or
                   // a different command is entered
-                  while(!replace && userAction[0] == 'r'){
-                     if(engine->tileBag->getBagSize()==0){
+                  while (!replace && userAction[0] == 'r') {
+
+                     if (engine->tileBag->getBagSize()==0) {
                         std::cout << "\n Cannot replace. Tile bag is empty. "
                                  << "Enter a different command.\n";
                         std::cout << "> ";
                         getline(std::cin, userAction);
-                     }else{
+
+                     } else {
                         std::cout << "\n Invalid tile \n";
                         std::cout << "> ";
                         getline(std::cin, userAction);
                      }
                   }
-                  if(replace == true){
+
+                  if (replace == true) {
                      turn++;
                      executed = true;
                   }
 
-               }else if (userAction[0] == 's'){
+               } else if (userAction[0] == 's') {
 
                   // saving a game
                   int nameSize = userAction.size() - 5;
@@ -292,7 +295,7 @@ int main(int argc, char** argv) {
                   std::cout << "\nGame successfully saved.\n";
                   executed = true;
                   
-               }else if(userAction[0] == '^'){
+               } else if (userAction[0] == '^') {
 
                   //quitting the game
                   quit = true;
@@ -302,13 +305,13 @@ int main(int argc, char** argv) {
             }
            
             // switching between players as turns change
-            if(userAction[0] != 's'){
-               if(currentPlayer == player1){
+            if (userAction[0] != 's') {
+               if (currentPlayer == player1) {
                
                   engine->setCurrentPlayer(player2);
                   currentPlayer = engine->getCurrentPlayer()->getName();
 
-               }else{
+               } else {
                   
                   engine->setCurrentPlayer(player1);
                   currentPlayer = engine->getCurrentPlayer()->getName();
@@ -318,7 +321,7 @@ int main(int argc, char** argv) {
          }
 
          // displaying scores and declaring winner when game ends
-         if(endGame(engine)){
+         if (endGame(engine)) {
             
             std::cout << "Game over \n";
             std::cout << "Score for " << engine->getPlayer1()->getName() 
@@ -326,15 +329,20 @@ int main(int argc, char** argv) {
             std::cout << "Score for " << engine->getPlayer2()->getName() 
             << ": " << engine->getPlayer2()->getScore() << "\n";
 
-            if(engine->getPlayer1()->getScore() > engine->getPlayer2()->getScore()){
-               std::cout << "Player " << engine->getPlayer1()->getName() <<
-               " won!\n\n";
-            }else if(engine->getPlayer1()->getScore() == engine->getPlayer2()->getScore()){
+            if (engine->getPlayer1()->getScore() > engine->getPlayer2()->getScore()) {
+               std::cout << "Player " << engine->getPlayer1()->getName() 
+                         << " won!\n\n";
+
+            } else if (engine->getPlayer1()->getScore() == 
+                       engine->getPlayer2()->getScore()) {
+
                std::cout << "Oops! It's a tie! Play again?" << std::endl;
-            }else{
-               std::cout << "Player " << engine->getPlayer2()->getName() <<
-               " won!\n\n";
+
+            } else {
+               std::cout << "Player " << engine->getPlayer2()->getName() 
+                         << " won!\n\n";
             }
+
             std::cout << "Goodbye \n";
 
             delete engine;
@@ -343,8 +351,7 @@ int main(int argc, char** argv) {
       }
 
       // displaying student information
-      if (choice == 3)
-      {
+      if (choice == 3) {
          std::cout << "\n----------------------------------\n";
          std::cout << "\n";
          std::cout << "Name : David Aziz \n";
@@ -367,13 +374,11 @@ int main(int argc, char** argv) {
       }
 
       // terminating the program
-      if (choice == 4)
-      {
+      if (choice == 4) {
          std::cout << "\nGoodbye \n";
       }
       
-      if(choice < 1 || choice > 4)
-      {
+      if (choice < 1 || choice > 4) {
          std::cout << "\nNot a Valid Choice. \n";
          std::cout << "Choose again.\n\n";
       }
@@ -387,24 +392,26 @@ bool validateLoadGame(std::string fileName, GameEngine* engine){
    std::ifstream file(fileName);
 
    // checking if a file exists
-   if(file.fail()){
+   if (file.fail()) {
 
       check = false;
 
-   }else{
+   } else {
 
       bool load = engine->loadGame(fileName);
 
       // checking if a file is formatted correctly
-      if(load){
+      if (load) {
          check = true;
-      }else{
+      } else {
          check = false;
       }
    }
-   if(fileName == "^D"){
+
+   if (fileName == "^D") {
       check = true;
    }
+
    return check;
 }
 
@@ -412,17 +419,15 @@ bool validateLoadGame(std::string fileName, GameEngine* engine){
 bool validateName(std ::string name)
 {
    bool check = true;
-   for (int i = 0; i < (int) name.length(); i++)
-   {
+   for (int i = 0; i < (int) name.length(); i++) {
       int charAsci = name[i];
-      if (!((charAsci >= 65) && (charAsci <= 90)) && check == true)
-      {
+      if (!((charAsci >= 65) && (charAsci <= 90)) && check == true) {
          check = false;
-      }else if(charAsci == ' '){
+      } else if(charAsci == ' ') {
          check = false;
       }
    }
-   if(check == false){
+   if (check == false) {
       std::cout << "\nOnly Letters in UPPERCASE WITHOUT SPACES are valid! \n";
    }
    return check;
@@ -433,8 +438,8 @@ bool verifyCommand(std::string command){
    bool check = true;
 
    // checking if length exceeds expected number
-
-   if(command.length() == 14 || command.length() == 10 || command.length() == 15){
+   if (command.length() == 14 || command.length() == 10 ||
+       command.length() == 15) {
       
       // checkers for validating shape and colour
       bool foundColour = false ;
@@ -442,130 +447,113 @@ bool verifyCommand(std::string command){
 
       // checking the place command
       if ((command.length() == 14 || command.length() == 15) &&
-         command[0] == 'p')
-      {
+         command[0] == 'p') {
          std::string tmp = command.substr(0, 6);
 
-         if (tmp != "place ")
-         {
+         if (tmp != "place ") {
             check = false;
-
          }
-         for (int i = 0; i < 6; i++)
-         {
-            if (command[6] == colours[i])
-            {
+
+         for (int i = 0; i < 6; i++) {
+            if (command[6] == colours[i]) {
+
             foundColour = true;
             }
+
             int sha = command[7] - '0';
-            if (sha== shapes[i])
-            {
+            if (sha== shapes[i]) {
                foundShape = true;
             }
          }
 
-         if (!(foundColour && foundShape)){
+         if (!(foundColour && foundShape)) {
 
             check = false;
-
          }
          
          tmp = command.substr(8, 4);
-
-         if (tmp != " at ")
-         {
+         if (tmp != " at ") {
             check = false;
-
          }
          
          bool foundcol = false;
          bool foundrow = false;
 
-         for (int i = 0; i < 26; i++)
-         {
-            if (command[12] == alphabets[i])
-            {
+         for (int i = 0; i < 26; i++) {
+            if (command[12] == alphabets[i]) {
                foundrow= true;
             }
 
             int icol;
-
-            if(command.length() == 15){
+            if (command.length() == 15) {
                std ::string col = command.substr(13, 2);
                icol = std::stoi(col);
-            }else{
+            } else {
                icol = command[13] - '0';
             }
 
-            if (icol == i)
-            {
+            if (icol == i) {
                foundcol = true;
             }
          }
 
-         if (!(foundrow && foundcol))
-         {
+         if (!(foundrow && foundcol)) {
             check = false;
-
          }
 
-      }else if (command.length() == 10  && command[0] == 'r'){
+      } else if (command.length() == 10  && command[0] == 'r') {
 
          // checking the replace command
          std ::string tmp = command.substr(0, 8);
 
-         if (tmp != "replace ")
-         {
+         if (tmp != "replace ") {
             check = false;
-
          }
-         for (int i = 0; i < 6; i++)
-         {
-            if (command[8] == colours[i])
-            {
+
+         for (int i = 0; i < 6; i++) {
+            if (command[8] == colours[i]) {
                foundColour = true;
             }
+
             int sha = command[9] - '0';
-            if (sha == shapes[i])
-            {
+            if (sha == shapes[i]) {
                foundShape = true;
             }
          }
 
-         if (!(foundColour && foundShape))
-         {
+         if (!(foundColour && foundShape)) {
             check = false;
-
          }
       }
-   }else {
-   
+
+   } else {
       check = false;
    } 
 
    // checking the save command
    std ::string tmp = command.substr(0, 5);
-   if(tmp == "save "){
+   if (tmp == "save ") {
       check = true;
    }
 
    // checking the exit command
-   if(command == "^D"){
+   if(command == "^D") {
       check = true;
    }
+
    return check;
 }
 
 //will check if you should end the game
-bool endGame(GameEngine* engine){
+bool endGame(GameEngine* engine) {
 
    bool check = false;
    bool checkHand = engine->getPlayer1()->getPlayerHand()->getSize() == 0 ||
                     engine->getPlayer2()->getPlayerHand()->getSize() == 0;
 
-   if(engine->tileBag->getBagSize() == 0 &&
-   checkHand){
+   if (engine->tileBag->getBagSize() == 0 && checkHand) {
       check = true;
    }
+   
    return check;
 }
