@@ -8,35 +8,39 @@
 class Player {
 public:
 
-    // constructor/deconstructor
+    // Constructor/deconstructor
     Player(std::string name);
     ~Player();
     
-    // get the player's name, score and hand
+    // Returns the player's name 
     std::string getName();
+
+    // Returns the player's score
     int getScore();
+
+    // Returns the player's hand
     LinkedList* getPlayerHand();
 
-    // set the player's score and hand
+    // Sets the player's score to given score
     void setScore(int score);
+
+    // Sets the player's hand to given hand
     void setPlayerHand(LinkedList* hand);
+
+    // Prints the tiles in a player's hand as 
     void printPlayerHand();
 
-    // add up the player's score
+    // Adds the new score to player's previous score
     void incrementScore(int newScore);
-
-    // player action : replace a tile in playerHand
-    void replaceTile(Tile* tileToReplace, Tile* newTile);
   
 private:
 
-    // name and score of a player
+    // Name and score of a player
     std::string name;
     int score;
 
-    // playerHand is an ordered linked list of all tiles a player currently has
+    // playerHand is a linked list of all tiles a player currently has
     LinkedList* playerHand;
-
 };
 
 #endif

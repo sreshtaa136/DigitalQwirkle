@@ -3,18 +3,24 @@
 
 GameBoard::GameBoard() {
     std::vector<Tile*> temp;
+
+    // Populate the temp vector.
     for (int col = 0; col < MAX_DIM; ++col) {
             temp.push_back(nullptr);
 	}
 
+    // Populate board with temp vectors.
     for (int row = 0; row < MAX_DIM; ++row) {
         board.push_back(temp);
 	}
 
+    // Initially, no tile on board.
     this->tilesOnBoard = 0;
 }
 
 GameBoard::~GameBoard() {
+
+    // Delete all the tiles on the board.
     for (int row = 0; row < (int) board.size(); ++row) {
 		for (int col = 0; col < (int) board[row].size(); ++col) {
 			if (board[row][col] != nullptr) {
@@ -32,11 +38,13 @@ std::string GameBoard::dimensionsToString() {
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
     int rowIdx = charToInt(row);
     bool place = false;
+
+    // Position of tile as a string.
     std::string position;
     position.append(1, row);
     position += std::to_string(col);
 
-    // check the following conditions
+    // Check the following conditions:
     // 1. the tile space is empty
     // 2. the position is valid according to qwirkle rules
     // 3. a single line does not have more than 6 tiles
@@ -46,6 +54,15 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
         ++tilesOnBoard;
         place = true;
         positions.push_back(position);
+
+    // Error message if space is occupied.
+    } else if (!isEmptySpace(rowIdx, col)) {
+        std::cerr << "Tile can't be placed as the position is occupied!" << std::endl;
+    
+    // Error message if move is invalid.
+    } else if (!isValidPosition(rowIdx, col, tile) || checkLine(rowIdx, col)) {
+        std::cerr << "Tile can't be placed as you broke a qwirkle game rule!" 
+                  << std::endl;
     }
     
     return place;
@@ -57,7 +74,6 @@ bool GameBoard::isEmptySpace(int row, int col) {
     if(board[row][col] == nullptr) {
         empty = true;
     }
-    
     return empty;
 }
 
@@ -67,6 +83,8 @@ bool GameBoard::isValidPosition(int row, int col, Tile* tile) {
     bool leftValid = false;
     bool upValid = false;
     bool downValid = false;
+
+    // count the number of adjacent tiles.
     int neighbour = 0;
 
     // if it's the first tile
@@ -336,8 +354,6 @@ bool GameBoard::checkDuplicates(int row, int col, std::string direction, Tile* t
             }
             ++row;
         }
-    } else {
-        std::cerr << "There cannot be duplicate tiles in a line!" << std::endl;
     }
 
     return duplicateFound;
@@ -458,7 +474,6 @@ bool GameBoard::checkLine(int row, int col) {
     if (totalTilesInRow(row, col) > MAX_LINE_SIZE || 
         totalTilesInCol(row, col) > MAX_LINE_SIZE) {
             lineNotValid = true;
-            std::cerr << "Lines of more than 6 tiles are not allowed!" << std::endl;
     }
 
     return lineNotValid;
@@ -477,7 +492,6 @@ bool GameBoard::isQwirkle(int row, int col) {
 }
 
 int GameBoard::calculatePoints(char row, int col) {
-
     int rowIdx = charToInt(row);
     int rowScore = 0;
     int colScore = 0;
@@ -496,7 +510,7 @@ int GameBoard::calculatePoints(char row, int col) {
             // if tile linked in a col or a row, not both
             if (rowScore == ONE_TILE_SCORE || colScore == ONE_TILE_SCORE) {
 
-                // the current tile is only counted once
+                // then current tile is only counted once
                 score = rowScore + colScore - 1;
             }
             else {
@@ -568,7 +582,8 @@ void GameBoard::displayBoard() {
 std::string GameBoard::toString() {
     std::string string = "";
 
-    for(std::string p : positions) {
+    // Convert gameboard to string as tile@position format.
+    for (std::string p : positions) {
         int row = charToInt(p[0]);
         int col =  stoi(p.substr(1));
 
@@ -576,6 +591,7 @@ std::string GameBoard::toString() {
 
     }
 
+    // Remove the last comma.
     if (!string.empty()) {
         string.resize(string.size() - 2);
     }

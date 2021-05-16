@@ -2,36 +2,26 @@
 #include <random>
 #include <iostream>
 
-//The order of the tile bag is determined when generating a new game. 
-//When a tile is drawn from the bag, it is taken from the front of the linked list. 
-//If tiles are added to the bag, they are added to the end of the linked list.
-//You will need to devise your own algorithm to “shuffle” the bag of tiles to 
-//create a “random” initial order.
-//6 tiles are drawn from the tile bag and placed in the 1st player’s hand. 
-//Then 6 tiles are drawn from the tile bag and placed in the 2nd player’s hand.
-
-
-TileBag::TileBag(){
-
+TileBag::TileBag() {
     tileBag = new LinkedList();
     shuffleBag();
 }
 
-TileBag::TileBag(bool shuffle){
+TileBag::TileBag(bool shuffle) {
 
     tileBag = new LinkedList();
 }
 
-TileBag::~TileBag(){
+TileBag::~TileBag() {
     delete tileBag;
     tileBag = nullptr;
 }
 
-LinkedList* TileBag::getTileBag(){
+LinkedList* TileBag::getTileBag() {
     return this->tileBag;
 }
 
-int TileBag::getBagSize(){
+int TileBag::getBagSize() {
     return tileBag->getSize();
 }
 
@@ -39,17 +29,17 @@ void TileBag::setTileBag(LinkedList* tileBag) {
     this->tileBag = tileBag;
 }
 
-LinkedList* TileBag::createBag(){
-
+LinkedList* TileBag::createBag() {
     LinkedList* orderedTileBag = new LinkedList();
     char colour;
     int shape;
     int count = 0;
 
-    while(count != 2){
-      for(int i = 0; i <6; ++i){
+    // Populate the tilebag with 2 of each type
+    while (count != 2) {
+      for (int i = 0; i <6; ++i) {
             colour = colours[i];
-            for(int j = 0; j <6; ++j){
+            for (int j = 0; j <6; ++j) {
                 shape = shapes[j];
                 Tile* tile = new Tile(colour, shape);
                 orderedTileBag->addToEnd(tile);
@@ -57,32 +47,26 @@ LinkedList* TileBag::createBag(){
         }
       count++;
     }
-    // tileBag->printList();
-    // tileBag->printCount();
+    
     return orderedTileBag;
     // delete orderedTileBag;
     // orderedTileBag = nullptr;
 }
 
-void TileBag::shuffleBag(){
-
+void TileBag::shuffleBag() {
     int min = 0;
     int max = TILEBAG_MAX_SIZE - 1;
 
     LinkedList* orderedTileBag = createBag();
 
-    //bag with shuffled tiles
-    //LinkedList* shuffledBag = new LinkedList();
-
     std::random_device engine;
 	std::uniform_int_distribution<int> uniform_dist(min, max);
     
-    while(tileBag->getSize() != orderedTileBag->getSize()){
-     
+    while (tileBag->getSize() != orderedTileBag->getSize()) {
         int randIndex1 = uniform_dist(engine);
        
         Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
-        if(tileBag->tileCount(tile1) < 2){
+        if (tileBag->tileCount(tile1) < 2) {
             tileBag->addToEnd(tile1);
         }
         //delete tileBag;
@@ -106,10 +90,10 @@ void TileBag::shuffleBag(){
 
 }
 
-void TileBag::loadBag(std::string tiles){
+void TileBag::loadBag(std::string tiles) {
 
     int commaCount = 0;
-    for(int i = 0; i< (int) tiles.size(); ++i){
+    for(int i = 0; i< (int) tiles.size(); ++i) {
         if(tiles[i] == ','){
             ++commaCount;
         }
@@ -119,15 +103,15 @@ void TileBag::loadBag(std::string tiles){
     char tileArray[tileCount*2];
     int count = 0;
 
-    for(int i = 0; i< (int) tiles.size(); ++i){
-        if(tiles[i] != ','){
+    for (int i = 0; i< (int) tiles.size(); ++i) {
+        if (tiles[i] != ',') {
             tileArray[count] = tiles[i];
             count++;
         }
     }
 
     count = 0;
-    for(int i = 0; i<tileCount; ++i){
+    for (int i = 0; i<tileCount; ++i) {
         char colour = tileArray[count];
         int shape = tileArray[count + 1] - '0';
         Tile* tile = new Tile(colour, shape);
@@ -136,22 +120,18 @@ void TileBag::loadBag(std::string tiles){
     }
 }
 
-Tile* TileBag::drawTile(){
-
+Tile* TileBag::drawTile() {
     Tile* tile = new Tile(*tileBag->getTileAtIndex(0));
     tileBag->removeTile(tile->getColour(), tile->getShape());
     return tile;
 }
 
-LinkedList* TileBag::createHand(){
-
+LinkedList* TileBag::createHand() {
     LinkedList* playerHand = new LinkedList();
 
-    while(playerHand->getSize() != 6){
+    while (playerHand->getSize() != 6) {
         playerHand->addToEnd(drawTile());
     }
-
-    //playerHand->printList();
     return playerHand;
 }
 
