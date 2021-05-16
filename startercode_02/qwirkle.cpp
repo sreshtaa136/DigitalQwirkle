@@ -448,7 +448,7 @@ bool verifyCommand(std::string command){
             //return false;
          }
 
-      }else {
+      }else if (command.length() == 10  && command[0] == 'r'){
 
          std ::string tmp = command.substr(0, 8);
 

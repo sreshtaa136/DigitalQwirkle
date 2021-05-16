@@ -53,7 +53,7 @@ bool GameBoard::isEmptySpace(int row, int col) {
         empty = true;
     }
     else {
-        std::cerr << "Can't place tile at an occupied spot!" << std::endl;
+        throw std::runtime_error("Can't place tile at an occupied space!");
     }
     
     return empty;
