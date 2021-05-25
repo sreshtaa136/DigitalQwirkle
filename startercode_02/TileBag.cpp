@@ -94,6 +94,7 @@ void TileBag::shuffleBag() {
 
     // std::default_random_engine engine(28);
 	// std::uniform_int_distribution<int> uniform_dist(min, max);
+    
     // while(tileBag->getSize() != orderedTileBag->getSize()){
      
     //     int randIndex1 = uniform_dist(engine);

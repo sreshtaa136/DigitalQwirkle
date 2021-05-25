@@ -44,7 +44,8 @@ void GameEngine::newGame(std::string player1, std::string player2) {
     
 }
 
-bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, std::string player) {
+bool GameEngine::placeTile(char row, int col, Colour colour, Shape shape, 
+                           std::string player) {
 
     Tile* tileToPlace = new Tile(colour,shape);
     bool tilePlaced = false;
@@ -272,10 +273,10 @@ bool GameEngine::loadGame(std::string fileName) {
     getline(inFile, currPlayerName);
 
     bool loadValidated = verifyName(player1Name) && verifyName(player2Name) && 
-            verifyListString(player1Hand) && verifyListString(player2Hand) &&
-            verifyBoardShapeString(boardShape) && verifyBoardString(boardString) &&
-            verifyBoardSize(boardShape) && verifyListString(tileBagString) && 
-            verifyName(currPlayerName);
+         verifyListString(player1Hand) && verifyListString(player2Hand) &&
+         verifyBoardShapeString(boardShape) && verifyBoardString(boardString) &&
+         verifyBoardSize(boardShape) && verifyListString(tileBagString) && 
+         verifyName(currPlayerName);
 
     // if the format is valid
     if (loadValidated) {
@@ -322,7 +323,7 @@ bool GameEngine::loadGame(std::string fileName) {
         TileBag* bag = new TileBag(true);
         std::string tiles = tileBagString;
         bag->loadBag(tiles);
-        this->tileBag = bag;
+        this->tileBag = bag; 
 
         // load current player ----------------
         this->setCurrentPlayer(currPlayerName);
