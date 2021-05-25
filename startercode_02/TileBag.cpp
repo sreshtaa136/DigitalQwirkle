@@ -49,6 +49,18 @@ LinkedList* TileBag::createBag() {
         }
       count++;
     }
+
+    //testing
+    
+    // for (int i = 0; i <6; ++i) {
+    //     colour = colours[i];
+    //     for (int j = 0; j <6; ++j) {
+    //         shape = shapes[j];
+    //         Tile* tile = new Tile(colour, shape);
+    //         orderedTileBag->addToEnd(tile);
+    //     }
+    // }
+    
     return orderedTileBag;
 
     delete orderedTileBag;
@@ -59,7 +71,8 @@ void TileBag::shuffleBag() {
 
     // populating the tilebag with shuffled tiles
     int min = 0;
-    int max = TILEBAG_MAX_SIZE - 1;
+    int max = 72-1;
+    //int max = 36 - 1;
 
     LinkedList* orderedTileBag = createBag();
 
@@ -86,11 +99,9 @@ void TileBag::shuffleBag() {
     //     int randIndex1 = uniform_dist(engine);
        
     //     Tile* tile1 = new Tile(*orderedTileBag->getTileAtIndex(randIndex1));
-    //     if(tileBag->tileCount(tile1) < 2){
+    //     if(tileBag->tileCount(tile1) < 1){
     //         tileBag->addToEnd(tile1);
     //     }
-    //     //delete tileBag;
-    //     //tileBag = shuffledBag;
     // }
 }
 

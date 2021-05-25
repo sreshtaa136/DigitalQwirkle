@@ -6,6 +6,13 @@
 
 GameEngine::GameEngine() {
 
+    player1 = new Player("");
+    player2 = new Player("");
+    //currentPlayer = new Player("");
+    gameBoard = new GameBoard();
+    tileBag = new TileBag();
+    gameBoard = new GameBoard();
+
 }
 
 GameEngine::~GameEngine() {
@@ -14,21 +21,23 @@ GameEngine::~GameEngine() {
     delete gameBoard;
     delete player1;
     delete player2;
-    delete currentPlayer;
+    //delete currentPlayer;
 
     tileBag = nullptr;
     gameBoard = nullptr;
     player1 = nullptr;
     player2 = nullptr;
-    currentPlayer = nullptr;
+    //currentPlayer = nullptr;
 }
 
 void GameEngine::newGame(std::string player1, std::string player2) {
     
-    gameBoard = new GameBoard();
+    // gameBoard = new GameBoard();
     tileBag = new TileBag();
-    setPlayers(player1, player2);
-    currentPlayer = this->player1;
+    //setPlayers(player1, player2);
+    this->player1->setName(player1);
+    this->player2->setName(player2);
+    currentPlayer = this->player1->getName();
     this->player1->setPlayerHand(tileBag->createHand());
     this->player2->setPlayerHand(tileBag->createHand());
     printGameState();
@@ -137,12 +146,17 @@ Player* GameEngine::getPlayer2(){
     return this->player2;
 }
 
-Player* GameEngine::getCurrentPlayer(){
+// Player* GameEngine::getCurrentPlayer(){
+//     return this->currentPlayer;
+// }
+
+std::string GameEngine::getCurrentPlayer(){
     return this->currentPlayer;
 }
 
 void GameEngine::setCurrentPlayer(std::string playerName){
-    this->currentPlayer = getPlayer(playerName);
+    // this->currentPlayer = getPlayer(playerName);
+    this->currentPlayer = playerName;
 }
 
 Player* GameEngine::getPlayer(std::string playerName){
@@ -227,7 +241,8 @@ void GameEngine::saveGame(std::string fileName) {
     outFile << gameBoard->dimensionsToString() << std::endl;
     outFile << gameBoard->toString() << std::endl;
     outFile << tileBag->getTileBag()->toString() << std::endl;
-    outFile << currentPlayer->getName() << std::endl;
+    //outFile << currentPlayer->getName() << std::endl;
+    outFile << currentPlayer << std::endl;
 
     outFile.close();
 }

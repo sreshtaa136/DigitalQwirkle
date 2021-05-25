@@ -56,7 +56,8 @@ public:
     Player* getPlayer2();
 
     // Getter and setter for current player.
-    Player* getCurrentPlayer();
+    //Player* getCurrentPlayer();
+    std::string getCurrentPlayer();
     void setCurrentPlayer(std::string playerName);
 
     // Get player using player name.
@@ -82,7 +83,8 @@ private:
 
     Player* player1;
     Player* player2;
-    Player* currentPlayer;
+    //Player* currentPlayer;
+    std::string currentPlayer;
     
 };
 #endif

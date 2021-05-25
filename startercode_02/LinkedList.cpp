@@ -12,6 +12,7 @@ LinkedList::~LinkedList() {
    clear();
 }
 
+
 int LinkedList::getSize() {
    return this->size;
 }

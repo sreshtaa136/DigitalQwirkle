@@ -28,6 +28,7 @@ bool verifyCommand(std::string command);
 bool validateLoadGame(std::string fileName, GameEngine* engine);
 
 //valgrind --leak-check=full ./qwirkle
+//g++ -Wall -Werror -std=c++14 -O -o qwirkle qwirkle.cpp Tile.cpp Node.cpp LinkedList.cpp GameBoard.cpp GameEngine.cpp Player.cpp TileBag.cpp
 
 int main(int argc, char** argv) {
 
@@ -120,6 +121,7 @@ int main(int argc, char** argv) {
                getline(std::cin, player2);
 
             } while (!validateName(player2) || (player1 == player2));
+            
 
             std::cout << "\nLet's Play!\n\n";
 
@@ -128,6 +130,7 @@ int main(int argc, char** argv) {
 
             // initialising a new game
             engine->newGame(player1, player2);
+            std::cout << "\nTileBag size: " << engine->tileBag->getBagSize() << std::endl;
 
             std::cout << "Your hand is\n";
             engine->getPlayer1()->getPlayerHand()->printList();
@@ -136,7 +139,7 @@ int main(int argc, char** argv) {
          }else{
 
             // sets the game state according to the loaded game
-            currentPlayer = engine->getCurrentPlayer()->getName();
+            currentPlayer = engine->getCurrentPlayer();
             player1 = engine->getPlayer1()->getName();
             player2 = engine->getPlayer2()->getName();
             turn++;
@@ -306,12 +309,14 @@ int main(int argc, char** argv) {
                if(currentPlayer == player1){
                
                   engine->setCurrentPlayer(player2);
-                  currentPlayer = engine->getCurrentPlayer()->getName();
+                  //currentPlayer = engine->getCurrentPlayer()->getName();
+                  currentPlayer = engine->getCurrentPlayer();
 
                }else{
                   
                   engine->setCurrentPlayer(player1);
-                  currentPlayer = engine->getCurrentPlayer()->getName();
+                  //currentPlayer = engine->getCurrentPlayer()->getName();
+                  currentPlayer = engine->getCurrentPlayer();
                }
             }
 
@@ -336,11 +341,15 @@ int main(int argc, char** argv) {
                " won!\n\n";
             }
             std::cout << "Goodbye \n";
+            choice = 4;
 
-            delete engine;
-            engine = nullptr;
+            // delete engine;
+            // engine = nullptr;        
          }
+         
       }
+      delete engine;
+      engine = nullptr; 
 
       // displaying student information
       if (choice == 3)

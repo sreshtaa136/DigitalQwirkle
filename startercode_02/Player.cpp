@@ -26,6 +26,10 @@ LinkedList* Player::getPlayerHand() {
 void Player::setScore(int score) {
     this->score = score;
 }
+
+void Player::setName(std::string name) {
+    this->name = name;
+}
     
 void Player::setPlayerHand(LinkedList* hand) {
     this->playerHand = hand;

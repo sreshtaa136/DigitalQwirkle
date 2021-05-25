@@ -32,6 +32,9 @@ public:
 
     // Adds the new score to player's previous score
     void incrementScore(int newScore);
+
+    // Set player name to given name
+    void setName(std::string name);
   
 private:
 
