@@ -37,7 +37,7 @@ LinkedList* TileBag::createBag() {
     int shape;
     int count = 0;
 
-    // Populate the ordered tilebag with 2 tiles of each type
+    //Populate the ordered tilebag with 2 tiles of each type
     while (count != 2) {
       for (int i = 0; i <6; ++i) {
             colour = colours[i];
@@ -72,7 +72,6 @@ void TileBag::shuffleBag() {
     // populating the tilebag with shuffled tiles
     int min = 0;
     int max = 72-1;
-    //int max = 36 - 1;
 
     LinkedList* orderedTileBag = createBag();
 
@@ -91,6 +90,7 @@ void TileBag::shuffleBag() {
 
     //Testing
     //populating the tilebag with the same order of shuffling every time
+    //int max = 36 - 1;
 
     // std::default_random_engine engine(28);
 	// std::uniform_int_distribution<int> uniform_dist(min, max);

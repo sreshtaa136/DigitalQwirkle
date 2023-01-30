@@ -1,0 +1,30 @@
+
+Welcome to Qwirkle!
+-------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show student information) 
+4. Quit 
+
+> 
+Enter the file name from which load a game
+> 
+CANNOT OPEN FILE: please enter a valid file name
+
+Enter the file name from which load a game
+> 
+CANNOT OPEN FILE: please enter a valid file name
+
+Enter the file name from which load a game
+> 
+CANNOT OPEN FILE: please enter a valid file name
+
+Enter the file name from which load a game
+> 
+CANNOT LOAD GAME: file is not formatted correctly
+
+Enter the file name from which load a game
+> 
+Goodbye

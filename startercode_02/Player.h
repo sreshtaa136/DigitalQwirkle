@@ -46,4 +46,4 @@ private:
     LinkedList* playerHand;
 };
 
-#endif
+#endif //ASSIGN2_PLAYER_H

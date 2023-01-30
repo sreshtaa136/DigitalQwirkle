@@ -36,6 +36,7 @@ std::string GameBoard::dimensionsToString() {
 }
 
 bool GameBoard::placeTile(char row, int col, Tile* tile) {
+    
     int rowIdx = charToInt(row);
     bool place = false;
 
@@ -58,14 +59,17 @@ bool GameBoard::placeTile(char row, int col, Tile* tile) {
 
     // Error message if space is occupied.
     } else if (!isEmptySpace(rowIdx, col)) {
-        std::cerr << "Tile can't be placed as the position is occupied!" 
+        std::cerr << "INVALID MOVE: tile can't be placed at an occupied position" 
         << std::endl;
-    
     // Error message if move is invalid.
     } else if (!isValidPosition(rowIdx, col, tile) || checkLine(rowIdx, col)) {
-        std::cerr << "Tile can't be placed as you broke a qwirkle game rule!" 
+        std::cerr << "INVALID MOVE: tile can't be placed against qwirkle rules" 
                   << std::endl;
-    }  
+    // Error message if a line has more than 6 tiles
+    } else if (checkLine(rowIdx, col)) {
+        std::cerr << "INVALID MOVE: a line cannot have more than six tiles" 
+                  << std::endl;
+    }
     return place;
 }
 

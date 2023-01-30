@@ -1,0 +1,32 @@
+
+Welcome to Qwirkle!
+-------------------
+Menu
+----
+1. New Game
+2. Load Game
+3. Credits (Show student information) 
+4. Quit 
+
+> 
+INVALID INPUT: check input and try again
+> 
+INVALID INPUT: input cannot have spaces
+> 
+INVALID INPUT: input cannot have spaces
+> 
+INVALID INPUT: input cannot have spaces
+> 
+INPUT OUT OF RANGE: choice must only be an integer between 1 and 4
+> 
+INPUT OUT OF RANGE: choice must only be an integer between 1 and 4
+> 
+INVALID INPUT: check input and try again
+> 
+INVALID INPUT: choice must only be an integer between 1 and 4
+> 
+INVALID INPUT: choice must only be an integer between 1 and 4
+> 
+INVALID INPUT: check input and try again
+> 
+Goodbye

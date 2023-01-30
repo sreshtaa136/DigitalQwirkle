@@ -177,4 +177,3 @@ std::string LinkedList::toString() {
    }
    return string;
 }
-

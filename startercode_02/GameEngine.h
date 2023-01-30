@@ -7,6 +7,8 @@
 #include "LinkedList.h"
 #include "Player.h"
 #include "GameBoard.h"
+#include <iostream>
+#include <vector>
 
 #define MAX_DIM 26
 
@@ -24,6 +26,7 @@ public:
     * 3. Print the game state.
     */
     void newGame(std::string player1, std::string player2);
+    void newGame(std::string player1, std::string player2, std::string player3);
 
     /*
     * Returns true if the tile has been placed.
@@ -32,8 +35,11 @@ public:
     */
     bool placeTile(char row, int col, Colour colour, Shape shape, std::string player);
 
-    // Sets players for a game.
+    // Sets players for a 2 player game.
     void setPlayers(std::string player1, std::string player2);
+
+    // Sets players for a 3 player game.
+    void setPlayers(std::string player1, std::string player2, std::string player3);
 
     // Prints the game status to the console.
     void printGameState();
@@ -54,9 +60,9 @@ public:
     // Getters for players in the game.
     Player* getPlayer1();
     Player* getPlayer2();
+    Player* getPlayer3();
 
     // Getter and setter for current player.
-    //Player* getCurrentPlayer();
     std::string getCurrentPlayer();
     void setCurrentPlayer(std::string playerName);
 
@@ -70,21 +76,29 @@ public:
     void setTileBag(TileBag* tileBag);
 
     // Validators for the format of file to be loaded
+    bool verifyMode(std::string s);
     bool verifyName(std::string s);
     bool verifyListString(std::string s);
     bool verifyBoardShapeString(std::string s);
     bool verifyBoardString(std::string s);
     bool verifyBoardSize(std::string s);
 
+    // getters for player names
+    std::string getPlayer1Name();
+    std::string getPlayer2Name();
+    std::string getPlayer3Name();
+
     TileBag* tileBag;
     GameBoard* gameBoard;
 
 private:
 
-    Player* player1;
-    Player* player2;
-    //Player* currentPlayer;
+    std::string player1;
+    std::string player2;
+    std::string player3;
+
+    std::vector<Player*> players;
     std::string currentPlayer;
     
 };
-#endif
+#endif //ASSIGN2_GAMEENGINE_H

@@ -126,5 +126,4 @@ private:
     // Board : a vector of vectors of tile.
     std::vector<std::vector<Tile*> > board;
 };
-
-#endif
+#endif //ASSIGN2_GAMEBOARD_H
